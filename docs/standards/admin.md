@@ -1,15 +1,14 @@
 # Django Admin Standard
 
-When creating or modifying Django admin interfaces in this project, you MUST follow the Django Admin Standard. This ensures consistency, proper Unfold UI integration, and AI-friendly code generation.
+When creating or modifying Django admin interfaces in this project, you MUST follow the Django Admin Standard. This ensures consistency, and AI-friendly code generation.
 
 ## Core Requirements
 
-### 1. Unfold Integration (REQUIRED)
+### 1. ModelAdmin Base (REQUIRED)
 
-- All admin classes MUST inherit from `unfold.admin.ModelAdmin`
-- Import: `from unfold.admin import ModelAdmin`
-- NEVER use `django.contrib.admin.ModelAdmin`
-- For inlines, use `unfold.admin.StackedInline` or `unfold.admin.TabularInline`
+- All admin classes MUST inherit from `admin.ModelAdmin`
+- Import: `from django.contrib import admin` (use `admin.ModelAdmin`)
+- For inlines, use `admin.StackedInline` or `admin.TabularInline`
 
 ### 2. Admin Structure (REQUIRED)
 
@@ -95,13 +94,13 @@ from .admin import (  # noqa: F401
 # admin/allergy_intolerance_admin.py
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from unfold.admin import ModelAdmin
+from django.contrib import admin
 
 from core.allergy_intolerance.models import AllergyIntolerance
 
 
 @admin.register(AllergyIntolerance)
-class AllergyIntoleranceAdmin(ModelAdmin):
+class AllergyIntoleranceAdmin(admin.ModelAdmin):
     """Admin interface for AllergyIntolerance model."""
     # ... admin attributes ...
 ```
@@ -135,13 +134,12 @@ For apps with a single model, a simple `admin.py` file is sufficient:
 ```python
 # admin.py
 from django.contrib import admin
-from unfold.admin import ModelAdmin
 
 from core.app.models import SingleModel
 
 
 @admin.register(SingleModel)
-class SingleModelAdmin(ModelAdmin):
+class SingleModelAdmin(admin.ModelAdmin):
     # ...
 ```
 
@@ -258,7 +256,7 @@ Fieldsets MUST follow this structure:
 **Inline structure:**
 
 ```python
-class ChildModelInline(StackedInline):
+class ChildModelInline(admin.StackedInline):
     """Inline admin for ChildModel within ParentModel."""
     model = ChildModel
     extra = 0
@@ -349,13 +347,13 @@ __all__ = [
 ```python
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from unfold.admin import ModelAdmin
+from django.contrib import admin
 
 from core.<app>.models import ModelName
 
 
 @admin.register(ModelName)
-class ModelNameAdmin(ModelAdmin):
+class ModelNameAdmin(admin.ModelAdmin):
     """Admin interface for ModelName model."""
 
     list_display = (
@@ -459,13 +457,13 @@ class ModelNameAdmin(ModelAdmin):
 ```python
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from unfold.admin import ModelAdmin
+from django.contrib import admin
 
 from core.<app>.models import RelatedModel
 
 
 @admin.register(RelatedModel)
-class RelatedModelAdmin(ModelAdmin):
+class RelatedModelAdmin(admin.ModelAdmin):
     """Admin interface for RelatedModel model."""
 
     list_display = (
@@ -564,7 +562,7 @@ from .admin import (  # noqa: F401
 
 ## Common Mistakes to Avoid
 
-❌ **Using `django.contrib.admin.ModelAdmin`** - Must use `unfold.admin.ModelAdmin`
+❌ **Missing `@admin.register()`** - Always register models explicitly
 ❌ **Missing `admin/__init__.py` in package structure** - Required for proper admin discovery
 ❌ **Using absolute imports in `admin/__init__.py`** - Must use relative imports to prevent circular dependencies
 ❌ **Missing `search_fields` in referenced admins** - Autocomplete won't work
@@ -589,7 +587,7 @@ When creating admin classes, ensure:
 
 **Admin Class:**
 
-- [ ] Inherits from `unfold.admin.ModelAdmin`
+- [ ] Inherits from `admin.ModelAdmin` (django.contrib.admin)
 - [ ] All models are registered with `@admin.register()`
 - [ ] `list_display` includes `id` and key fields
 - [ ] `list_filter` includes status/type and date fields

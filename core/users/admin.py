@@ -3,8 +3,6 @@ from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
-from unfold.admin import ModelAdmin
-from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
 
 from core.users.models import PasswordHistory, User
 
@@ -15,12 +13,8 @@ except admin.sites.NotRegistered:
 
 
 @admin.register(User)
-class UserAdmin(BaseUserAdmin, ModelAdmin):
+class UserAdmin(BaseUserAdmin):
     """Admin interface for User model."""
-
-    form = UserChangeForm
-    add_form = UserCreationForm
-    change_password_form = AdminPasswordChangeForm
 
     list_display = (
         "id",
@@ -45,7 +39,6 @@ class UserAdmin(BaseUserAdmin, ModelAdmin):
     search_fields = ("id", "username", "email", "phone_number")
     readonly_fields = ("id", "created_at", "updated_at", "last_login", "date_joined")
     ordering = ("-created_at",)
-    show_in_index = True
 
     fieldsets = (
         (
@@ -114,7 +107,7 @@ class UserAdmin(BaseUserAdmin, ModelAdmin):
 
 
 @admin.register(PasswordHistory)
-class PasswordHistoryAdmin(ModelAdmin):
+class PasswordHistoryAdmin(admin.ModelAdmin):
     """Admin interface for PasswordHistory model."""
 
     list_display = ("id", "user", "created_at")
@@ -123,7 +116,6 @@ class PasswordHistoryAdmin(ModelAdmin):
     readonly_fields = ("id", "created_at", "updated_at")
     autocomplete_fields = ("user",)
     ordering = ("-created_at",)
-    show_in_index = True
 
     fieldsets = (
         (
@@ -151,5 +143,5 @@ class PasswordHistoryAdmin(ModelAdmin):
 
 
 @admin.register(Group)
-class GroupAdmin(BaseGroupAdmin, ModelAdmin):
+class GroupAdmin(BaseGroupAdmin):
     pass
