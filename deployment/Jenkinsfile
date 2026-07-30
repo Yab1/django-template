@@ -33,7 +33,8 @@ def materializeEnvFiles(String envCredId, String secretsCredId, String requireSe
     }
 
     def prepare = {
-        sh """
+        // Jenkins `sh` defaults to /bin/sh (dash on Debian) — force bash for pipefail.
+        sh """#!/usr/bin/env bash
             set -euo pipefail
             export REQUIRE_SECRETS='${requireSecrets}'
             chmod +x deployment/scripts/*.sh
@@ -120,7 +121,7 @@ pipeline {
                 expression { return !params.SKIP_PREFLIGHT }
             }
             steps {
-                sh '''
+                sh '''#!/usr/bin/env bash
                     set -euo pipefail
                     chmod +x deployment/scripts/*.sh
                     ./deployment/scripts/preflight.sh
@@ -153,7 +154,7 @@ pipeline {
                 expression { return params.DEPLOY_ACTION == 'status' }
             }
             steps {
-                sh '''
+                sh '''#!/usr/bin/env bash
                     set -euo pipefail
                     chmod +x deployment/scripts/*.sh
                     ./deployment/scripts/orchestrate.sh status
@@ -168,7 +169,7 @@ pipeline {
             steps {
                 milestone(ordinal: 100, label: 'deploy-gate')
                 retry(2) {
-                    sh '''
+                    sh '''#!/usr/bin/env bash
                         set -euo pipefail
                         chmod +x deployment/scripts/*.sh
                         ./deployment/scripts/deploy.sh
@@ -185,7 +186,7 @@ pipeline {
                 }
             }
             steps {
-                sh '''
+                sh '''#!/usr/bin/env bash
                     set -euo pipefail
                     chmod +x deployment/scripts/*.sh
                     ./deployment/scripts/smoke.sh
@@ -210,7 +211,7 @@ pipeline {
                 """.stripIndent().trim()
                 echo message
             }
-            sh '''
+            sh '''#!/usr/bin/env bash
                 set +e
                 chmod +x deployment/scripts/cleanup-secrets.sh 2>/dev/null
                 ./deployment/scripts/cleanup-secrets.sh || rm -f .env .secrets.yml
