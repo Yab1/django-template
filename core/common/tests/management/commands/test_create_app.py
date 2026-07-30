@@ -2,12 +2,13 @@
 Tests for create_app management command.
 
 This module tests the create_app management command that scaffolds
-a new Django app with GraphQL-related files.
+a new Django app under core/ with standard structure.
 """
 
 import shutil
 import subprocess
 import tempfile
+import uuid
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -21,8 +22,6 @@ class CreateAppCommandTests(TestCase):
 
     def setUp(self):
         """Set up test environment with temporary directory."""
-        import uuid
-
         # Create a temporary directory for testing
         self.temp_dir = tempfile.mkdtemp()
         self.project_root = Path(self.temp_dir)
@@ -350,13 +349,11 @@ class CreateAppCommandTests(TestCase):
 
     @patch("django.conf.settings.BASE_DIR", new_callable=lambda: Path)
     @patch("subprocess.run")
-    def test_create_app_creates_graphql_files(self, mock_subprocess, mock_base_dir):
-        """Test that GraphQL-related files are created."""
-        # Arrange
+    def test_create_app_creates_rest_scaffolding_files(self, mock_subprocess, mock_base_dir):
+        """Test that REST scaffolding files (services, selectors, apis, urls) are created."""
         mock_base_dir.return_value = self.project_root
 
         def create_app_structure(*args, **kwargs):
-            """Simulate startapp creating app structure."""
             self.test_app_dir.mkdir(parents=True, exist_ok=True)
             (self.test_app_dir / "__init__.py").touch()
             (self.test_app_dir / "apps.py").write_text(
@@ -367,15 +364,12 @@ class CreateAppCommandTests(TestCase):
             return Mock(returncode=0)
 
         mock_subprocess.side_effect = create_app_structure
-        graphql_files = ["inputs.py", "types.py", "mutations.py", "queries.py"]
+        rest_files = ["services.py", "selectors.py", "apis.py", "urls.py"]
 
-        # Act
         with patch("django.conf.settings.BASE_DIR", self.project_root):
             call_command("create_app", self.test_app_name)
 
-        # Assert
-        # Command creates GraphQL files
-        for filename in graphql_files:
+        for filename in rest_files:
             filepath = self.test_app_dir / filename
             self.assertTrue(filepath.exists(), f"{filename} should exist")
 
@@ -579,8 +573,6 @@ class CreateAppCommandIntegrationTests(TestCase):
 
     def setUp(self):
         """Set up test environment with temporary directory."""
-        import uuid
-
         # Create a temporary directory for testing
         self.temp_dir = tempfile.mkdtemp()
         self.project_root = Path(self.temp_dir)
@@ -628,17 +620,17 @@ class CreateAppCommandIntegrationTests(TestCase):
         with patch("django.conf.settings.BASE_DIR", self.project_root):
             call_command("create_app", self.test_app_name)
 
-        # Assert - Check all expected files exist
+        # Assert - Check all expected files exist (REST scaffolding)
         expected_files = [
             "__init__.py",
             "apps.py",
             "models.py",
             "admin.py",
             "migrations/__init__.py",
-            "inputs.py",
-            "types.py",
-            "mutations.py",
-            "queries.py",
+            "services.py",
+            "selectors.py",
+            "apis.py",
+            "urls.py",
         ]
 
         for filepath in expected_files:
