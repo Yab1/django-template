@@ -47,6 +47,15 @@ else
     log_ok "docker compose OK"
 fi
 
+# External networks (created by deploy if missing; warn only here)
+for net in vendor_management_network tilla_infrastructure_network; do
+    if docker network inspect "$net" >/dev/null 2>&1; then
+        log_ok "Docker network exists: $net"
+    else
+        log_info "Docker network missing (deploy will create): $net"
+    fi
+done
+
 for f in \
     "$COMPOSE_FILE" \
     "$SCRIPT_DIR/deploy.sh" \

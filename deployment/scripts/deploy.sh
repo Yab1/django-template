@@ -94,6 +94,23 @@ check_nginx_template() {
     fi
 }
 
+# Compose marks these as external — create if missing (cold Jenkins / fresh host).
+ensure_docker_networks() {
+    local nets=(
+        vendor_management_network
+        tilla_infrastructure_network
+    )
+    local net
+    for net in "${nets[@]}"; do
+        if docker network inspect "$net" >/dev/null 2>&1; then
+            log_info "Docker network OK: ${net}"
+        else
+            log_info "Creating Docker network: ${net}"
+            docker network create "$net"
+        fi
+    done
+}
+
 has_submodules() {
     cd "$PROJECT_DIR"
     [ -f ".gitmodules" ] || git submodule status 2>/dev/null | grep -q .
@@ -357,6 +374,7 @@ main() {
     check_docker
     check_compose_file
     check_nginx_template
+    ensure_docker_networks
     deploy
 
     log_info "======================================="
