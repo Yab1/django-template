@@ -10,6 +10,8 @@ from drf_spectacular.views import (
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAdminUser
 
+from core.systems.apis import SystemHealthCheckApi
+
 docs_permission_classes = [IsAdminUser]
 docs_authentication_classes = [SessionAuthentication]
 
@@ -19,6 +21,8 @@ api_v1_patterns = [
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # Infra probes (LB / k8s) — outside versioned API
+    path("health/", SystemHealthCheckApi.as_view(), name="health"),
     path("api/v1/", include(api_v1_patterns)),
     path(
         "schema/",

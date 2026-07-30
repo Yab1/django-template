@@ -18,6 +18,7 @@ CORS_ALLOWED_ORIGINS = env.list("DJANGO_CORS_ORIGIN_WHITELIST", default=[])  # p
 LOCAL_APPS = [
     "core.common.apps.CommonConfig",
     "core.users.apps.UsersConfig",
+    "core.systems.apps.SystemsConfig",
 ]
 
 THIRD_PARTY_APPS: list[str] = [
