@@ -11,7 +11,7 @@ from django.core.asgi import get_asgi_application
 # and auth models; importing them first triggers AppRegistryNotReady.
 django_asgi_app = get_asgi_application()
 
-from core.realtime.routing import websocket_urlpatterns  # noqa: E402
+websocket_urlpatterns: list = []
 
 # AllowedHostsOriginValidator requires a matching Origin header. Browsers send it;
 # many WS tools (Postman, scripts, wscat) omit Origin → handshake rejected before

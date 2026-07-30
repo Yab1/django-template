@@ -20,7 +20,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
 from core.api.permissions import MustChangePasswordPermission
-from core.security.permissions import PolicyPermission
+from core.users.permissions import PolicyPermission
 
 
 class AuthorizedAPIView(APIView):

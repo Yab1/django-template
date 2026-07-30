@@ -17,7 +17,6 @@ from core.common.enums import (
     int_to_login_event_type,
     login_event_type_to_int,
 )
-from core.users.selectors.user import user_profile_full_name, user_profile_primary_photo
 from core.users.serializers import UserCompactSerializer
 
 logger = logging.getLogger(__name__)
@@ -27,19 +26,7 @@ def _user_compact_or_none(user: Any) -> dict[str, Any] | None:
     """Shape a ``User`` (or None) for ``UserCompactSerializer`` output."""
     if user is None:
         return None
-    photo = user_profile_primary_photo(user=user)
-    primary_photo = None
-    if photo is not None:
-        from core.common.data_types.serializers import AttachmentOutputSerializer
-
-        primary_photo = AttachmentOutputSerializer(photo).data
-    return {
-        "id": user.pk,
-        "username": user.username,
-        "email": user.email,
-        "full_name": user_profile_full_name(user=user),
-        "primary_photo": primary_photo,
-    }
+    return UserCompactSerializer(user).data
 
 
 def _parse_stored_json(value: str | None) -> Any | None:

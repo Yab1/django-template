@@ -41,6 +41,4 @@ SIMPLE_JWT = {
     "JTI_CLAIM": "jti",
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
     "CHECK_USER_IS_ACTIVE": True,
-    "TOKEN_OBTAIN_SERIALIZER": "core.authentication.serializers.CustomTokenObtainPairSerializer",
-    "TOKEN_BLACKLIST_SERIALIZER": "core.authentication.serializers.CustomTokenBlacklistSerializer",
 }

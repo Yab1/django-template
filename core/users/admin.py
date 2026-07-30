@@ -1,19 +1,13 @@
-from django.contrib import admin, messages
+from django.contrib import admin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 from unfold.admin import ModelAdmin
 from unfold.forms import AdminPasswordChangeForm, UserChangeForm, UserCreationForm
 
-from .models import User
-from .services import user_create
+from core.users.models import PasswordHistory, User
 
-# Unregister default admin classes
-try:
-    admin.site.unregister(User)
-except admin.sites.NotRegistered:
-    pass
 try:
     admin.site.unregister(Group)
 except admin.sites.NotRegistered:
@@ -22,88 +16,138 @@ except admin.sites.NotRegistered:
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin, ModelAdmin):
-    # Forms loaded from `unfold.forms`
+    """Admin interface for User model."""
+
     form = UserChangeForm
     add_form = UserCreationForm
     change_password_form = AdminPasswordChangeForm
-    base_model = User
-    list_display: list[str] = [
+
+    list_display = (
+        "id",
+        "username",
         "email",
-        "full_name",
-        "is_staff",
+        "phone_number",
         "is_active",
-    ]
-    list_filter: list[str] = [
         "is_staff",
+        "is_admin",
+        "created_at",
+    )
+    list_filter = (
+        "is_active",
+        "is_staff",
+        "is_admin",
         "is_superuser",
-        "is_active",
-        "groups",
-    ]
-    search_fields: list[str] = ["email", "first_name", "last_name"]
-    ordering: list[str] = ["email"]
+        "must_change_password",
+        "is_visible",
+        "created_at",
+        "updated_at",
+    )
+    search_fields = ("id", "username", "email", "phone_number")
+    readonly_fields = ("id", "created_at", "updated_at", "last_login", "date_joined")
+    ordering = ("-created_at",)
+    show_in_index = True
+
     fieldsets = (
         (
-            "Authentication Info",
+            _("Basic Information"),
             {
                 "fields": (
+                    "id",
+                    "username",
                     "email",
-                    "password",
-                ),
-            },
-        ),
-        (
-            "Personal Info",
-            {
-                "fields": (
-                    "first_name",
-                    "last_name",
                     "phone_number",
                 ),
             },
         ),
         (
-            "Permissions",
+            _("Status"),
             {
                 "fields": (
                     "is_active",
                     "is_staff",
+                    "is_admin",
                     "is_superuser",
+                    "must_change_password",
+                    "is_visible",
+                ),
+            },
+        ),
+        (
+            _("Authentication"),
+            {
+                "fields": ("password",),
+            },
+        ),
+        (
+            _("Permissions"),
+            {
+                "fields": (
                     "groups",
                     "user_permissions",
                 ),
             },
         ),
         (
-            "Important Dates",
+            _("Soft delete"),
             {
                 "fields": (
-                    "last_login",
-                    "date_joined",
-                    "updated_at",
+                    "deleted_at",
+                    "deleted_by",
                 ),
             },
         ),
+        (
+            _("Metadata"),
+            {
+                "fields": (
+                    "created_at",
+                    "updated_at",
+                    "metadata",
+                    "last_login",
+                    "date_joined",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
     )
+    filter_horizontal = ("groups", "user_permissions")
 
-    readonly_fields: list[str] = [
-        "last_login",
-        "date_joined",
-        "updated_at",
-    ]
-    filter_horizontal: list[str] = [
-        "groups",
-        "user_permissions",
-    ]
+
+@admin.register(PasswordHistory)
+class PasswordHistoryAdmin(ModelAdmin):
+    """Admin interface for PasswordHistory model."""
+
+    list_display = ("id", "user", "created_at")
+    list_filter = ("created_at",)
+    search_fields = ("id", "user__email", "user__username")
+    readonly_fields = ("id", "created_at", "updated_at")
+    autocomplete_fields = ("user",)
+    ordering = ("-created_at",)
     show_in_index = True
 
-    def save_model(self, request, obj, form, change):
-        if change:
-            return super().save_model(request, obj, form, change)
-
-        try:
-            user_create(**form.cleaned_data)
-        except ValidationError as exc:
-            self.message_user(request, str(exc), messages.ERROR)
+    fieldsets = (
+        (
+            _("Password history"),
+            {
+                "fields": (
+                    "id",
+                    "user",
+                    "hashed_password",
+                ),
+            },
+        ),
+        (
+            _("Metadata"),
+            {
+                "fields": (
+                    "created_at",
+                    "updated_at",
+                    "metadata",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+    )
 
 
 @admin.register(Group)
