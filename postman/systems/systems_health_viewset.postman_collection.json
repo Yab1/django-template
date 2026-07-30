@@ -1,0 +1,40 @@
+{
+  "info": {
+    "_postman_id": "6f60aec7-799a-41a3-bad9-1bcbb3c9d799",
+    "name": "systems health",
+    "description": "Infrastructure health probe (database, cache, RabbitMQ, MinIO when configured).\n\nLives at **root** `/health/` — not under `/api/v1`. Uses `origin_url` (host only). Public — no auth.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "health check",
+      "request": {
+        "auth": { "type": "noauth" },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{origin_url}}/health/",
+          "host": ["{{origin_url}}"],
+          "path": ["health", ""]
+        },
+        "description": "Probe DB, cache, RabbitMQ, and MinIO. Returns 200 when ok, 503 when unhealthy."
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:7000/api/v1",
+      "type": "string",
+      "description": "Present for collection consistency; health uses origin_url."
+    },
+    { "key": "user_access_token", "value": "", "type": "string" },
+    { "key": "admin_access_token", "value": "", "type": "string" },
+    {
+      "key": "origin_url",
+      "value": "http://localhost:7000",
+      "type": "string",
+      "description": "App origin without /api/v1 — health is mounted at /health/."
+    }
+  ]
+}

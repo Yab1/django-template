@@ -1,0 +1,381 @@
+{
+	"info": {
+		"_postman_id": "167dd184-40ec-499a-9fb1-1fd9bd1ffa5a",
+		"name": "authentication",
+		"description": "JWT auth, current-user profile, and password flows.\n\n**Bootstrap:** no practitioner fixtures in this template. Use a user from `make seed-superuser` (`.secrets.yml`). Default username is the email local-part (e.g. `yeabsera.dev` for `yeabsera.dev@gmail.com`). Set `password` from secrets — do not commit real passwords.\n\nRun **obtain token** first; test script fills `user_access_token`, `admin_access_token`, and `refresh_token` from the API envelope (`result.access` / `result.refresh`).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50723802",
+		"_collection_link": "https://yab-api-lab.postman.co/workspace/Vendor-Management~9535d644-d833-4ac0-aa65-b88d1a9f4463/collection/50723802-167dd184-40ec-499a-9fb1-1fd9bd1ffa5a?action=share&source=collection_link&creator=50723802"
+	},
+	"item": [
+		{
+			"name": "obtain token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    const parsed = pm.response.json();",
+							"    const result = parsed.result ?? parsed;",
+							"    if (result.access) {",
+							"        pm.environment.set('user_access_token', result.access);    ",
+							"        pm.environment.set('admin_access_token', result.access);",
+							"    }",
+							"    if (result.refresh) {",
+							"        pm.environment.set('refresh_token', result.refresh);",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/authentication/token/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authentication",
+						"token",
+						""
+					]
+				},
+				"description": "Obtain access and refresh tokens (username + password). Saves tokens into collection variables."
+			},
+			"response": []
+		},
+		{
+			"name": "refresh token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"if (pm.response.code === 200) {",
+							"    const parsed = pm.response.json();",
+							"    const result = parsed.result ?? parsed;",
+							"    if (result.access) {",
+							"        pm.collectionVariables.set('user_access_token', result.access);",
+							"        pm.collectionVariables.set('admin_access_token', result.access);",
+							"    }",
+							"    if (result.refresh) {",
+							"        pm.collectionVariables.set('refresh_token', result.refresh);",
+							"    }",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/authentication/token/refresh/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authentication",
+						"token",
+						"refresh",
+						""
+					]
+				},
+				"description": "Exchange a refresh token for a new access token (rotation may return a new refresh)."
+			},
+			"response": []
+		},
+		{
+			"name": "verify token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"token\": \"{{user_access_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/authentication/token/verify/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authentication",
+						"token",
+						"verify",
+						""
+					]
+				},
+				"description": "Verify that an access (or refresh) token is valid."
+			},
+			"response": []
+		},
+		{
+			"name": "blacklist token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/authentication/token/blacklist/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authentication",
+						"token",
+						"blacklist",
+						""
+					]
+				},
+				"description": "Blacklist a refresh token (logout). Records an easy-audit logout event."
+			},
+			"response": []
+		},
+		{
+			"name": "get me",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/authentication/me/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authentication",
+						"me",
+						""
+					]
+				},
+				"description": "Return the authenticated user profile. Allowed while must_change_password is true."
+			},
+			"response": []
+		},
+		{
+			"name": "change my password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{user_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"current_password\": \"{{password}}\",\n  \"new_password\": \"{{new_password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/authentication/me/password/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authentication",
+						"me",
+						"password",
+						""
+					]
+				},
+				"description": "Change the authenticated user's password. Clears must_change_password on success."
+			},
+			"response": []
+		},
+		{
+			"name": "confirm password reset",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"uid\": \"{{password_reset_uid}}\",\n  \"token\": \"{{password_reset_token}}\",\n  \"new_password\": \"{{new_password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/authentication/password-reset/confirm/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"authentication",
+						"password-reset",
+						"confirm",
+						""
+					]
+				},
+				"description": "Public endpoint. Consume a one-time Django password-reset token and set a new password."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:7000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "user_access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "admin_access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "yeabsera.dev",
+			"type": "string",
+			"description": {
+				"content": "From seed-superuser (.secrets.yml email local-part). No practitioner bootstrap in this template.",
+				"type": "text/plain"
+			}
+		},
+		{
+			"key": "password",
+			"value": "",
+			"type": "string",
+			"description": {
+				"content": "Set locally from .secrets.yml — do not commit real passwords.",
+				"type": "text/plain"
+			}
+		},
+		{
+			"key": "new_password",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "password_reset_uid",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "password_reset_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

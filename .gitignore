@@ -142,8 +142,8 @@ google_client_secret.json
 # Blue-green deploy state (nginx app-active.conf is committed as default; deploy.sh overwrites it)
 deployment/.active-slot
 
-# Postman
-/postman
+# Postman local overrides (collections under postman/ are committed)
+postman/**/*.local.json
 
 # IDEs
 .kiro

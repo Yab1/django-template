@@ -1,0 +1,181 @@
+{
+  "info": {
+    "_postman_id": "8c5ba34e-9f58-42f4-89b6-42892589a45b",
+    "name": "users",
+    "description": "User list/update, admin password reset, and login-event listings.\n\n**Auth:** obtain a token via the authentication collection first (or paste into `admin_access_token` / `user_access_token`). Until a real security app exists, policy-tagged endpoints require staff/superuser.\n\n**IDs:** set `user_id` to a target user UUID (e.g. from list, or seed-superuser id in `.secrets.yml`).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "list",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{admin_access_token}}", "type": "string" }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/users/?limit=25&offset=0",
+          "host": ["{{base_url}}"],
+          "path": ["users", ""],
+          "query": [
+            { "key": "limit", "value": "25" },
+            { "key": "offset", "value": "0" },
+            { "key": "is_visible", "value": "true", "disabled": true },
+            { "key": "is_deleted", "value": "false", "disabled": true },
+            { "key": "email", "value": "", "disabled": true },
+            { "key": "order_by", "value": "-created_at", "disabled": true }
+          ]
+        },
+        "description": "Paginated list of user accounts (staff/admin)."
+      }
+    },
+    {
+      "name": "update",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{admin_access_token}}", "type": "string" }
+          ]
+        },
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"is_active\": true,\n  \"is_visible\": true\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/users/{{user_id}}/update/",
+          "host": ["{{base_url}}"],
+          "path": ["users", "{{user_id}}", "update", ""]
+        },
+        "description": "Partially update a user account by id. Password changes use other endpoints."
+      }
+    },
+    {
+      "name": "reset password",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{admin_access_token}}", "type": "string" }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json", "type": "text" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"new_password\": \"{{new_password}}\"\n}",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{base_url}}/users/{{user_id}}/password/",
+          "host": ["{{base_url}}"],
+          "path": ["users", "{{user_id}}", "password", ""]
+        },
+        "description": "Admin/staff set another user's password (archives previous hash for history)."
+      }
+    },
+    {
+      "name": "list login events",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{admin_access_token}}", "type": "string" }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/users/login-events/?limit=20&offset=0",
+          "host": ["{{base_url}}"],
+          "path": ["users", "login-events", ""],
+          "query": [
+            { "key": "limit", "value": "20" },
+            { "key": "offset", "value": "0" },
+            { "key": "login_type", "value": "login", "disabled": true },
+            { "key": "username", "value": "", "disabled": true },
+            { "key": "datetime_from", "value": "", "disabled": true },
+            { "key": "datetime_to", "value": "", "disabled": true }
+          ]
+        },
+        "description": "Paginated login events across all users (admin)."
+      }
+    },
+    {
+      "name": "list my login events",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{user_access_token}}", "type": "string" }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/users/me/login-events/?limit=20&offset=0",
+          "host": ["{{base_url}}"],
+          "path": ["users", "me", "login-events", ""],
+          "query": [
+            { "key": "limit", "value": "20" },
+            { "key": "offset", "value": "0" },
+            { "key": "login_type", "value": "login", "disabled": true }
+          ]
+        },
+        "description": "Paginated login events for the authenticated user (`/users/me/...`)."
+      }
+    },
+    {
+      "name": "list user login events",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            { "key": "token", "value": "{{admin_access_token}}", "type": "string" }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/users/{{user_id}}/login-events/?limit=20&offset=0",
+          "host": ["{{base_url}}"],
+          "path": ["users", "{{user_id}}", "login-events", ""],
+          "query": [
+            { "key": "limit", "value": "20" },
+            { "key": "offset", "value": "0" },
+            { "key": "login_type", "value": "login", "disabled": true }
+          ]
+        },
+        "description": "Paginated login events for a specific user id."
+      }
+    }
+  ],
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:7000/api/v1", "type": "string" },
+    { "key": "user_access_token", "value": "", "type": "string" },
+    { "key": "admin_access_token", "value": "", "type": "string" },
+    {
+      "key": "user_id",
+      "value": "afe45de5-a6fe-46fb-b0da-c27a26879012",
+      "type": "string",
+      "description": "Target user UUID (default matches example seed-superuser id in .secrets.yml)."
+    },
+    {
+      "key": "new_password",
+      "value": "",
+      "type": "string",
+      "description": "Must pass Django password validators (HIBP, history, etc.)."
+    }
+  ]
+}
