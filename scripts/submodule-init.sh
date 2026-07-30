@@ -55,21 +55,25 @@ for SUBMODULE_PATH in $SUBMODULE_PATHS; do
                     git config --file=.gitmodules --get "submodule.\"${SUBMODULE_PATH}\".url" || echo "")
     
     if [ -n "$SUBMODULE_URL" ]; then
-        # Convert any SSH URLs to HTTPS (since all submodules use HTTPS)
-        if [[ "$SUBMODULE_URL" == git@github.com:* ]]; then
-            REPO_PATH=$(echo "$SUBMODULE_URL" | sed 's|git@github.com:||' | sed 's|\.git$||')
-            SUBMODULE_URL="https://github.com/${REPO_PATH}.git"
-        fi
-        
-        # If we have credentials, inject them into the URL
-        CONFIG_URL="$SUBMODULE_URL"
+        # Keep original URL auth method by default (SSH stays SSH).
+        # Only rewrite SSH -> HTTPS when credentials are provided.
+        EFFECTIVE_URL="$SUBMODULE_URL"
         if [ -n "$GIT_USERNAME_CLEAN" ] && [ -n "$GIT_TOKEN_CLEAN" ]; then
-            if [[ "$SUBMODULE_URL" == https://github.com/* ]]; then
-                CONFIG_URL=$(echo "$SUBMODULE_URL" | sed "s|https://github.com/|https://${GIT_USERNAME_CLEAN}:${GIT_TOKEN_CLEAN}@github.com/|")
+            if [[ "$EFFECTIVE_URL" == git@github.com:* ]]; then
+                REPO_PATH=$(echo "$EFFECTIVE_URL" | sed 's|git@github.com:||' | sed 's|\.git$||')
+                EFFECTIVE_URL="https://github.com/${REPO_PATH}.git"
+            fi
+        fi
+
+        # If we have credentials, inject them into HTTPS URLs
+        CONFIG_URL="$EFFECTIVE_URL"
+        if [ -n "$GIT_USERNAME_CLEAN" ] && [ -n "$GIT_TOKEN_CLEAN" ]; then
+            if [[ "$EFFECTIVE_URL" == https://github.com/* ]]; then
+                CONFIG_URL=$(echo "$EFFECTIVE_URL" | sed "s|https://github.com/|https://${GIT_USERNAME_CLEAN}:${GIT_TOKEN_CLEAN}@github.com/|")
             fi
         fi
         
-        echo "  Setting URL for $SUBMODULE_PATH to $SUBMODULE_URL"
+        echo "  Setting URL for $SUBMODULE_PATH to $EFFECTIVE_URL"
         git config --local "submodule.${SUBMODULE_PATH}.url" "$CONFIG_URL"
     fi
 done
@@ -119,10 +123,13 @@ for SUBMODULE_PATH in $SUBMODULE_PATHS; do
         continue
     fi
     
-    # Convert SSH to HTTPS if needed (all submodules should use HTTPS)
-    if [[ "$SUBMODULE_URL" == git@github.com:* ]]; then
-        REPO_PATH=$(echo "$SUBMODULE_URL" | sed 's|git@github.com:||' | sed 's|\.git$||')
-        SUBMODULE_URL="https://github.com/${REPO_PATH}.git"
+    # Keep original URL auth method by default (SSH stays SSH).
+    # Only rewrite SSH -> HTTPS when credentials are provided.
+    if [ -n "$GIT_USERNAME_CLEAN" ] && [ -n "$GIT_TOKEN_CLEAN" ]; then
+        if [[ "$SUBMODULE_URL" == git@github.com:* ]]; then
+            REPO_PATH=$(echo "$SUBMODULE_URL" | sed 's|git@github.com:||' | sed 's|\.git$||')
+            SUBMODULE_URL="https://github.com/${REPO_PATH}.git"
+        fi
     fi
     
     # Force set URL in git config (overwrite any cached value)
@@ -187,9 +194,13 @@ for SUBMODULE_PATH in $SUBMODULE_PATHS; do
             git config --local "submodule.${SUBMODULE_PATH}.path" "$SUBMODULE_PATH"
         else
             echo "  ✗ Failed to clone $SUBMODULE_NAME"
-            # Show first line of error for debugging (without exposing full token)
-            ERROR_MSG=$(head -1 "$CLONE_ERROR" 2>/dev/null || echo "Unknown error")
-            echo "     Error: $ERROR_MSG" | sed "s/${GIT_TOKEN_CLEAN}/***/g"
+            # Show first 3 lines for debugging (without exposing full token)
+            ERROR_MSG=$(sed -n '1,3p' "$CLONE_ERROR" 2>/dev/null || echo "Unknown error")
+            if [ -n "$GIT_TOKEN_CLEAN" ]; then
+                echo "     Error: $ERROR_MSG" | sed "s/${GIT_TOKEN_CLEAN}/***/g"
+            else
+                echo "     Error: $ERROR_MSG"
+            fi
             rm -f "$CLONE_ERROR"
             FAILED_SUBMODULES+=("$SUBMODULE_NAME")
         fi

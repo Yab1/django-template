@@ -60,6 +60,7 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+/logs/
 
 # Flask stuff:
 instance/
@@ -138,32 +139,22 @@ google_client_secret.json
 # Secrets
 .secrets.yml
 
-# Cursor
-.chats/
+# Blue-green deploy state (nginx app-active.conf is committed as default; deploy.sh overwrites it)
+deployment/.active-slot
 
-# Generated Protobuf files (from git submodule protos)
-*_pb2.py
-*_pb2_grpc.py
-*_pb2.pyi
-# Keep __init__.py files in protos directories
-!core/grpc/protos/**/__init__.py
+# Postman
+/postman
 
-# EHR Common Submodule
-ehr_common/
+# IDEs
+.kiro
 
-# TLS/SSL Certificates and Keys 
-*.pem
-*.key
-*.crt
-*.p12
-*.pfx
-*.jks
-*.csr
-*.srl
-*.certuv.lock
+# Claude Code (local permissions; synced rules live under .claude/rules/)
+.claude/settings.local.json
 
-# Codegen
-codegen/
+# Graphify knowledge graph (regenerate: make graphify-update / make graphify-setup)
+# Keep .cursor/rules/graphify.mdc and makefiles/Makefile.graphify.mk in git.
+graphify-out/
 
-# FHIR 
-.fhir_specs
+# submodules
+ehr-documentation/
+ehr-jira/

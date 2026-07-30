@@ -2,14 +2,16 @@
 # Project Setup
 # ==============================================================================
 
-PROJECT_NAME := ehr_django_template
+PROJECT_NAME := ehr_backend
 PYTHON       := uv run python
-MANAGE       := $(PYTHON) manage.py
-EHR_COMMON   := ehr_common
-EHR_PROTOS   := protos/ehr_protos
-CODEGEN_CONFIG := .codegen
 DJANGO_PORT  := 7000
-GRPC_PORT    := 50050
+ROOT         := $(shell git rev-parse --show-toplevel 2>/dev/null || echo "..")
+DEV_DOCKER   := $(shell grep -E '^DJANGO_DEV_DOCKER=' .env 2>/dev/null | cut -d= -f2)
+ifeq ($(DEV_DOCKER),1)
+MANAGE       := cd $(ROOT) && docker compose -f development/docker-compose.yml exec ehr_backend_dev python manage.py
+else
+MANAGE       := $(PYTHON) manage.py
+endif
 COLOR_RESET  := \033[0m
 COLOR_BLUE   := \033[1;34m
 COLOR_GREEN  := \033[1;32m
@@ -44,11 +46,11 @@ install: ## Install all dependencies (dev + prod) using uv
 	@bash ./scripts/install.sh
 	$(call ok,Dependencies installed)
 
-precommit: ## Install and configure pre-commit hooks
+precommit: install-hooks ## Install and configure pre-commit hooks + Git hooks path
 	$(call title,Setting up pre-commit)
-	uv run pre-commit uninstall || true
-	uv run pre-commit install
-	$(call ok,Pre-commit hooks installed)
+	uv run --extra dev pre-commit install-hooks
+	@chmod +x .githooks/pre-commit
+	$(call ok,Pre-commit hooks installed (via .githooks/))
 
 update: install migrate precommit submodule-init submodule-update generate-protos generate-fhir ## Full project update
 	$(call ok,Project updated successfully)
@@ -57,13 +59,14 @@ update: install migrate precommit submodule-init submodule-update generate-proto
 # ==============================================================================
 # Include Module Makefiles
 # ==============================================================================
+include makefiles/Makefile.git.mk
 include makefiles/Makefile.django.mk
+include makefiles/Makefile.dev.mk
+include makefiles/Makefile.seed.mk
 include makefiles/Makefile.celery.mk
+include makefiles/Makefile.temporal.mk
 include makefiles/Makefile.misc.mk
 include makefiles/Makefile.testing.mk
 include makefiles/Makefile.submodules.mk
+include makefiles/Makefile.graphify.mk
 include deployment/Makefile
-include core/grpc/Makefile
-include protos/Makefile
-include ehr_common/Makefile
-include django_codegen/Makefile

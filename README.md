@@ -1,26 +1,6 @@
-# EHR Django Template
+# EHR Backend
 
-[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)](https://github.com/Tilla-Health-Insurance/ehr-django-template)
-[![Coverage](https://img.shields.io/badge/coverage-80%25+-green)](https://github.com/Tilla-Health-Insurance/ehr-django-template)
-
-EHR Django Template is a Django application template built with Strawberry Django for GraphQL APIs, featuring gRPC support, multi-tenant architecture with isolated databases, and FHIR-compliant data models. Use this template as a starting point for building EHR microservices.
-
-## Features
-
-- **Strawberry Django**: GraphQL API framework
-- **gRPC**: Inter-service communication with mTLS authentication
-- **Multi-tenant**: Isolated database per tenant
-- **FHIR**: FHIR-compliant data models and types
-- **Django Extensions**: Django admin, authentication, and audit logging
-
-## Architecture
-
-This template provides a foundation for building EHR microservices with:
-
-- **Service Provisioning**: Automatically provision services for new tenants via gRPC
-- **gRPC Server**: Exposes tenant event endpoints (TenantCreated, TenantUpdated, TenantDeleted) for other services
-- **GraphQL API**: Provides flexible data access for frontend applications
-- **Database Routing**: Routes database queries based on tenant context for data isolation
+EHR Backend is a Django application with REST APIs
 
 ## Prerequisites
 
@@ -36,11 +16,16 @@ Copy `.env.example` to `.env` and configure the required environment variables f
 
 For detailed commands and setup instructions, see the [Makefile](Makefile) - run `make help` to see all available commands.
 
-### Setup
+**CI (GitHub Actions):** On every push and pull request to `main`, the [CI workflow](.github/workflows/ci.yml) runs dependency audit (`pip-audit`) and lint (`make lint`). Tests are run locally only; run `make test` before pushing. Require this workflow to pass before merging (GitHub branch protection).
+
+### Option A: Run on the host
 
 ```bash
 # Set up everything (dependencies, migrations, submodules, protos, FHIR models)
 make update
+
+# Git hooks: pre-push blocks direct push to main (use a branch + PR). Installed by make precommit.
+# One-time: make install-hooks (or make precommit) so Git uses .githooks/
 
 # Load superusers from secrets file
 make seed-superuser
@@ -49,101 +34,34 @@ make seed-superuser
 make run
 ```
 
-## Testing
+### Option B: Run with Docker (development)
 
-This template maintains comprehensive test coverage with pytest. All tests are organized by domain (models, services, mutations) following industry best practices.
-
-### Running Tests
+Django + PostgreSQL in Docker. Uses your `.env` (see **[development/README.md](development/README.md)**). From repo root:
 
 ```bash
-# Run all tests
-pytest
-
-# Run with coverage report
-pytest --cov=core --cov-report=html
-
-# Run specific test file
-pytest core/<domain>/tests/
-
-# Run tests in parallel (faster)
-pytest -n auto
+docker compose -f development/docker-compose.yml up --build
 ```
 
-### Test Coverage
+Ports and DB settings come from `.env`. Code in `core/` and `config/` is mounted so runserver picks up changes.
 
-- **Target Coverage**: 80% minimum
-- **Current Coverage**: See coverage report in `htmlcov/index.html` after running tests
-- **Test Organization**:
-  - Model tests: `core/*/tests/models/`
-  - Service tests: `core/*/tests/services/`
-  - Mutation tests: `core/*/tests/mutations/`
+## Contributing
 
-For detailed testing documentation, see:
+See **[CONTRIBUTING.md](CONTRIBUTING.md)** for setup, onboarding checklist, and how to open a PR (branch from `main`, run `make lint` and `make test`, no direct push to `main`).
 
-- [Testing Plan](docs/TESTING_PLAN.md)
-- [Testing Quick Start](docs/TESTING_QUICK_START.md)
+## Documentation
 
-## Data Seeding
-
-The template includes a comprehensive seeding system for generating realistic test data using Faker.
-
-### Quick Start
-
-```bash
-# Seed data (example: seed 10 records by default)
-make seed-<domain>
-
-# Seed 50 records
-make seed-<domain> COUNT=50
-
-# Clear existing data and seed 100 new records
-make seed-<domain> COUNT=100 CLEAR=1
-```
-
-### Features
-
-- **Realistic Data**: Uses Faker to generate realistic test data
-- **Complete Relationships**: Creates related objects with proper relationships
-- **FHIR Compliant**: All data follows FHIR standards (when applicable)
-- **Configurable**: Control which relationships to create and how many
-
-For detailed seeding documentation, see:
-
-- [Seeding Guide](docs/SEEDING_GUIDE.md)
-
-## Secrets Management
-
-The template includes a secure secrets management system for handling sensitive configuration data like superuser credentials.
-
-### Quick Start
-
-```bash
-# Load superusers from YAML secrets file
-make seed-superuser
-
-# Update existing superusers
-make seed-superuser UPDATE=1
-```
-
-### Features
-
-- **YAML-based**: Store secrets in YAML format
-- **Environment-driven**: File path configured via `SECRETS_FILE_PATH` env var
-- **Secure**: Secrets file never committed to Git
-- **Flexible**: Works with Docker, local development, and production
-
-For detailed secrets management documentation, see:
-
-- [Secrets Management Guide](docs/SECRETS_MANAGEMENT_GUIDE.md)
+Project docs (style guide, code organization, architecture, features) live in **[docs/](docs/)**. Start at [docs/README.md](docs/README.md) for the index and where to add new docs.
 
 ## Deployment
 
-For deployment instructions, see the `docker/` directory:
+Deployment assets live in **[deployment/](deployment/)**:
 
-- **Development**: See `docker/development/README.md`
-- **Production**: See `docker/production/README.md`
+- **[Dockerfile](deployment/Dockerfile)** and **[docker-compose.yml](deployment/docker-compose.yml)** for containerized runs
+- **[Jenkinsfile](deployment/Jenkinsfile)** for CI/CD
+- **[entrypoint.sh](deployment/entrypoint.sh)** and **[scripts/](deployment/scripts/)** for build and deploy (e.g. `deploy.sh`, `orchestrate.sh`, `config.sh`)
+- **[gunicorn.config.py](deployment/gunicorn.config.py)** for production WSGI server config
 
-Both directories include Jenkins deployment setup and detailed documentation.
+See the [deployment Makefile](deployment/Makefile) for deployment-related commands.
 
 ## Contact
 
@@ -154,4 +72,4 @@ For technical questions or contributions, contact:
 
 ## License
 
-This template is proprietary software. All rights reserved. See the [LICENSE](LICENSE) file for details.
+This software is proprietary. All rights reserved. See the [LICENSE](LICENSE) file for details.

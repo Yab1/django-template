@@ -6,16 +6,18 @@ repos:
     hooks:
       - id: check-yaml
       - id: check-added-large-files
+        args: [--maxkb=1024]
         exclude: |
           (?x)^(
             core/.*/fixtures/.*\.json
+            |docs/.*
           )$
 
   - repo: local
     hooks:
       - id: ruff
         name: ruff
-        entry: uv run ruff check
+        entry: uv run --extra dev ruff check
         language: system
         types_or: [python, pyi]
         args: [--fix, --exit-non-zero-on-fix]
@@ -24,7 +26,7 @@ repos:
 
       - id: ruff-format
         name: ruff-format
-        entry: uv run ruff format
+        entry: uv run --extra dev ruff format
         language: system
         types_or: [python, pyi]
         always_run: true

@@ -78,12 +78,16 @@ dist/
 !.env
 !.env.example
 
-# Scripts
+# Scripts (exclude bulk; allow ops scripts needed in container)
 scripts/
 !scripts/install.sh
+!scripts/load_fixtures.sh
 
 # Notes
 notes/
 
 # Tools
 /value_sets/
+
+# Postman
+/postman

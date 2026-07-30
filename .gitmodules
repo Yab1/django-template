@@ -1,14 +1,7 @@
-[submodule "protos/ehr_protos"]
-	path = protos/ehr_protos
-	url = https://github.com/Tilla-Health-Insurance/ehr-protos.git
-    branch = main
+# [submodule "ehr-documentation"]
+# 	path = ehr-documentation
+# 	url = git@github.com:Tilla-Health-Insurance/ehr-documentation.git
 
-[submodule "ehr_common"]
-	path = ehr_common
-	url = https://github.com/Tilla-Health-Insurance/ehr_common.git
-    branch = main
-
-[submodule "django_codegen"]
-	path = django_codegen
-	url = https://github.com/Yab1/django_codegen.git
-    branch = main
+# [submodule "ehr-jira"]
+# 	path = ehr-jira
+# 	url = git@github.com:Tilla-Health-Insurance/emr_jira.git

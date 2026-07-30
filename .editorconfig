@@ -1,0 +1,28 @@
+# Top-most EditorConfig file
+root = true
+
+# Defaults for all files
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Python: match Ruff (pyproject.toml)
+[*.py]
+indent_size = 4
+max_line_length = 120
+
+# YAML (e.g. .pre-commit-config, CI, docker-compose)
+[*.{yml,yaml}]
+indent_size = 2
+
+# JSON
+[*.json]
+indent_size = 2
+
+# Markdown (allow trailing spaces for line breaks)
+[*.md]
+trim_trailing_whitespace = false
