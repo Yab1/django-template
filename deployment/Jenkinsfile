@@ -16,11 +16,20 @@
  *   https://www.jenkins.io/doc/book/pipeline/pipeline-best-practices/
  */
 def resolveCredentialId(String paramValue, String envKey) {
-    def fromParam = (paramValue ?: '').trim()
+    def fromParam = (paramValue != null) ? paramValue.trim() : ''
     if (fromParam) {
         return fromParam
     }
-    return (env[envKey] ?: '').trim()
+    // Sandbox rejects env[variable]; use explicit property reads only.
+    if (envKey == 'JENKINS_ENV_CREDENTIAL_ID') {
+        def v = env.JENKINS_ENV_CREDENTIAL_ID
+        return (v != null) ? v.trim() : ''
+    }
+    if (envKey == 'JENKINS_SECRETS_CREDENTIAL_ID') {
+        def v = env.JENKINS_SECRETS_CREDENTIAL_ID
+        return (v != null) ? v.trim() : ''
+    }
+    return ''
 }
 
 def materializeEnvFiles(String envCredId, String secretsCredId, String requireSecrets) {
@@ -136,11 +145,11 @@ pipeline {
             steps {
                 script {
                     def envCredId = resolveCredentialId(
-                        params.ENV_CREDENTIAL_ID as String,
+                        "${params.ENV_CREDENTIAL_ID ?: ''}",
                         'JENKINS_ENV_CREDENTIAL_ID'
                     )
                     def secretsCredId = resolveCredentialId(
-                        params.SECRETS_CREDENTIAL_ID as String,
+                        "${params.SECRETS_CREDENTIAL_ID ?: ''}",
                         'JENKINS_SECRETS_CREDENTIAL_ID'
                     )
                     def requireSecrets = params.REQUIRE_SECRETS ? '1' : '0'
