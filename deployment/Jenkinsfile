@@ -97,7 +97,7 @@ pipeline {
         booleanParam(
             name: 'SKIP_SMOKE',
             defaultValue: false,
-            description: 'Skip post-deploy HTTP smoke on :7000/health/'
+            description: 'Skip post-deploy HTTP smoke on :6000/health/'
         )
         booleanParam(
             name: 'CLEAN_WORKSPACE',

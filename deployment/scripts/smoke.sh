@@ -2,7 +2,7 @@
 # Post-deploy smoke: hit proxy health endpoint on the deploy host.
 set -euo pipefail
 
-HEALTH_URL="${HEALTH_URL:-http://127.0.0.1:7000/health/}"
+HEALTH_URL="${HEALTH_URL:-http://127.0.0.1:6000/health/}"
 SMOKE_RETRIES="${SMOKE_RETRIES:-15}"
 SMOKE_SLEEP_SECONDS="${SMOKE_SLEEP_SECONDS:-2}"
 

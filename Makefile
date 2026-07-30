@@ -4,7 +4,7 @@
 
 PROJECT_NAME := vendor_management
 PYTHON       := uv run python
-DJANGO_PORT  := 7000
+DJANGO_PORT  := 6000
 ROOT         := $(shell git rev-parse --show-toplevel 2>/dev/null || echo "..")
 DEV_DOCKER   := $(shell grep -E '^DJANGO_DEV_DOCKER=' .env 2>/dev/null | cut -d= -f2)
 ifeq ($(DEV_DOCKER),1)

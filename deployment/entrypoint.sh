@@ -32,5 +32,5 @@ fi
 # Using exec to replace shell process for proper signal handling
 # Stable line for deployment/scripts/deploy.sh (wait after migrate/collectstatic before HTTP health).
 echo "vendor-management-entrypoint: ready-for-gunicorn"
-echo "Starting Gunicorn+Uvicorn (ASGI) on port ${PORT:-7000}..."
+echo "Starting Gunicorn+Uvicorn (ASGI) on port ${PORT:-6000}..."
 exec gunicorn --config deployment/gunicorn.config.py config.asgi:application

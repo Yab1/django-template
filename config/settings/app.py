@@ -20,7 +20,7 @@ def get_app_public_base_url() -> str:
 
     local = raw in ("localhost", "127.0.0.1")
     if not port:
-        port = "7000" if local else ""
+        port = "6000" if local else ""
 
     scheme = "https" if port == "443" else "http"
 

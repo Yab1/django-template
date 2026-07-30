@@ -1,6 +1,6 @@
 #!/bin/bash
 # Blue-green Docker deploy: new slot becomes healthy before traffic switches; old slot stops after.
-# Nginx Proxy Manager should keep forwarding to host port 7000 (vendor_management_proxy).
+# Nginx Proxy Manager should keep forwarding to host port 6000 (vendor_management_proxy).
 
 set -e
 
@@ -140,20 +140,20 @@ wait_proxy_healthy() {
     local max_wait="${PROXY_HEALTH_WAIT_SECONDS:-90}"
     local elapsed=0
 
-    log_info "Waiting for traffic via vendor_management_proxy on :7000 (${HEALTH_PATH})..."
+    log_info "Waiting for traffic via vendor_management_proxy on :6000 (${HEALTH_PATH})..."
     while [ "$elapsed" -lt "$max_wait" ]; do
         if command -v curl >/dev/null 2>&1; then
-            if curl -sfS "http://127.0.0.1:7000${HEALTH_PATH}" >/dev/null; then
+            if curl -sfS "http://127.0.0.1:6000${HEALTH_PATH}" >/dev/null; then
                 log_success "Proxy -> Django health OK"
                 return 0
             fi
         elif command -v wget >/dev/null 2>&1; then
-            if wget -qO- "http://127.0.0.1:7000${HEALTH_PATH}" >/dev/null 2>&1; then
+            if wget -qO- "http://127.0.0.1:6000${HEALTH_PATH}" >/dev/null 2>&1; then
                 log_success "Proxy -> Django health OK"
                 return 0
             fi
         else
-            log_error "Need curl or wget on the deploy host to verify :7000"
+            log_error "Need curl or wget on the deploy host to verify :6000"
             return 1
         fi
         sleep 2
@@ -235,7 +235,7 @@ wait_healthy() {
             return 1
         fi
         if docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" exec -T "$svc" .venv/bin/python -c \
-            "import urllib.request; urllib.request.urlopen('http://127.0.0.1:7000${HEALTH_PATH}').read()" \
+            "import urllib.request; urllib.request.urlopen('http://127.0.0.1:6000${HEALTH_PATH}').read()" \
             2>/dev/null; then
             log_success "${svc} is healthy"
             return 0
@@ -250,7 +250,7 @@ wait_healthy() {
 
 remove_legacy_container() {
     if docker ps -a --format '{{.Names}}' | grep -qx 'vendor_management'; then
-        log_info "Removing legacy container vendor_management (use blue/green + vendor_management_proxy on :7000)..."
+        log_info "Removing legacy container vendor_management (use blue/green + vendor_management_proxy on :6000)..."
         docker rm -f vendor_management 2>/dev/null || true
     fi
 }
@@ -287,7 +287,7 @@ deploy() {
     infer_active_slot_into active_slot
 
     if [[ -z "$active_slot" ]]; then
-        log_info "Cold start: active slot=blue, proxy -> vendor_management_blue:7000"
+        log_info "Cold start: active slot=blue, proxy -> vendor_management_blue:6000"
         write_nginx_upstream "vendor_management_blue"
         log_info "Starting vendor_management_blue..."
         docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d vendor_management_blue
@@ -301,7 +301,7 @@ deploy() {
         echo "blue" >"$ACTIVE_SLOT_FILE"
         ensure_background_workers
         docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" ps
-        log_success "Cold deploy complete (NPM -> host:7000 -> blue)"
+        log_success "Cold deploy complete (NPM -> host:6000 -> blue)"
         return 0
     fi
 
@@ -334,7 +334,7 @@ deploy() {
     echo "$new_slot" >"$ACTIVE_SLOT_FILE"
     ensure_background_workers
     docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" ps
-    log_success "Deploy complete; active=${new_slot} (NPM -> host:7000)"
+    log_success "Deploy complete; active=${new_slot} (NPM -> host:6000)"
 }
 
 main() {

@@ -43,12 +43,12 @@ services:
       - beat
       - --loglevel=info
 
-  # Publishes :7000 for Nginx Proxy Manager. Routes to the active blue/green slot (see deploy.sh).
+  # Publishes :6000 for Nginx Proxy Manager. Routes to the active blue/green slot (see deploy.sh).
   vendor_management_proxy:
     image: nginx:1.27-alpine
     container_name: vendor_management_proxy
     ports:
-      - "7000:80"
+      - "6000:80"
     volumes:
       - ./nginx/app-active.conf:/etc/nginx/conf.d/default.conf:ro
     restart: on-failure

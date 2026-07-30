@@ -24,7 +24,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": "http://localhost:7000/api/v1",
+      "value": "http://localhost:6000/api/v1",
       "type": "string",
       "description": "Present for collection consistency; health uses origin_url."
     },
@@ -32,7 +32,7 @@
     { "key": "admin_access_token", "value": "", "type": "string" },
     {
       "key": "origin_url",
-      "value": "http://localhost:7000",
+      "value": "http://localhost:6000",
       "type": "string",
       "description": "App origin without /api/v1 — health is mounted at /health/."
     }
