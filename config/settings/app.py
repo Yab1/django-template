@@ -7,8 +7,6 @@ should live here. Base settings (config/django/base.py) import this module.
 
 # pyright: reportArgumentType=false
 
-from uuid import UUID
-
 from config.env import env
 
 
@@ -54,9 +52,3 @@ PATIENT_MRN_SEQUENCE_START: int = int(env.int("DJANGO_PATIENT_MRN_SEQUENCE_START
 if PATIENT_MRN_SEQUENCE_START < 0:
     msg = "DJANGO_PATIENT_MRN_SEQUENCE_START must be >= 0"
     raise ValueError(msg)
-
-# Workflow activity system user (Temporal + POST /workflows/activities/execute/).
-# Must match core/systems/fixtures/workflow_system_user.json when using fixtures.
-_workflow_system_user_id_raw = env.str("DJANGO_WORKFLOW_SYSTEM_USER_ID", default="").strip()  # pyright: ignore[reportOptionalMemberAccess]
-WORKFLOW_SYSTEM_USER_ID: UUID | None = UUID(_workflow_system_user_id_raw) if _workflow_system_user_id_raw else None
-WORKFLOW_SYSTEM_USERNAME = env.str("DJANGO_WORKFLOW_SYSTEM_USERNAME", default="workflow.system").strip()  # pyright: ignore[reportOptionalMemberAccess]

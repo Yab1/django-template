@@ -31,65 +31,6 @@ class Colors:
     NAME = "\033[90m"  # Dark gray
 
 
-class TemporalActivityRetryFilter(logging.Filter):
-    """
-    Cleans up two categories of Temporal activity failure noise:
-
-    1. Intentional retry gates (RuntimeError ending in 'Retrying.'):
-       Downgrade to DEBUG and strip traceback — these are expected polling loops,
-       not real errors (e.g. waiting for vitals to be recorded).
-
-    2. Missing handler errors (UnknownActivityHandlerError):
-       Keep at WARNING but strip the 10-line Temporal SDK stacktrace — the error
-       message itself is already actionable ('Register one with @workflow_activity').
-    """
-
-    def filter(self, record: logging.LogRecord) -> bool:
-        if "Completing activity as failed" not in str(record.getMessage()):
-            return True
-        exc_info = record.exc_info
-        if exc_info and exc_info[1] is not None:
-            exc = exc_info[1]
-            msg = str(exc)
-            if msg.rstrip().endswith("Retrying."):
-                record.levelno = logging.DEBUG
-                record.levelname = "DEBUG"
-                record.exc_info = None
-                record.exc_text = None
-            elif type(exc).__name__ == "UnknownActivityHandlerError":
-                record.exc_info = None
-                record.exc_text = None
-        return True
-
-
-class TemporalWorkflowCompletionFilter(logging.Filter):
-    """
-    Temporal logs 'Workflow raised failure' with a CancelledError traceback when a
-    workflow completes normally — the event loop cancels the wait_condition coroutine
-    as part of teardown. This is not a real failure. Rewrite those records to a clear
-    completion message and drop the misleading traceback.
-    """
-
-    def filter(self, record: logging.LogRecord) -> bool:
-        if "Workflow raised failure" not in str(record.getMessage()):
-            return True
-        exc_info = record.exc_info
-        if exc_info and exc_info[0] is not None:
-            import asyncio
-
-            import temporalio.exceptions
-
-            if issubclass(exc_info[0], asyncio.CancelledError) or issubclass(
-                exc_info[0],
-                temporalio.exceptions.CancelledError,
-            ):
-                record.msg = "Workflow run ended (wait_condition cancelled — normal teardown, not a failure)"
-                record.args = ()
-                record.exc_info = None
-                record.exc_text = None
-        return True
-
-
 class SensitiveDataFilter(logging.Filter):
     """Filter sensitive data (passwords, tokens) from log messages using regex."""
 
@@ -184,12 +125,6 @@ FILTERS = {
     "sensitive_data": {
         "()": SensitiveDataFilter,
     },
-    "temporal_workflow_completion": {
-        "()": TemporalWorkflowCompletionFilter,
-    },
-    "temporal_activity_retry": {
-        "()": TemporalActivityRetryFilter,
-    },
 }
 
 # Handlers - Environment-aware configuration
@@ -199,7 +134,7 @@ HANDLERS = {
         "class": "logging.StreamHandler",
         "formatter": "simple",
         "level": "DEBUG",
-        "filters": ["sensitive_data", "temporal_workflow_completion", "temporal_activity_retry"],
+        "filters": ["sensitive_data"],
     },
 }
 
@@ -309,11 +244,6 @@ LOGGERS = {
     "celery": {
         "handlers": third_party_handlers,
         "level": "INFO",
-        "propagate": False,
-    },
-    "temporalio": {
-        "handlers": third_party_handlers,
-        "level": "WARNING",
         "propagate": False,
     },
     # Security and audit

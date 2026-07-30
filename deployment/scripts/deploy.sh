@@ -131,9 +131,9 @@ recreate_ehr_backend_proxy() {
 }
 
 ensure_background_workers() {
-    log_info "Starting/recreating background workers (celery, beat, temporal)..."
+    log_info "Starting/recreating background workers (celery, beat)..."
     docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d --no-deps --force-recreate \
-        ehr_backend_celery ehr_backend_celery_beat ehr_backend_temporal_worker
+        ehr_backend_celery ehr_backend_celery_beat
 }
 
 wait_proxy_healthy() {

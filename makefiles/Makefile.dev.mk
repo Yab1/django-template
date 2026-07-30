@@ -1,15 +1,14 @@
 # ==============================================================================
-# Local dev (Honcho — Django, Celery, Celery Beat, Temporal)
+# Local dev (Honcho — Django, Celery, Celery Beat)
 # ==============================================================================
-.PHONY: dev dev-all dev-stop dev-web dev-celery dev-celery-beat dev-temporal
+.PHONY: dev dev-all dev-stop dev-web dev-celery dev-celery-beat
 
-dev: dev-all ## Start Django, Celery, Celery Beat, and Temporal (honcho)
+dev: dev-all ## Start Django, Celery, and Celery Beat (honcho)
 
 dev-all: ## Start all local dev processes using honcho (kills any existing processes first)
-	$(call title,Starting Django + Celery + Celery Beat + Temporal)
+	$(call title,Starting Django + Celery + Celery Beat)
 	@pkill -9 -f "hon[c]ho start" || true
 	@pkill -9 -f "config.settings.cele[r]y" || true
-	@pkill -9 -f "core.workflows.temporal.worke[r]" || true
 	@pkill -9 -f "daph[n]e" || true
 	@sleep 2
 	uv run honcho start
@@ -22,9 +21,6 @@ dev-celery: ## Start only Celery worker via honcho
 
 dev-celery-beat: ## Start only Celery beat via honcho
 	uv run honcho start celery-beat
-
-dev-temporal: ## Start only Temporal worker via honcho
-	uv run honcho start temporal
 
 dev-stop: ## Stop honcho-managed dev processes
 	@pkill -f "honcho start" || true

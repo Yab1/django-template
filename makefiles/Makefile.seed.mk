@@ -2,7 +2,7 @@
 # Database seeding & fixtures (dev / local)
 # Requires MANAGE, title, ok from the root Makefile.
 # ==============================================================================
-.PHONY: seed-fixtures seed-fixtures-reset seed-fixture seed-terminology seed-superuser seed-patients seed-practitioners seed-practitioner-roles seed-workflow-activity-test-instance seed-organization-chart seed-patient-chart seed-medication-fulfillment-catalog load-fixtures-ordered
+.PHONY: seed-fixtures seed-fixtures-reset seed-fixture seed-terminology seed-superuser seed-patients seed-practitioners seed-practitioner-roles seed-organization-chart seed-patient-chart seed-medication-fulfillment-catalog load-fixtures-ordered
 
 # Ordered fixture load (terminology → resources → policies → bundles → assignments).
 # Uses loaddata_replace — safe to re-run on non-empty DB. See scripts/load_fixtures.sh.
@@ -63,11 +63,6 @@ seed-practitioner-roles: ## One-time: PractitionerRole for practitioners missing
 	$(call title,Seeding practitioner roles for existing practitioners)
 	$(MANAGE) seed_practitioner_roles $(if $(ORG),--organization-id $(ORG),) $(if $(LOC),--location-id $(LOC),) $(if $(NO_LOC),--no-location,) $(if $(AS_USER),--requesting-user-id $(AS_USER),) $(if $(DRY),--dry-run,)
 	$(call ok,Practitioner roles seed step finished)
-
-seed-workflow-activity-test-instance: ## One WorkflowInstance for activity execute Postman tests (optional PATIENT_ID=)
-	$(call title,Seeding workflow instance for activity execute tests)
-	$(MANAGE) seed_activity_test_workflow_instance $(if $(PATIENT_ID),--patient-id $(PATIENT_ID),)
-	$(call ok,Workflow activity test instance ready)
 
 seed-organization-chart: ## revenue_primary + cash_till per org (ETB/USD/EUR). Optional ORG=uuid CURRENCY=ETB DRY=1
 	$(call title,Seeding organization chart accounts)

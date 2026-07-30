@@ -64,7 +64,6 @@ include makefiles/Makefile.django.mk
 include makefiles/Makefile.dev.mk
 include makefiles/Makefile.seed.mk
 include makefiles/Makefile.celery.mk
-include makefiles/Makefile.temporal.mk
 include makefiles/Makefile.misc.mk
 include makefiles/Makefile.testing.mk
 include makefiles/Makefile.submodules.mk

@@ -63,7 +63,6 @@ dependencies = [
     "factory-boy==3.3.3",
     "faker==40.11.1",
     "django-redis==6.0.0",
-    "temporalio==1.26.0",
     "jinja2==3.1.6",
     "weasyprint==69.0",
     "channels-redis>=4.2,<5",
@@ -95,7 +94,7 @@ dev = [
     "pytest-timeout==2.2.0",
     # Dependency / security audit
     "pip-audit==2.10.0",
-    # Local dev process runner (Procfile: Django, Celery, Temporal)
+    # Local dev process runner (Procfile: Django, Celery)
     "honcho==2.0.0",
 ]
 

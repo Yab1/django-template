@@ -43,14 +43,6 @@ services:
       - beat
       - --loglevel=info
 
-  vendor_management_temporal_worker:
-    <<: *worker_app
-    container_name: vendor_management_temporal_worker
-    command:
-      - python
-      - -m
-      - core.workflows.temporal.worker
-
   # Publishes :7000 for Nginx Proxy Manager. Routes to the active blue/green slot (see deploy.sh).
   vendor_management_proxy:
     image: nginx:1.27-alpine

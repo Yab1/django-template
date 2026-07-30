@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-# Worker entrypoint — starts Celery / Temporal processes without web-server bootstrap.
+# Worker entrypoint — starts Celery processes without web-server bootstrap.
 
 if [ -n "${DB_WAIT_SECONDS:-}" ]; then
     echo "Waiting for database... (${DB_WAIT_SECONDS}s)"

@@ -197,7 +197,6 @@ from config.settings.rest_framework import *  # noqa
 from config.settings.simple_jwt import *  # noqa
 from config.settings.swagger import *  # noqa
 from config.settings.sentry import *  # noqa
-from config.settings.temporal import *  # noqa
 from config.settings.notifications import *  # noqa
 
 INSTALLED_APPS, MIDDLEWARE = DebugToolbarSetup.do_settings(INSTALLED_APPS, MIDDLEWARE)

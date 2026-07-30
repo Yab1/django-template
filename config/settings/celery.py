@@ -93,20 +93,6 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": 3600.0,
         "options": {"queue": "ehr_backend"},
     },
-    "workflows-sweep-pending-temporal-starts": {
-        "task": "workflows.sweep_pending_temporal_starts",
-        # Run every 60 s — recovers workflow instances whose start_temporal_workflow
-        # task was lost (worker restart / broker reconnect / stale duplicate worker).
-        # Idempotent: re-enqueued starts no-op once run_id is bound.
-        "schedule": 60.0,
-        "options": {"queue": "ehr_backend"},
-    },
-    "workflows-sweep-stale-triage-vitals-gates": {
-        "task": "workflows.sweep_stale_triage_vitals_gates",
-        # Run every 120 s — escalate WAITING record_triage_vitals gates past 30m SLA.
-        "schedule": 120.0,
-        "options": {"queue": "ehr_backend"},
-    },
     "diagnostics-expire-stale-study-claims": {
         "task": "diagnostics.expire_stale_study_claims",
         # Run every 60 s — frees abandoned radiologist reading claims (RIS-03) back
