@@ -1,19 +1,20 @@
-# Enterprise CD Pipeline — vendor-management-core
-#
-# Job config (Jenkins UI / JCasC):
-#   - Pipeline script from SCM
-#   - Script Path: deployment/Jenkinsfile
-#   - Pin agent: change `agent any` → agent { label 'deploy' } on Docker host
-#
-# Preferred secrets (Credentials Plugin, secret-file):
-#   - Pass ENV_CREDENTIAL_ID / SECRETS_CREDENTIAL_ID params, OR
-#   - Set folder/job env JENKINS_ENV_CREDENTIAL_ID / JENKINS_SECRETS_CREDENTIAL_ID
-# Legacy fallback: host paths in deployment/scripts/config.sh
-#
-# Official refs:
-#   https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
-#   https://www.jenkins.io/doc/book/pipeline/pipeline-best-practices/
-
+/*
+ * Enterprise CD Pipeline - vendor-management-core
+ *
+ * Job config (Jenkins UI / JCasC):
+ *   - Pipeline script from SCM
+ *   - Script Path: deployment/Jenkinsfile
+ *   - Pin agent: change `agent any` -> agent { label 'deploy' } on Docker host
+ *
+ * Preferred secrets (Credentials Plugin, secret-file):
+ *   - Pass ENV_CREDENTIAL_ID / SECRETS_CREDENTIAL_ID params, OR
+ *   - Set folder/job env JENKINS_ENV_CREDENTIAL_ID / JENKINS_SECRETS_CREDENTIAL_ID
+ * Legacy fallback: host paths in deployment/scripts/config.sh
+ *
+ * Official refs:
+ *   https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
+ *   https://www.jenkins.io/doc/book/pipeline/pipeline-best-practices/
+ */
 def resolveCredentialId(String paramValue, String envKey) {
     def fromParam = (paramValue ?: '').trim()
     if (fromParam) {
