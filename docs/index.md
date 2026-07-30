@@ -20,6 +20,7 @@ Reusable Django application template with REST APIs (DRF), JWT auth, Celery, and
 ### Guides
 
 - [Development](guides/development.md) — workflow and project layout
+- [Commands without Make](guides/without-make.md) — raw `uv` / `manage.py` equivalents (Windows-friendly)
 - [Testing](guides/testing.md) — pytest layout and practices
 - [Deployment](guides/deployment.md) — deploy scripts and health checks
 - [Seeding](guides/seeding.md) — `seed-superuser`

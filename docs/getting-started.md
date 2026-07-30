@@ -65,5 +65,6 @@ Versioned REST APIs live under `/api/v1/`. Details: [REST API Overview](api/rest
 ## Next
 
 - [Development guide](guides/development.md)
+- [Commands without Make](guides/without-make.md) — if `make` is unavailable
 - [Postman collections](../postman/) under `postman/<app>/`
 - [Architecture overview](architecture/overview.md)

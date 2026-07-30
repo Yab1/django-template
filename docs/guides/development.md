@@ -18,6 +18,8 @@ make lint      # project lint target
 make seed-superuser
 ```
 
+Without Make (Windows or plain shell): [Commands without Make](without-make.md).
+
 ## Project layout
 
 ```text

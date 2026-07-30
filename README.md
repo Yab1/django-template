@@ -33,6 +33,8 @@ make seed-superuser    # from .secrets.yml / DJANGO_SECRETS_FILE_PATH
 make run               # development server
 ```
 
+No `make`? See **[docs/guides/without-make.md](docs/guides/without-make.md)** for the same steps as plain `uv` / `manage.py` commands (Windows-friendly).
+
 Smoke checks after `make run`:
 
 | URL | Purpose |
