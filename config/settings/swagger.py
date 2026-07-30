@@ -95,12 +95,12 @@ def postprocess_error_responses(result, generator, **kwargs):
 
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "EHR Backend API",
-    "DESCRIPTION": "REST API for the EHR Backend. Use the endpoints below to integrate with the system.",
+    "TITLE": "Vendor Management API",
+    "DESCRIPTION": "REST API for Vendor Management Core.",
     "VERSION": "0.0.1",
     "TOS": "https://www.google.com/policies/terms/",
     "CONTACT": {
-        "name": "EHR Backend Team",
+        "name": "Vendor Management Team",
         "url": "https://tillahealth.com/en-US",
         "email": "yeabsera.dev@gmail.com",
     },
@@ -116,59 +116,14 @@ SPECTACULAR_SETTINGS = {
         "persistAuthorization": True,
         "displayOperationId": False,
         "filter": True,
-        # Root OpenAPI `tags` order follows schema generation; this sorts tag sections in the UI.
         "tagsSorter": "alpha",
         "docExpansion": "none",
         "defaultModelsExpandDepth": 1,
     },
-    # "DISABLE_ERRORS_AND_WARNINGS": True,
     "ENUM_NAME_OVERRIDES": {
-        # Account.account_type choices
-        "AccountTypeEnum": [
-            ("asset", "Asset"),
-            ("liability", "Liability"),
-            ("revenue", "Revenue"),
-            ("expense", "Expense"),
-            ("equity", "Equity"),
-        ],
-        # ResourceField.type choices
-        "ResourceFieldTypeEnum": [
-            ("boolean", "Boolean"),
-            ("integer", "Integer"),
-            ("decimal", "Decimal"),
-            ("string", "String"),
-            ("datetime", "DateTime"),
-            ("json", "JSON"),
-        ],
-        # Standard success envelope status
         "SuccessStatusEnum": [("success", "success")],
-        # Cached API response status marker / health check sub-components
         "CacheStatusEnum": [("ok", "ok"), ("error", "error")],
-        # MinIO health status (superset of CacheStatusEnum — needs explicit name)
         "MinioStatusEnum": [("ok", "ok"), ("error", "error"), ("not_configured", "not_configured")],
-        # Bed.status (capacity operational; shared across bed CRUD/history serializers)
-        "BedStatusEnum": "core.capacity.models.bed.Bed.Status",
-        # BedAssignment.state (active/discharged/transferred…)
-        "BedAssignmentStateEnum": "core.capacity.models.bed_assignment.BedAssignment.State",
-        # ChargeItem settlement pipeline state
-        "ChargeItemSettlementStateEnum": [
-            ("pending-invoice", "Pending Invoice"),
-            ("pending-payment", "Pending Payment"),
-            ("settled", "Settled"),
-            ("waived", "Waived"),
-        ],
-        # Lab status enums
-        "AccessionTestOrderStatusEnum": "core.lab.models.accession.accession_test_order.AccessionTestOrder.Status",
-        "OperationalSpecimenStatusEnum": "core.lab.models.production.operational_specimen.OperationalSpecimen.Status",
-        "OperationalResultStatusEnum": "core.lab.models.production.operational_result.OperationalResult.Status",
-        "WorklistItemStatusEnum": "core.lab.models.worklist.worklist_item.WorklistItem.Status",
-        # Document status / channel enums
-        "DocumentDeliveryStatusEnum": "core.documents.models.document_delivery.document_delivery.DocumentDelivery.Status",  # noqa: E501
-        "DocumentDeliveryChannelEnum": "core.documents.models.document_delivery.document_delivery.DocumentDelivery.Channel",  # noqa: E501
-        "DocumentPrintJobStatusEnum": "core.documents.models.document_print_job.document_print_job.DocumentPrintJob.Status",  # noqa: E501
-        # Notification status / channel enums
-        "NotificationStatusEnum": "core.notifications.models.notification.Notification.Status",
-        "NotificationChannelEnum": "core.notifications.models.notification.Notification.Channel",
     },
     "REDOC_UI_SETTINGS": {},
     "POSTPROCESSING_HOOKS": [

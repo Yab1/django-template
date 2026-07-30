@@ -87,9 +87,9 @@ class PwnedPasswordValidator:
         sha1 = hashlib.sha1(password.encode("utf-8")).hexdigest().upper()
         prefix, suffix = sha1[:5], sha1[5:]
 
-        app = getattr(settings, "APP_DOMAIN", None) or "ehr-backend"
+        app = getattr(settings, "APP_DOMAIN", None) or "vendor-management-core"
         headers = {
-            "User-Agent": f"ehr-backend-password-validator ({app})",
+            "User-Agent": f"vendor-management-password-validator ({app})",
             "Add-Padding": "true",
         }
         try:

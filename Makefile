@@ -2,13 +2,13 @@
 # Project Setup
 # ==============================================================================
 
-PROJECT_NAME := ehr_backend
+PROJECT_NAME := vendor_management
 PYTHON       := uv run python
 DJANGO_PORT  := 7000
 ROOT         := $(shell git rev-parse --show-toplevel 2>/dev/null || echo "..")
 DEV_DOCKER   := $(shell grep -E '^DJANGO_DEV_DOCKER=' .env 2>/dev/null | cut -d= -f2)
 ifeq ($(DEV_DOCKER),1)
-MANAGE       := cd $(ROOT) && docker compose -f development/docker-compose.yml exec ehr_backend_dev python manage.py
+MANAGE       := cd $(ROOT) && docker compose -f development/docker-compose.yml exec vendor_management_dev python manage.py
 else
 MANAGE       := $(PYTHON) manage.py
 endif
@@ -39,7 +39,7 @@ help:
 # ==============================================================================
 # Environment
 # ==============================================================================
-.PHONY: install precommit update submodule-init submodule-update generate-protos generate-fhir
+.PHONY: install precommit update
 
 install: ## Install all dependencies (dev + prod) using uv
 	$(call title,Installing all dependencies with uv)
@@ -52,7 +52,7 @@ precommit: install-hooks ## Install and configure pre-commit hooks + Git hooks p
 	@chmod +x .githooks/pre-commit
 	$(call ok,Pre-commit hooks installed (via .githooks/))
 
-update: install migrate precommit submodule-init submodule-update generate-protos generate-fhir ## Full project update
+update: install migrate precommit ## Full project update
 	$(call ok,Project updated successfully)
 
 

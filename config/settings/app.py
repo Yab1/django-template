@@ -36,19 +36,4 @@ APP_DOMAIN = get_app_public_base_url()
 
 FRONTEND_URL = env.str("DJANGO_FRONTEND_URL", default="http://localhost:3000").rstrip("/")  # type: ignore[assignment]
 
-REFERENCE_ID_PLATFORM_PREFIX = env("DJANGO_REFERENCE_ID_PLATFORM_PREFIX", default="HB")
-
-# FHIR Identifier.system for facility-issued patient MRNs (assigning authority URL).
-PATIENT_MRN_IDENTIFIER_SYSTEM = env.str(
-    "DJANGO_PATIENT_MRN_IDENTIFIER_SYSTEM",
-    default=f"{APP_DOMAIN}/fhir/sid/patient-mrn",
-)
-# Zero-padded decimal width for MRN values (common EMR practice: 7–10 digits).
-PATIENT_MRN_NUMERIC_WIDTH = env.int("DJANGO_PATIENT_MRN_NUMERIC_WIDTH", default=9)
-# First numeric MRN issued for a new sequence row (default 0). Ignored once the
-# sequence row exists — adjust the DB row or reset if you must reseed live data.
-# int(...) narrows django-environ's loose typing for basedpyright.
-PATIENT_MRN_SEQUENCE_START: int = int(env.int("DJANGO_PATIENT_MRN_SEQUENCE_START", default=0))
-if PATIENT_MRN_SEQUENCE_START < 0:
-    msg = "DJANGO_PATIENT_MRN_SEQUENCE_START must be >= 0"
-    raise ValueError(msg)
+REFERENCE_ID_PLATFORM_PREFIX = env("DJANGO_REFERENCE_ID_PLATFORM_PREFIX", default="VM")

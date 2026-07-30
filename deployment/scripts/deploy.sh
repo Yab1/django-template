@@ -1,6 +1,6 @@
 #!/bin/bash
 # Blue-green Docker deploy: new slot becomes healthy before traffic switches; old slot stops after.
-# Nginx Proxy Manager should keep forwarding to host port 7000 (ehr_backend_proxy).
+# Nginx Proxy Manager should keep forwarding to host port 7000 (vendor_management_proxy).
 
 set -e
 
@@ -13,37 +13,37 @@ NGINX_TEMPLATE="$DEPLOY_DIR/nginx/app-active.conf.template"
 NGINX_ACTIVE="$DEPLOY_DIR/nginx/app-active.conf"
 HEALTH_PATH="/api/v1/systems/health-check/"
 # Printed by deployment/entrypoint.sh immediately before `exec gunicorn` (after migrate + collectstatic).
-ENTRYPOINT_GUNICORN_MARKER="${ENTRYPOINT_GUNICORN_MARKER:-ehr-backend-entrypoint: ready-for-gunicorn}"
+ENTRYPOINT_GUNICORN_MARKER="${ENTRYPOINT_GUNICORN_MARKER:-vendor-management-core-entrypoint: ready-for-gunicorn}"
 
 # Active slot is inferred from running containers so a clean Jenkins workspace still deploys correctly.
-# If both slots are up (e.g. failed mid-deploy), prefer the upstream chosen in ehr_backend_proxy.
+# If both slots are up (e.g. failed mid-deploy), prefer the upstream chosen in vendor_management_proxy.
 # Uses printf -v so we never rely on $(...) (subshell would swallow exit 1).
 infer_active_slot_into() {
     local _outvar="$1"
     local blue_up=false green_up=false
-    docker ps --format '{{.Names}}' | grep -Fxq 'ehr_backend_blue' && blue_up=true
-    docker ps --format '{{.Names}}' | grep -Fxq 'ehr_backend_green' && green_up=true
+    docker ps --format '{{.Names}}' | grep -Fxq 'vendor_management_blue' && blue_up=true
+    docker ps --format '{{.Names}}' | grep -Fxq 'vendor_management_green' && green_up=true
 
     if $blue_up && $green_up; then
         local upstream=""
-        if docker ps --format '{{.Names}}' | grep -Fxq 'ehr_backend_proxy'; then
-            upstream=$(docker exec ehr_backend_proxy sh -c \
-                "grep -oE 'ehr_backend_(blue|green)' /etc/nginx/conf.d/default.conf 2>/dev/null | head -1" \
+        if docker ps --format '{{.Names}}' | grep -Fxq 'vendor_management_proxy'; then
+            upstream=$(docker exec vendor_management_proxy sh -c \
+                "grep -oE 'vendor_management_(blue|green)' /etc/nginx/conf.d/default.conf 2>/dev/null | head -1" \
                 || true)
         fi
         case "$upstream" in
-            ehr_backend_blue)
-                log_info "Both slots running; active=blue (from ehr_backend_proxy). Deploy will reconcile."
+            vendor_management_blue)
+                log_info "Both slots running; active=blue (from vendor_management_proxy). Deploy will reconcile."
                 printf -v "$_outvar" '%s' 'blue'
                 return 0
                 ;;
-            ehr_backend_green)
-                log_info "Both slots running; active=green (from ehr_backend_proxy). Deploy will reconcile."
+            vendor_management_green)
+                log_info "Both slots running; active=green (from vendor_management_proxy). Deploy will reconcile."
                 printf -v "$_outvar" '%s' 'green'
                 return 0
                 ;;
             *)
-                log_error "Both ehr_backend_blue and ehr_backend_green are running; could not read active upstream from ehr_backend_proxy. Stop one container, then retry."
+                log_error "Both vendor_management_blue and vendor_management_green are running; could not read active upstream from vendor_management_proxy. Stop one container, then retry."
                 exit 1
                 ;;
         esac
@@ -125,22 +125,22 @@ write_nginx_upstream() {
 # Bind-mount path is fixed when the container is created. Jenkins often uses a new workspace path
 # each build, so `nginx -s reload` would still read the OLD file. Recreate the proxy so the mount
 # points at this checkout's deployment/nginx/app-active.conf.
-recreate_ehr_backend_proxy() {
-    log_info "Recreating ehr_backend_proxy (refresh bind-mount to this workspace's nginx config)..."
-    docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d --no-deps --force-recreate ehr_backend_proxy
+recreate_vendor_management_proxy() {
+    log_info "Recreating vendor_management_proxy (refresh bind-mount to this workspace's nginx config)..."
+    docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d --no-deps --force-recreate vendor_management_proxy
 }
 
 ensure_background_workers() {
     log_info "Starting/recreating background workers (celery, beat)..."
     docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d --no-deps --force-recreate \
-        ehr_backend_celery ehr_backend_celery_beat
+        vendor_management_celery vendor_management_celery_beat
 }
 
 wait_proxy_healthy() {
     local max_wait="${PROXY_HEALTH_WAIT_SECONDS:-90}"
     local elapsed=0
 
-    log_info "Waiting for traffic via ehr_backend_proxy on :7000 (${HEALTH_PATH})..."
+    log_info "Waiting for traffic via vendor_management_proxy on :7000 (${HEALTH_PATH})..."
     while [ "$elapsed" -lt "$max_wait" ]; do
         if command -v curl >/dev/null 2>&1; then
             if curl -sfS "http://127.0.0.1:7000${HEALTH_PATH}" >/dev/null; then
@@ -179,7 +179,7 @@ docker_container_restart_count() {
 # migrations. Wait for the entrypoint log line that precedes `exec gunicorn`, then probe health.
 wait_entrypoint_reached_gunicorn() {
     local slot="$1"
-    local svc="ehr_backend_${slot}"
+    local svc="vendor_management_${slot}"
     local max_wait="${ENTRYPOINT_SERVER_WAIT_SECONDS:-3600}"
     local elapsed=0
 
@@ -207,7 +207,7 @@ wait_entrypoint_reached_gunicorn() {
 
 wait_healthy() {
     local slot="$1"
-    local svc="ehr_backend_${slot}"
+    local svc="vendor_management_${slot}"
     local max_wait="${HEALTH_WAIT_SECONDS:-120}"
     local elapsed=0
 
@@ -249,9 +249,9 @@ wait_healthy() {
 }
 
 remove_legacy_container() {
-    if docker ps -a --format '{{.Names}}' | grep -qx 'ehr_backend'; then
-        log_info "Removing legacy container ehr_backend (use blue/green + ehr_backend_proxy on :7000)..."
-        docker rm -f ehr_backend 2>/dev/null || true
+    if docker ps -a --format '{{.Names}}' | grep -qx 'vendor_management'; then
+        log_info "Removing legacy container vendor_management (use blue/green + vendor_management_proxy on :7000)..."
+        docker rm -f vendor_management 2>/dev/null || true
     fi
 }
 
@@ -275,7 +275,7 @@ deploy() {
     fi
 
     log_info "Building Docker images..."
-    docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" build --parallel ehr_backend_blue
+    docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" build --parallel vendor_management_blue
 
     if [ "$CURRENT_COMMIT" != "unknown" ]; then
         docker tag "$IMAGE_NAME" "${IMAGE_NAME%:latest}:${CURRENT_COMMIT}" 2>/dev/null || true
@@ -287,14 +287,14 @@ deploy() {
     infer_active_slot_into active_slot
 
     if [[ -z "$active_slot" ]]; then
-        log_info "Cold start: active slot=blue, proxy -> ehr_backend_blue:7000"
-        write_nginx_upstream "ehr_backend_blue"
-        log_info "Starting ehr_backend_blue..."
-        docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d ehr_backend_blue
+        log_info "Cold start: active slot=blue, proxy -> vendor_management_blue:7000"
+        write_nginx_upstream "vendor_management_blue"
+        log_info "Starting vendor_management_blue..."
+        docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d vendor_management_blue
         if ! wait_healthy blue; then
             exit 1
         fi
-        recreate_ehr_backend_proxy
+        recreate_vendor_management_proxy
         if ! wait_proxy_healthy; then
             exit 1
         fi
@@ -314,22 +314,22 @@ deploy() {
     fi
 
     log_info "Blue-green: bringing up inactive slot ${new_slot} (traffic still on ${old_slot})..."
-    docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d "ehr_backend_${new_slot}"
+    docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" up -d "vendor_management_${new_slot}"
 
     if ! wait_healthy "$new_slot"; then
         exit 1
     fi
 
-    log_info "Switching proxy to ehr_backend_${new_slot}..."
-    write_nginx_upstream "ehr_backend_${new_slot}"
-    recreate_ehr_backend_proxy
+    log_info "Switching proxy to vendor_management_${new_slot}..."
+    write_nginx_upstream "vendor_management_${new_slot}"
+    recreate_vendor_management_proxy
     if ! wait_proxy_healthy; then
         log_error "Aborting before stopping ${old_slot}: fix nginx/proxy, then redeploy."
         exit 1
     fi
 
-    log_info "Stopping previous slot ehr_backend_${old_slot}..."
-    docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" stop "ehr_backend_${old_slot}" || true
+    log_info "Stopping previous slot vendor_management_${old_slot}..."
+    docker_compose -f "$COMPOSE_FILE" "${compose_env_args[@]}" stop "vendor_management_${old_slot}" || true
 
     echo "$new_slot" >"$ACTIVE_SLOT_FILE"
     ensure_background_workers

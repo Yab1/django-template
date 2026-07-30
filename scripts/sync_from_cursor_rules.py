@@ -97,7 +97,7 @@ def sync_codex(entries: list[dict]) -> None:
     on_demand = [e for e in entries if not e["always"] and not e["globs"]]
 
     agents_lines = [
-        "# ehr-backend — Codex project instructions",
+        "# vendor-management-core — Codex project instructions",
         "",
         "Duplicated from `.cursor/rules/` for Codex. Regenerate with:",
         "`python3 scripts/sync_from_cursor_rules.py`",
@@ -161,7 +161,7 @@ def sync_claude(entries: list[dict]) -> None:
         )
 
     claude_lines = [
-        "# ehr-backend — Claude Code project instructions",
+        "# vendor-management-core — Claude Code project instructions",
         "",
         "Canonical source: `.cursor/rules/`. Regenerate with:",
         "`python3 scripts/sync_from_cursor_rules.py`",

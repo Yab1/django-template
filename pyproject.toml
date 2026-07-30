@@ -1,7 +1,7 @@
 [project]
-name = "ehr-backend"
+name = "vendor-management-core"
 version = "0.1.0"
-description = "EHR Backend"
+description = "Vendor Management Core"
 requires-python = ">=3.12"
 dependencies = [
     # Core Framework
