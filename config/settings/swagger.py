@@ -98,17 +98,12 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "Django Template API",
     "DESCRIPTION": "REST API for Django Template.",
     "VERSION": "0.0.1",
-    "TOS": "https://www.google.com/policies/terms/",
     "CONTACT": {
-        "name": "Django Template Team",
-        "url": "https://tillahealth.com/en-US",
+        "name": "Yeabsera",
+        "url": "https://github.com/Yab1",
         "email": "yeabsera.dev@gmail.com",
     },
     "SERVERS": _openapi_servers(),
-    "EXTERNAL_DOCS": {
-        "url": "https://tillahealth.com/en-US",
-        "description": "External documentation",
-    },
     "SERVE_PUBLIC": True,
     "SERVE_INCLUDE_SCHEMA": False,
     "SWAGGER_UI_SETTINGS": {

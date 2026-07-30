@@ -1,53 +1,76 @@
 # Django Template
 
-Reusable Django application **template** (not a product domain). Clone, rename, and build your service on top.
+Reusable Django application **template** — not a product domain. Clone, rename, and build your service on top.
 
-Includes REST APIs (DRF), JWT auth, Celery, health checks, seed-superuser, and scaffolding tools.
+Includes REST APIs (DRF), JWT auth, Celery, health checks (`/health/`), seed-superuser, and scaffolding tools.
 
 ## Prerequisites
 
 - Python 3.12+
-- Docker & Docker Compose
+- [uv](https://docs.astral.sh/uv/) (recommended)
+- Docker & Docker Compose (optional; used for deploy / infra)
 - PostgreSQL (or use Docker)
 
-## Environment Variables
+## Environment
 
-Copy `.env.example` to `.env` and configure the required environment variables for your setup.
+```bash
+cp .env.example .env
+# Set DJANGO_SECRET_KEY, DB, and DJANGO_SECRETS_FILE_PATH (e.g. .secrets.yml)
+```
 
 ## Documentation
 
-Project docs: **[docs/index.md](docs/index.md)** (getting started, architecture, REST API, guides).
+Start here: **[docs/index.md](docs/index.md)** (getting started, architecture, REST API, guides).
+
+Contributing: **[CONTRIBUTING.md](CONTRIBUTING.md)**.
 
 ## Quick Start
 
-For detailed commands and setup instructions, see the [Makefile](Makefile) — run `make help` to see all available commands.
-
-**CI (GitHub Actions):** On every push and pull request to `main`, the [CI workflow](.github/workflows/ci.yml) runs dependency audit (`pip-audit`) and lint (`make lint`). Tests are run locally only; run `make test` before pushing. Require this workflow to pass before merging (GitHub branch protection).
-
-### Option A: Run on the host
-
 ```bash
-# Set up dependencies and migrations
-make update
-
-# Git hooks: pre-push blocks direct push to main (use a branch + PR). Installed by make precommit.
-# One-time: make install-hooks (or make precommit) so Git uses .githooks/
-
-# Load superusers from secrets file (.secrets.yml / DJANGO_SECRETS_FILE_PATH)
-make seed-superuser
-
-# Start development server
-make run
+make help              # all targets
+make update            # deps + migrations + hooks
+make seed-superuser    # from .secrets.yml / DJANGO_SECRETS_FILE_PATH
+make run               # development server
 ```
 
-### Option B: Run with Docker (development)
+Smoke checks after `make run`:
 
-See **[development/README.md](development/README.md)** if present. From repo root:
+| URL | Purpose |
+|-----|---------|
+| `GET /health/` | Infra health |
+| `GET /docs/` | Swagger (admin session) |
+| `POST /api/v1/authentication/token/` | JWT obtain |
 
-```bash
-make run
-```
+Default port comes from `DJANGO_APP_PORT` (see `.env.example`).
+
+## Apps
+
+| App | Role |
+|-----|------|
+| `core.common` | BaseModel, shared utils, management commands |
+| `core.users` | User model and user APIs |
+| `core.authentication` | JWT, `/me`, password flows |
+| `core.systems` | Health probe |
+| `core.api` | Envelope, pagination, URL mount |
+
+## Deployment
+
+Assets under **[deployment/](deployment/)**:
+
+- Docker Compose blue/green (`django_template_*` services)
+- [`Jenkinsfile`](deployment/Jenkinsfile), [`entrypoint.sh`](deployment/entrypoint.sh), [`scripts/deploy.sh`](deployment/scripts/deploy.sh)
+- Health path used by deploy: `/health/`
+
+See [docs/guides/deployment.md](docs/guides/deployment.md).
 
 ## Naming
 
-In-repo identifiers use `django_template` / `django-template` (Compose project, Celery queue, Docker image). Rename when you fork this into a real product.
+In-repo identifiers: `django_template` / `django-template` (Compose, Celery queue, image). Rename when you fork into a real product.
+
+## Contact
+
+- **Author**: [Yeabsera](https://github.com/Yab1)
+
+## License
+
+MIT — free to use, modify, and distribute. See [LICENSE](LICENSE).

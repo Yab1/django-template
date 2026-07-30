@@ -1,6 +1,6 @@
 # Contributing
 
-This doc is for **everyone working on the repo** (proprietary project, multiple collaborators). It covers setup, workflow, and what to do before opening a PR.
+This doc covers setup, workflow, and what to do before opening a PR.
 
 ---
 
@@ -10,7 +10,7 @@ This doc is for **everyone working on the repo** (proprietary project, multiple 
 - [ ] **Install dependencies and hooks:** run `make update` (or at least `make install` then `make precommit`). This installs Git hooks so the pre-push hook blocks direct push to `main` and pre-commit runs lint on commit.
 - [ ] **Copy env:** copy `.env.example` to `.env` and set required variables (see README).
 - [ ] **Verify setup:** run `make lint` and `make test`. Both should pass.
-- [ ] **Read the docs:** skim [docs/README.md](docs/README.md) and [docs/conventions/code_organization.md](docs/conventions/code_organization.md). Use the [style guide](docs/conventions/style_guide.md) for code structure (services, selectors, APIs, etc.).
+- [ ] **Read the docs:** start at [docs/index.md](docs/index.md). Follow the [Django styleguide](docs/standards/django-styleguide.md) (services, selectors, thin APIs).
 - [ ] **Create a branch** from `main` for your work. Do not push directly to `main` (the pre-push hook will block it).
 
 ---
