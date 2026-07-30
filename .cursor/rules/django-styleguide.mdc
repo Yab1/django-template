@@ -1,0 +1,125 @@
+---
+description: HackSoft Django styleguide adapted for Vendor Management Core — services/selectors, thin APIs, models, settings, Celery
+alwaysApply: true
+---
+
+# Django Styleguide (HackSoft)
+
+This project follows the **HackSoft Django Styleguide**. Prefer cherry-picking for context, but **must** keep the separation below when writing or changing code.
+
+Full upstream guide: https://github.com/HackSoftware/Django-Styleguide  
+Example project: https://github.com/HackSoftware/Django-Styleguide-Example
+
+## Core rule — where logic lives
+
+**Business logic MUST live in:**
+
+- **Services** — writes, side effects (`core/<app>/services.py` or `services/`)
+- **Selectors** — reads / queries (`core/<app>/selectors.py` or `selectors/`)
+- Model `@property` / methods — only simple, non-relational, cheap derived values
+- Model `clean()` — simple multi-field validation on the same model
+- DB **constraints** — when the invariant can be expressed in the database
+
+**Business logic MUST NOT live in:**
+
+- APIs / views
+- Serializers / forms
+- Model `save()`
+- Custom managers / querysets (OK for nicer query APIs; not for domain logic)
+- Signals (except narrow cache / connect-unrelated cases)
+
+**Property vs selector:** spanning relations or risk of N+1 → **selector**, not `@property`.
+
+Think **core** (services, selectors, models) vs **interface** (APIs, serialization, tasks, management commands).
+
+## Models
+
+- Inherit `core.common.models.BaseModel` when applicable (`id`, `created_at`, `updated_at`, `metadata`).
+- Call `obj.full_clean()` in the **service** before `save()` (admin forms also call it).
+- Prefer `CheckConstraint` / DB constraints for invariants when possible (Django 4.1+ `full_clean` checks constraints).
+- Complex / cross-model validation → **service**, not only `clean()`.
+
+## Services
+
+- Naming: `<entity>_<action>` — e.g. `user_create`, `user_update`, `user_password_change`.
+- Prefer **keyword-only** args (`*`) and **type hints**.
+- Function-based by default; class-based when you need a namespace / multi-step flow.
+- Split `services/` by subdomain when the module grows; re-export from `__init__.py` if useful.
+- Updates: use shared `model_update` (when present under `core.common`) for non-side-effect fields; do side effects explicitly in the entity service.
+
+```python
+def course_create(*, name: str, start_date: date, end_date: date) -> Course:
+    obj = Course(name=name, start_date=start_date, end_date=end_date)
+    obj.full_clean()
+    obj.save()
+    return obj
+```
+
+## Selectors
+
+- Naming: same `<entity>_<action>` style — e.g. `user_list`, `login_event_list_for_user`.
+- Keyword-only args + type hints.
+- Own filtering (e.g. django-filter FilterSet inside the selector). API only validates query params then passes `filters=` into the selector.
+
+## APIs & serializers
+
+- **One endpoint per action.** Name: `<Entity><Action>Api` — e.g. `UserListApi`, `UserUpdateApi`.
+- Prefer plain `APIView` / project base (`AuthorizedAPIView` when policy + auth required). Avoid fat generic ViewSets that hide logic in serializers.
+- Flow: validate input → call service/selector → return output. **No business logic in the view.**
+- Dedicated **input** and **output** serializers (prefer nested on the API class as `InputSerializer` / `OutputSerializer`, or app `serializers/` modules as this repo already does).
+- Prefer `Serializer` over `ModelSerializer` when the contract should stay explicit.
+- Nested structures: `inline_serializer` from `core.api.utils`.
+- List + pagination: use project helpers (`get_paginated_response`, `LimitOffsetPagination` in `core.api.pagination`).
+- Current user routes: use `/me/` (and `/users/me/...`) before `<uuid:id>` routes.
+- Wire apps in `core/api/urls.py` under `/api/v1/`. Infra health stays at `/health/` (not versioned API).
+
+This project wraps 2xx bodies via `EnvelopeJSONRenderer` — views return the **inner** payload; do not double-wrap unless building an error envelope explicitly.
+
+## Urls
+
+- One URL per API action.
+- App `urls.py` + include from `core.api.urls` with a namespace.
+- Group by domain; keep list order so static segments (`me`) win over path converters.
+
+## Settings
+
+- Django: `config/django/` (`base`, `local`, `production`, `test`).
+- Integrations: `config/settings/` (celery, cors, jwt, …), imported from `base.py`.
+- Read env via `config.env` / `env`; local `.env`, committed `.env.example`.
+- Prefix Django-related vars with `DJANGO_` (e.g. `DJANGO_DEBUG`, `DJANGO_SECRET_KEY`). Do **not** force-prefix integration vars (`CELERY_BROKER_URL`, `SENTRY_DSN`, `MINIO_*`, `AWS_*`).
+
+## Errors
+
+- Use the project exception handler in `core.api` — keep error **envelope** shape consistent with existing APIs.
+- Map Django `ValidationError` → DRF validation errors (handler already does this pattern).
+- Services raise Django `ValidationError` / domain errors; APIs may translate to DRF `ValidationError` at the boundary when needed.
+- Do not silence unexpected exceptions (let 500s reach Sentry).
+
+## Celery
+
+- Tasks are an **interface**: fetch data → call a **service**. No business logic in the task body beyond retry/error wiring.
+- Import the service **inside** the task function (avoids cycles).
+- Import the task at module level with a `_task` suffix when calling from services.
+- Trigger with `transaction.on_commit(lambda: some_task.delay(...))` after DB writes.
+- Periodic tasks: prefer django-celery-beat; keep schedule definitions explicit (e.g. setup command) when added.
+
+## Testing
+
+- Prefer testing **services** and **selectors** (they hold the domain).
+- Service tests **hit the DB**; mock Celery / external I/O.
+- Layout: `core/<app>/tests/{services,selectors,models,apis}/test_<name>.py`.
+- Factories (`factory_boy`) or `Model.objects.create()` / other services for setup.
+
+## Code placement (this repo)
+
+| Kind | Location |
+|------|----------|
+| DRF helpers (serializers utils, envelope, pagination) | `core/api/` |
+| Shared non-API helpers | `core/common/` |
+| Writes | `core/<app>/services/` |
+| Reads | `core/<app>/selectors/` |
+| REST endpoints | `core/<app>/apis/` (+ `urls.py`) |
+| Models | `core/<app>/models/` |
+| Admin | `core/<app>/admin.py` (see `admin-standard`) |
+
+When unsure: **API-only** → `core/api/`; **shared** → `core/common/`; **domain write/read** → app services/selectors.
