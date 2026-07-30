@@ -48,7 +48,7 @@ else
 fi
 
 # External networks (created by deploy if missing; warn only here)
-for net in vendor_management_network tilla_infrastructure_network; do
+for net in django_template_network tilla_infrastructure_network; do
     if docker network inspect "$net" >/dev/null 2>&1; then
         log_ok "Docker network exists: $net"
     else

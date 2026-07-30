@@ -2,13 +2,13 @@
 # Project Setup
 # ==============================================================================
 
-PROJECT_NAME := vendor_management
+PROJECT_NAME := django_template
 PYTHON       := uv run python
 DJANGO_PORT  := 6000
 ROOT         := $(shell git rev-parse --show-toplevel 2>/dev/null || echo "..")
 DEV_DOCKER   := $(shell grep -E '^DJANGO_DEV_DOCKER=' .env 2>/dev/null | cut -d= -f2)
 ifeq ($(DEV_DOCKER),1)
-MANAGE       := cd $(ROOT) && docker compose -f development/docker-compose.yml exec vendor_management_dev python manage.py
+MANAGE       := cd $(ROOT) && docker compose -f development/docker-compose.yml exec django_template_dev python manage.py
 else
 MANAGE       := $(PYTHON) manage.py
 endif

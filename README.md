@@ -1,6 +1,8 @@
-# Vendor Management Core
+# Django Template
 
-Django application template with REST APIs (DRF), JWT auth, Celery, and shared scaffolding tools.
+Reusable Django application **template** (not a product domain). Clone, rename, and build your service on top.
+
+Includes REST APIs (DRF), JWT auth, Celery, health checks, seed-superuser, and scaffolding tools.
 
 ## Prerequisites
 
@@ -45,3 +47,7 @@ See **[development/README.md](development/README.md)** if present. From repo roo
 ```bash
 make run
 ```
+
+## Naming
+
+In-repo identifiers use `django_template` / `django-template` (Compose project, Celery queue, Docker image). Rename when you fork this into a real product.

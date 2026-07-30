@@ -3,9 +3,7 @@
 		"_postman_id": "167dd184-40ec-499a-9fb1-1fd9bd1ffa5a",
 		"name": "authentication",
 		"description": "JWT auth, current-user profile, and password flows.\n\n**Bootstrap:** no practitioner fixtures in this template. Use a user from `make seed-superuser` (`.secrets.yml`). Default username is the email local-part (e.g. `yeabsera.dev` for `yeabsera.dev@gmail.com`). Set `password` from secrets — do not commit real passwords.\n\nRun **obtain token** first; test script fills `user_access_token`, `admin_access_token`, and `refresh_token` from the API envelope (`result.access` / `result.refresh`).",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "50723802",
-		"_collection_link": "https://yab-api-lab.postman.co/workspace/Vendor-Management~9535d644-d833-4ac0-aa65-b88d1a9f4463/collection/50723802-167dd184-40ec-499a-9fb1-1fd9bd1ffa5a?action=share&source=collection_link&creator=50723802"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{

@@ -1,6 +1,6 @@
 # Getting Started
 
-Local setup for Vendor Management Core.
+Local setup for Django Template.
 
 ## Prerequisites
 

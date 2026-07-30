@@ -34,7 +34,7 @@ See [REST API Overview](../api/rest/overview.md) for probe details.
 3. Switch nginx upstream
 4. Stop the old slot
 
-Proxy / slot names use the `vendor_management_*` prefix in this template.
+Proxy / slot names use the `django_template_*` prefix in this template.
 
 ## Runtime expectations
 

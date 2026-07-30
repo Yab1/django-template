@@ -25,7 +25,7 @@ errorlog = "-"
 loglevel = os.environ.get("GUNICORN_LOG_LEVEL", "info")
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(D)s'
 
-proc_name = os.environ.get("GUNICORN_PROC_NAME", "vendor_management_gunicorn")
+proc_name = os.environ.get("GUNICORN_PROC_NAME", "django_template_gunicorn")
 
 # Security
 limit_request_line = int(os.environ.get("GUNICORN_LIMIT_REQUEST_LINE", "4094"))

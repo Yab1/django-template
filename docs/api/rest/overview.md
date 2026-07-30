@@ -1,6 +1,6 @@
 # REST API Overview
 
-Public HTTP surface for Vendor Management Core.
+Public HTTP surface for Django Template.
 
 ## Base URLs
 

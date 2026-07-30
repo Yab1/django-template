@@ -1,7 +1,7 @@
 [project]
-name = "vendor-management-core"
+name = "django-template"
 version = "0.1.0"
-description = "Vendor Management Core"
+description = "Reusable Django application template (DRF, JWT, Celery)"
 requires-python = ">=3.12"
 dependencies = [
     # Core Framework

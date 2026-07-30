@@ -11,7 +11,7 @@ from config.env import env
 
 CELERY_BROKER_URL = env(
     "CELERY_BROKER_URL",
-    default="amqp://guest:guest@localhost:5672/vendor_management",
+    default="amqp://guest:guest@localhost:5672/django_template",
 )  # type: ignore
 CELERY_RESULT_BACKEND = "django-db"
 
@@ -22,15 +22,15 @@ CELERY_TASK_TIME_LIMIT = 30  # seconds
 CELERY_TASK_MAX_RETRIES = 3
 
 # Queue isolation for this project (override via env-friendly names later if needed)
-CELERY_TASK_DEFAULT_QUEUE = "vendor_management"
-CELERY_TASK_DEFAULT_EXCHANGE = "vendor_management"
-CELERY_TASK_DEFAULT_ROUTING_KEY = "vendor_management"
+CELERY_TASK_DEFAULT_QUEUE = "django_template"
+CELERY_TASK_DEFAULT_EXCHANGE = "django_template"
+CELERY_TASK_DEFAULT_ROUTING_KEY = "django_template"
 
 CELERY_TASK_QUEUES = (
     Queue(
-        "vendor_management",
-        Exchange("vendor_management", type="direct"),
-        routing_key="vendor_management",
+        "django_template",
+        Exchange("django_template", type="direct"),
+        routing_key="django_template",
     ),
 )
 
@@ -46,7 +46,7 @@ CELERY_BEAT_SCHEDULE: dict = {}
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.django.base")
 
-app = Celery("vendor_management")
+app = Celery("django_template")
 
 app.conf.timezone = "UTC"
 app.conf.enable_utc = True

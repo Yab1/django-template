@@ -1,6 +1,6 @@
-# Vendor Management Core Documentation
+# Django Template Documentation
 
-Django application template with REST APIs (DRF), JWT auth, Celery, and shared scaffolding tools.
+Reusable Django application template with REST APIs (DRF), JWT auth, Celery, and shared scaffolding. Fork and rename for your product.
 
 ## Quick Navigation
 

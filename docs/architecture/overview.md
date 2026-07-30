@@ -1,6 +1,6 @@
 # Architecture Overview
 
-High-level shape of Vendor Management Core as a reusable Django template.
+High-level shape of Django Template as a reusable Django template.
 
 ## Stack
 
@@ -8,7 +8,7 @@ High-level shape of Vendor Management Core as a reusable Django template.
 - **DRF** — REST APIs under `/api/v1/`
 - **SimpleJWT** — bearer access/refresh tokens
 - **PostgreSQL** — primary database
-- **Celery** — async tasks (queue name `vendor_management`)
+- **Celery** — async tasks (queue name `django_template`)
 - **Redis** — cache (and Channels layer when used)
 - **MinIO / django-storages** — optional object storage (probed by health when configured)
 

@@ -1,5 +1,5 @@
 /*
- * Enterprise CD Pipeline - vendor-management-core
+ * Enterprise CD Pipeline - django-template
  *
  * Job config (Jenkins UI / JCasC):
  *   - Pipeline script from SCM
@@ -117,7 +117,7 @@ pipeline {
     }
 
     environment {
-        PROJECT_NAME           = 'vendor_management'
+        PROJECT_NAME           = 'django_template'
         COMPOSE_DOCKER_CLI_BUILD = '1'
         DOCKER_BUILDKIT        = '1'
         // Masked-ish build metadata for notifications

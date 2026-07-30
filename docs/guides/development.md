@@ -1,6 +1,6 @@
 # Development Guide
 
-Day-to-day development for Vendor Management Core.
+Day-to-day development for Django Template.
 
 ## Tooling
 

@@ -95,12 +95,12 @@ def postprocess_error_responses(result, generator, **kwargs):
 
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Vendor Management API",
-    "DESCRIPTION": "REST API for Vendor Management Core.",
+    "TITLE": "Django Template API",
+    "DESCRIPTION": "REST API for Django Template.",
     "VERSION": "0.0.1",
     "TOS": "https://www.google.com/policies/terms/",
     "CONTACT": {
-        "name": "Vendor Management Team",
+        "name": "Django Template Team",
         "url": "https://tillahealth.com/en-US",
         "email": "yeabsera.dev@gmail.com",
     },
