@@ -1,11 +1,18 @@
 import logging
 
+from django.http import HttpRequest
 from django.urls import include, path
 
 logger = logging.getLogger("configuration")
 
 
-def show_toolbar(*args, **kwargs) -> bool:
+def _toolbar_breaks_openapi_docs(request: HttpRequest) -> bool:
+    """True if this is Swagger UI, Redoc, or the OpenAPI schema (drf-spectacular)."""
+    path = request.path
+    return path.startswith(("/docs", "/redoc", "/schema"))
+
+
+def show_toolbar(request: HttpRequest | None = None, *args, **kwargs) -> bool:
     """
     The general idea is the following:
 
@@ -21,8 +28,15 @@ def show_toolbar(*args, **kwargs) -> bool:
     - Have the flexibility to control the debug toolbar via a single Django setting.
 
     Additionally, we don't want to deal with the INTERNAL_IPS thing.
+
+    OpenAPI / Swagger: django-debug-toolbar injects ``toolbar.js``, which patches
+    ``window.fetch``. That breaks Swagger UI "Try it out". We disable the toolbar on
+    ``/docs/``, ``/redoc/``, and ``/schema/`` so fetch is untouched on those pages.
     """
     from .settings import DEBUG_TOOLBAR_ENABLED
+
+    if request is not None and _toolbar_breaks_openapi_docs(request):
+        return False
 
     if not DEBUG_TOOLBAR_ENABLED:
         return False

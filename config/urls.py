@@ -1,37 +1,55 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
-from django.views.decorators.csrf import csrf_exempt
-from strawberry.django.views import AsyncGraphQLView
+from django.urls import include, path
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import IsAdminUser
 
-from config.settings.gql import ENABLE_GRAPHIQL
+docs_permission_classes = [IsAdminUser]
+docs_authentication_classes = [SessionAuthentication]
 
-from .schema import schema
-
-
-def trigger_error(request):
-    """Test route to trigger an error for GlitchTip verification."""
-    division_by_zero = 1 / 0  # noqa: F841
-    return
-
+api_v1_patterns = [
+    path("", include(("core.api.urls", "api"), namespace="api")),
+]
 
 urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/v1/", include(api_v1_patterns)),
     path(
-        "graphql/",
-        csrf_exempt(
-            AsyncGraphQLView.as_view(
-                schema=schema,
-                graphiql=ENABLE_GRAPHIQL,
-                multipart_uploads_enabled=True,
-            ),
+        "schema/",
+        SpectacularAPIView.as_view(
+            authentication_classes=docs_authentication_classes,
+            permission_classes=docs_permission_classes,
         ),
-        name="graphql",
+        name="schema",
     ),
-    path("glitchtip-debug/", trigger_error, name="glitchtip-debug"),
-    path("", admin.site.urls),
+    path(
+        "docs/",
+        SpectacularSwaggerView.as_view(
+            url_name="schema",
+            authentication_classes=docs_authentication_classes,
+            permission_classes=docs_permission_classes,
+        ),
+        name="schema-swagger-ui",
+    ),
+    path(
+        "redoc/",
+        SpectacularRedocView.as_view(
+            url_name="schema",
+            authentication_classes=docs_authentication_classes,
+            permission_classes=docs_permission_classes,
+        ),
+        name="schema-redoc",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 from config.settings.debug_toolbar.setup import DebugToolbarSetup  # noqa
+from config.settings.silk.setup import SilkSetup  # noqa
 
 urlpatterns = DebugToolbarSetup.do_urls(urlpatterns)
+urlpatterns = SilkSetup.do_urls(urlpatterns)

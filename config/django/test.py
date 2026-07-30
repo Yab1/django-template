@@ -2,22 +2,24 @@
 Test settings for pytest-django.
 
 This module provides optimized settings for running tests with pytest.
-It uses in-memory SQLite for faster test execution and disables
-unnecessary features that slow down tests.
+The test database inherits from base settings so we run against the same
+backend as production (PostgreSQL). SQLite is not viable here because
+several models in this codebase use Postgres-only constructs
+(e.g. ``django.contrib.postgres.fields.ArrayField`` with ``size=``,
+JSONB-backed fields, ``UniqueConstraint(condition=...)``, etc.) that
+SQLite cannot create.
+
+Django will create/drop a ``test_<DJANGO_DB_NAME>`` database automatically
+on first run; with ``--reuse-db`` it is kept between runs for speed.
 """
 
 from config.django.base import *  # noqa
 
-# Use in-memory database for faster tests
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": ":memory:",
-    },
-}
+# DATABASES intentionally NOT overridden here -- inherit Postgres from base.
 
 
-# Disable migrations for faster test setup
+# Disable migrations for faster test setup. The schema is built from model
+# definitions via sync_apps, which is fine because we run against Postgres.
 class DisableMigrations:
     def __contains__(self, item):
         return True
@@ -54,6 +56,9 @@ TENANT_ROUTING_ENABLED = False  # Disable tenant routing in tests
 # Disable debug toolbar in tests
 DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda request: False}
 
+# Disable silk in tests
+SILK_ENABLED = False
+
 # Disable file storage (use in-memory for tests)
 DEFAULT_FILE_STORAGE = "django.core.files.storage.InMemoryStorage"
 
@@ -61,6 +66,13 @@ DEFAULT_FILE_STORAGE = "django.core.files.storage.InMemoryStorage"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+    },
+}
+
+# Single-process tests: no Redis channel layer required
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
 

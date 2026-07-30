@@ -1,3 +1,7 @@
+import sentry_sdk
+from sentry_sdk.integrations.celery import CeleryIntegration
+from sentry_sdk.integrations.django import DjangoIntegration
+
 from config.env import env
 
 SENTRY_DSN = env("SENTRY_DSN", default="")
@@ -8,10 +12,6 @@ if SENTRY_DSN:
     send_pii = env.bool("SENTRY_SEND_DEFAULT_PII", default=False)  # type: ignore
     debug = env.bool("SENTRY_DEBUG", default=False)  # type: ignore
     track_performance = environment == "production"
-
-    import sentry_sdk
-    from sentry_sdk.integrations.celery import CeleryIntegration
-    from sentry_sdk.integrations.django import DjangoIntegration
 
     def traces_sampler(sampling_context):
         """

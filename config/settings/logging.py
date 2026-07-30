@@ -13,32 +13,6 @@ DEBUG_MODE = env.bool("DJANGO_DEBUG", default=True)  # type: ignore
 LOG_LEVEL = "DEBUG" if DEBUG_MODE else "INFO"
 
 
-class RequestIDFilter(logging.Filter):
-    """Injects a correlation_id into log records from django-guid."""
-
-    def filter(self, record):
-        # Try to get correlation_id from django-guid's context
-        # django-guid stores it in contextvars when EXPOSE_HEADER is True
-        correlation_id = None
-
-        # Check if django-guid has already added it to the record
-        if hasattr(record, "correlation_id") and record.correlation_id:
-            return True
-
-        # Try to get from django-guid's context variable
-        try:
-            from django_guid import get_guid
-
-            correlation_id = get_guid()
-        except (ImportError, AttributeError, RuntimeError):
-            # django-guid might not be initialized yet (e.g., during startup)
-            pass
-
-        # Set correlation_id on the record
-        record.correlation_id = correlation_id if correlation_id else "no-request-id"
-        return True
-
-
 # ANSI color codes
 class Colors:
     RESET = "\033[0m"
@@ -55,6 +29,65 @@ class Colors:
 
     # Other colors
     NAME = "\033[90m"  # Dark gray
+
+
+class TemporalActivityRetryFilter(logging.Filter):
+    """
+    Cleans up two categories of Temporal activity failure noise:
+
+    1. Intentional retry gates (RuntimeError ending in 'Retrying.'):
+       Downgrade to DEBUG and strip traceback — these are expected polling loops,
+       not real errors (e.g. waiting for vitals to be recorded).
+
+    2. Missing handler errors (UnknownActivityHandlerError):
+       Keep at WARNING but strip the 10-line Temporal SDK stacktrace — the error
+       message itself is already actionable ('Register one with @workflow_activity').
+    """
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        if "Completing activity as failed" not in str(record.getMessage()):
+            return True
+        exc_info = record.exc_info
+        if exc_info and exc_info[1] is not None:
+            exc = exc_info[1]
+            msg = str(exc)
+            if msg.rstrip().endswith("Retrying."):
+                record.levelno = logging.DEBUG
+                record.levelname = "DEBUG"
+                record.exc_info = None
+                record.exc_text = None
+            elif type(exc).__name__ == "UnknownActivityHandlerError":
+                record.exc_info = None
+                record.exc_text = None
+        return True
+
+
+class TemporalWorkflowCompletionFilter(logging.Filter):
+    """
+    Temporal logs 'Workflow raised failure' with a CancelledError traceback when a
+    workflow completes normally — the event loop cancels the wait_condition coroutine
+    as part of teardown. This is not a real failure. Rewrite those records to a clear
+    completion message and drop the misleading traceback.
+    """
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        if "Workflow raised failure" not in str(record.getMessage()):
+            return True
+        exc_info = record.exc_info
+        if exc_info and exc_info[0] is not None:
+            import asyncio
+
+            import temporalio.exceptions
+
+            if issubclass(exc_info[0], asyncio.CancelledError) or issubclass(
+                exc_info[0],
+                temporalio.exceptions.CancelledError,
+            ):
+                record.msg = "Workflow run ended (wait_condition cancelled — normal teardown, not a failure)"
+                record.args = ()
+                record.exc_info = None
+                record.exc_text = None
+        return True
 
 
 class SensitiveDataFilter(logging.Filter):
@@ -131,28 +164,31 @@ FORMATTERS = {
     "verbose": {
         "()": ColoredFormatter,
         "format": (
-            "%(levelname)s %(asctime)s [%(correlation_id)s] [%(process)d:%(thread)d] %(name)s.%(funcName)s:%(lineno)d - %(message)s"  # noqa: E501
+            "%(levelname)s %(asctime)s [%(process)d:%(thread)d] %(name)s.%(funcName)s:%(lineno)d - %(message)s"  # noqa: E501
         ),
         "datefmt": "%Y-%m-%d %H:%M:%S",
     },
     "simple": {
         "()": ColoredFormatter,
-        "format": "%(levelname)s %(asctime)s [%(correlation_id)s] %(name)s - %(message)s",
+        "format": "%(levelname)s %(asctime)s %(name)s - %(message)s",
         "datefmt": "%Y-%m-%d %H:%M:%S",
     },
     "plain": {
-        "format": "%(levelname)s %(asctime)s [%(correlation_id)s] %(name)s - %(message)s",
+        "format": "%(levelname)s %(asctime)s %(name)s - %(message)s",
         "datefmt": "%Y-%m-%d %H:%M:%S",
     },
 }
 
 # Filters for professional logging
 FILTERS = {
-    "request_id": {
-        "()": RequestIDFilter,
-    },
     "sensitive_data": {
         "()": SensitiveDataFilter,
+    },
+    "temporal_workflow_completion": {
+        "()": TemporalWorkflowCompletionFilter,
+    },
+    "temporal_activity_retry": {
+        "()": TemporalActivityRetryFilter,
     },
 }
 
@@ -163,7 +199,7 @@ HANDLERS = {
         "class": "logging.StreamHandler",
         "formatter": "simple",
         "level": "DEBUG",
-        "filters": ["request_id", "sensitive_data"],
+        "filters": ["sensitive_data", "temporal_workflow_completion", "temporal_activity_retry"],
     },
 }
 
@@ -180,7 +216,7 @@ if DEBUG_MODE:
             "backupCount": 10,
             "maxBytes": 10 * 1024 * 1024,  # 10MB
             "encoding": "utf-8",
-            "filters": ["request_id", "sensitive_data"],
+            "filters": ["sensitive_data"],
         },
         "detailed_file_handler": {
             "class": "logging.handlers.RotatingFileHandler",
@@ -191,7 +227,7 @@ if DEBUG_MODE:
             "backupCount": 10,
             "maxBytes": 10 * 1024 * 1024,  # 10MB
             "encoding": "utf-8",
-            "filters": ["request_id", "sensitive_data"],
+            "filters": ["sensitive_data"],
         },
         "error_file_handler": {
             "class": "logging.handlers.RotatingFileHandler",
@@ -202,7 +238,7 @@ if DEBUG_MODE:
             "backupCount": 20,
             "maxBytes": 10 * 1024 * 1024,  # 10MB
             "encoding": "utf-8",
-            "filters": ["request_id", "sensitive_data"],
+            "filters": ["sensitive_data"],
         },
     })
 
@@ -269,25 +305,15 @@ LOGGERS = {
         "level": "DEBUG",
         "propagate": False,
     },
-    "core.patients": {
-        "handlers": app_handlers,
-        "level": "DEBUG",
-        "propagate": False,
-    },
-    "core.fhir": {
-        "handlers": app_handlers,
-        "level": "DEBUG",
-        "propagate": False,
-    },
     # Third-party loggers
     "celery": {
         "handlers": third_party_handlers,
         "level": "INFO",
         "propagate": False,
     },
-    "grpc": {
+    "temporalio": {
         "handlers": third_party_handlers,
-        "level": "INFO",
+        "level": "WARNING",
         "propagate": False,
     },
     # Security and audit
