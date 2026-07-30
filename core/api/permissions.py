@@ -12,11 +12,11 @@ class MustChangePasswordPermission(BasePermission):
     """
     Blocks all authorized API endpoints for users who have ``must_change_password=True``.
 
-    Set automatically when a practitioner account is provisioned with a temporary
+    Set automatically when an account is provisioned with a temporary
     password. Cleared by ``_apply_password_change`` once the user sets a permanent
     password — either via the token-based reset email link
-    (POST /api/v1/auth/password-reset/confirm/) or the authenticated change-password
-    endpoint (POST /api/v1/auth/me/password/).
+    (POST /api/v1/authentication/password-reset/confirm/) or the authenticated
+    change-password endpoint (POST /api/v1/authentication/me/password/).
 
     Views that must remain accessible during forced-reset state (e.g. ``MeApi``,
     ``CurrentUserPasswordChangeApi``) should set:

@@ -1,7 +1,7 @@
 """
 djangorestframework-simplejwt configuration.
 
-Secure defaults for EMR/EHR: short-lived access tokens, refresh rotation,
+Secure defaults: short-lived access tokens, refresh rotation,
 blacklist after rotation, and optional dedicated signing key via DJANGO_JWT_SIGNING_KEY.
 """
 
@@ -41,4 +41,6 @@ SIMPLE_JWT = {
     "JTI_CLAIM": "jti",
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
     "CHECK_USER_IS_ACTIVE": True,
+    "TOKEN_OBTAIN_SERIALIZER": "core.authentication.serializers.CustomTokenObtainPairSerializer",
+    "TOKEN_BLACKLIST_SERIALIZER": "core.authentication.serializers.CustomTokenBlacklistSerializer",
 }
