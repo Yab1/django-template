@@ -12,6 +12,10 @@ Django application template with REST APIs (DRF), JWT auth, Celery, and shared s
 
 Copy `.env.example` to `.env` and configure the required environment variables for your setup.
 
+## Documentation
+
+Project docs: **[docs/index.md](docs/index.md)** (getting started, architecture, REST API, guides).
+
 ## Quick Start
 
 For detailed commands and setup instructions, see the [Makefile](Makefile) — run `make help` to see all available commands.

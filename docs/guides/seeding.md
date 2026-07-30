@@ -1,58 +1,36 @@
 # Seeding Guide
 
-This guide covers data seeding for the EHR Practitioner Service.
+This template ships **one** seed path: superusers from a YAML secrets file.
 
-## Overview
-
-The service includes a comprehensive seeding system for generating realistic test data using Faker.
-
-## Quick Start
+## Quick start
 
 ```bash
-# Seed practitioners (default: 10 records)
-make seed-practitioners
-
-# Seed with custom count
-make seed-practitioners COUNT=50
-
-# Clear existing data and seed
-make seed-practitioners COUNT=100 CLEAR=1
+make seed-superuser
+make seed-superuser UPDATE=1   # update existing accounts
 ```
 
-## Features
-
-- **Realistic Data**: Uses Faker to generate realistic test data
-- **Complete Relationships**: Creates related objects with proper relationships
-- **FHIR Compliant**: All data follows FHIR standards
-- **Configurable**: Control which relationships to create and how many
-
-## Seeding Commands
-
-### Practitioners
+Equivalent:
 
 ```bash
-make seed-practitioners COUNT=10
+python manage.py load_superusers
+python manage.py load_superusers --update
+python manage.py load_superusers --dry-run
 ```
 
-### Practitioner Roles
+Requires `DJANGO_SECRETS_FILE_PATH` (see [Secrets Management](secrets-management.md)).
 
-```bash
-make seed-practitioner-roles COUNT=10
-```
+## What it creates
 
-## Custom Seeding
+- Staff / superuser / admin flags set
+- Username from YAML `username` or email local-part
+- Optional fixed UUID via `id` in YAML
 
-You can create custom seeding scripts:
+Password must satisfy Django validators (length, common passwords, HIBP where configured).
 
-```python
-from core.practitioners.factories import PractitionerFactory
+## Not included
 
-# Create 10 practitioners
-practitioners = PractitionerFactory.create_batch(10)
-```
+There are no practitioner / patient / FHIR / terminology seed targets in this template. Domain seeds belong in product apps you add later.
 
-## Related Documentation
+## Command docs
 
-- [Development Guide](development.md)
-- [Testing Guide](testing.md)
-
+Longer reference: [`core/common/management/commands/docs/load_superusers.md`](../../core/common/management/commands/docs/load_superusers.md).

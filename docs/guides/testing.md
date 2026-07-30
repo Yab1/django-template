@@ -1,95 +1,58 @@
 # Testing Guide
 
-This guide covers testing practices and guidelines for the EHR Practitioner Service.
+How we structure and run tests in this template.
 
-## Testing Framework
-
-The service uses:
-- **pytest** - Testing framework
-- **pytest-django** - Django integration
-- **pytest-cov** - Coverage reporting
-- **factory-boy** - Test data generation
-- **faker** - Realistic test data
-
-## Test Organization
-
-Tests are organized by domain and type:
-
-```
-core/
-└── practitioners/
-    └── tests/
-        ├── models/
-        │   └── test_practitioner.py
-        ├── services/
-        │   └── test_practitioner_service.py
-        └── mutations/
-            └── test_create_practitioner.py
-```
-
-## Writing Tests
-
-### Model Tests
-
-```python
-import pytest
-from core.practitioners.models import Practitioner
-
-@pytest.mark.django_db
-def test_practitioner_creation():
-    practitioner = Practitioner.objects.create(
-        name="Dr. John Doe",
-        active=True
-    )
-    assert practitioner.id is not None
-    assert practitioner.active is True
-```
-
-### Service Tests
-
-```python
-from core.practitioners.services import PractitionerService
-
-@pytest.mark.django_db
-def test_create_practitioner():
-    service = PractitionerService()
-    practitioner = service.create(name="Dr. Jane Doe")
-    assert practitioner.name == "Dr. Jane Doe"
-```
-
-## Running Tests
+## Run tests
 
 ```bash
-# All tests
-pytest
-
-# With coverage
-pytest --cov=core --cov-report=html
-
-# Specific test
-pytest core/practitioners/tests/test_models.py
-
-# Parallel execution
-pytest -n auto
+make test
+# or
+uv run pytest
 ```
 
-## Test Coverage
+Use `config.django.test` as the settings module (configured in project pytest config when present).
 
-- Target: 80% minimum coverage
-- Run: `pytest --cov=core --cov-report=html`
-- View: Open `htmlcov/index.html` in browser
+## What to test
 
-## Best Practices
+Prefer tests that cover **business logic**:
 
-1. Write tests before code (TDD)
-2. Test edge cases and error conditions
-3. Use descriptive test names
-4. Keep tests isolated and independent
-5. Use fixtures for common setup
-6. Mock external dependencies
+1. **Services** — writes, validation, side effects (hit the database)
+2. **Selectors** — query/filter behavior
+3. **Models** — only when `clean()`, properties, or methods matter
+4. **APIs** — thin smoke tests when useful; mock external I/O
 
-## Related Documentation
+Mock Celery `.delay` / `.apply_async` and third-party HTTP.
 
-- [Development Guide](development.md)
-- [Seeding Guide](seeding.md)
+## Layout
 
+Match modules with tests under the app:
+
+```text
+core/<app>/tests/
+  __init__.py
+  factories.py          # optional factory_boy
+  services/
+    test_<service_name>.py
+  selectors/
+    test_<selector_name>.py
+  models/
+    test_<model_name>.py
+  apis/                 # optional
+    test_....py
+```
+
+Naming:
+
+- File: `test_<thing>.py`
+- Class: `<Thing>Tests`
+
+Example already in tree: `core/authentication/tests/test_login_events.py` (JWT obtain/blacklist + easy-audit events). Note responses may be envelope-wrapped (`result.access`).
+
+## Factories
+
+`factory_boy` and `faker` are available. Prefer factories or services for setup over ad-hoc fixtures when building domain tests.
+
+## Related
+
+- [Django Styleguide](../standards/django-styleguide.md) — testing section
+- [Getting Started](../getting-started.md)

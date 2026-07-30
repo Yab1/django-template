@@ -1,66 +1,57 @@
 # Deployment Guide
 
-This guide covers deployment procedures for the EHR Practitioner Service.
+Production-oriented deploy notes for this template.
 
-## Deployment Environments
+## Layout
 
-### Development
-
-Development deployment using Docker Compose.
-
-See `docker/development/README.md` for details.
-
-### Production
-
-Production deployment with proper security and scaling.
-
-See `docker/production/README.md` for details.
-
-## Deployment Steps
-
-### 1. Pre-Deployment
-
-- Run all tests: `pytest`
-- Check code quality: `ruff check .`
-- Review migrations
-- Update environment variables
-
-### 2. Build
-
-```bash
-docker build -t ehr-practitioner-service:latest .
+```text
+deployment/
+  scripts/deploy.sh      # blue-green Docker deploy
+  entrypoint.sh          # migrate, collectstatic, then gunicorn
+  gunicorn.config.py
+  nginx/                 # active upstream config for proxy
+  Jenkinsfile            # CI/CD pipeline (when used)
 ```
 
-### 3. Deploy
+## Health check
 
-```bash
-docker-compose up -d
+Deploy waits on:
+
+```text
+GET /health/
 ```
 
-### 4. Post-Deployment
+Not under `/api/v1/`. Returns 200 when probes are ok / `not_configured`, 503 when unhealthy.
 
-- Verify health endpoints
-- Check logs
-- Monitor metrics
-- Run smoke tests
+See [REST API Overview](../api/rest/overview.md) for probe details.
 
-## Environment Variables
+## Blue-green (Docker)
 
-Required environment variables:
-- Database configuration
-- Secret keys
-- Service URLs
-- Authentication settings
+[`deployment/scripts/deploy.sh`](../../deployment/scripts/deploy.sh):
 
-## Monitoring
+1. Bring up the inactive slot
+2. Wait for migrations/collectstatic marker, then HTTP health
+3. Switch nginx upstream
+4. Stop the old slot
 
-- Health checks
-- Log aggregation
-- Error tracking (Sentry)
-- Performance monitoring
+Proxy / slot names use the `vendor_management_*` prefix in this template.
 
-## Related Documentation
+## Runtime expectations
 
-- [Development Guide](development.md)
-- [Configuration Reference](../reference/configuration.md)
+- Set production env (see [Configuration](../reference/configuration.md) and `.env.example`)
+- `DJANGO_DEBUG=False`, strong `DJANGO_SECRET_KEY` / JWT signing key
+- Secrets file available to the container if you run `load_superusers` in ops (usually seed once, not every deploy)
+- Celery worker + beat if you schedule tasks (`CELERY_BEAT_SCHEDULE` starts empty)
 
+## Local vs production
+
+| Concern | Local | Production |
+|---------|-------|------------|
+| Settings | `config.django.base` / local overlays | production settings + env |
+| Static | WhiteNoise / runserver | collectstatic in entrypoint |
+| Process | `make run` | gunicorn via entrypoint |
+
+## Related
+
+- [Getting Started](../getting-started.md)
+- [Secrets Management](secrets-management.md)

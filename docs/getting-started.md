@@ -1,85 +1,69 @@
 # Getting Started
 
-This guide will help you get started with the EHR Practitioner Service.
+Local setup for Vendor Management Core.
 
 ## Prerequisites
 
 - Python 3.12+
-- Docker & Docker Compose
+- [uv](https://docs.astral.sh/uv/) (recommended) or an equivalent virtualenv
+- Docker & Docker Compose (optional, for Postgres/Redis/RabbitMQ)
 - PostgreSQL (or use Docker)
 
-## Quick Start
-
-### 1. Clone the Repository
+## 1. Clone and configure env
 
 ```bash
-git clone <repository-url>
-cd ehr-practitioner-service
-```
-
-### 2. Set Up Environment
-
-```bash
-# Copy environment file
 cp .env.example .env
-
-# Configure environment variables
-# Edit .env with your settings
+# Set at least DJANGO_SECRET_KEY, database, and DJANGO_SECRETS_FILE_PATH
 ```
 
-### 3. Install Dependencies
+Point secrets at a local YAML file (gitignored):
 
 ```bash
-# Using Makefile (recommended)
+# .env
+DJANGO_SECRETS_FILE_PATH=.secrets.yml
+```
+
+See [Secrets Management](guides/secrets-management.md) for the YAML shape.
+
+## 2. Install and migrate
+
+```bash
 make update
-
-# Or manually
-pip install -e ".[dev]"
 ```
 
-### 4. Run Migrations
+This installs dependencies and runs migrations. Use `make help` for all targets.
 
-```bash
-python manage.py migrate
-```
-
-### 5. Create Superuser
+## 3. Seed a superuser
 
 ```bash
 make seed-superuser
+# Update existing accounts:
+make seed-superuser UPDATE=1
 ```
 
-### 6. Start Development Server
+Username defaults to the email local-part (e.g. `yeabsera.dev` for `yeabsera.dev@gmail.com`). Password must pass Django validators (including HIBP).
+
+## 4. Run the server
 
 ```bash
 make run
 ```
 
-The service will be available at `http://localhost:8000`
+Default local URL uses `DJANGO_APP_DOMAIN` / `DJANGO_APP_PORT` (often `http://localhost:7000`).
 
-## Next Steps
+## Smoke checks
 
-- Read the [Development Guide](guides/development.md) for detailed development setup
-- Check the [Architecture Overview](architecture/overview.md) to understand the system
-- Review the [API Documentation](api/graphql/overview.md) for API usage
-- Follow the [Modeling Standards](standards/modeling.md) when creating new models
+| URL | Purpose |
+|-----|---------|
+| `GET /health/` | Infra health (DB, cache, RabbitMQ, MinIO when configured) |
+| `GET /docs/` | Swagger UI (admin session auth) |
+| `GET /schema/` | OpenAPI schema |
+| `POST /api/v1/authentication/token/` | Obtain JWT |
 
-## Common Commands
+Versioned REST APIs live under `/api/v1/`. Details: [REST API Overview](api/rest/overview.md).
 
-```bash
-# Run tests
-pytest
+## Next
 
-# Run tests with coverage
-pytest --cov=core --cov-report=html
-
-# Start development server
-make run
-
-# Run migrations
-python manage.py migrate
-
-# Create migrations
-python manage.py makemigrations
-```
-
+- [Development guide](guides/development.md)
+- [Postman collections](../postman/) under `postman/<app>/`
+- [Architecture overview](architecture/overview.md)

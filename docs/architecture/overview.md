@@ -1,70 +1,60 @@
 # Architecture Overview
 
-This document provides a high-level overview of the EHR Practitioner Service architecture.
+High-level shape of Vendor Management Core as a reusable Django template.
 
-## System Architecture
+## Stack
 
-The EHR Practitioner Service is built using:
+- **Django** — web framework and ORM
+- **DRF** — REST APIs under `/api/v1/`
+- **SimpleJWT** — bearer access/refresh tokens
+- **PostgreSQL** — primary database
+- **Celery** — async tasks (queue name `vendor_management`)
+- **Redis** — cache (and Channels layer when used)
+- **MinIO / django-storages** — optional object storage (probed by health when configured)
 
-- **Django**: Web framework
-- **Strawberry Django**: GraphQL API framework
-- **gRPC**: Inter-service communication
-- **PostgreSQL**: Database (multi-tenant with isolated databases)
-- **Celery**: Asynchronous task processing
+This template is **single-tenant** and **REST-first**. There is no GraphQL, gRPC, or FHIR layer in the current codebase.
 
-## Key Components
+## Application layout
 
-### 1. Multi-Tenant Architecture
-
-The service implements a multi-tenant architecture where each tenant has:
-- Isolated database
-- Independent data storage
-- Secure data isolation
-
-See [Multi-Tenant Architecture](multi-tenant.md) for details.
-
-### 2. GraphQL API
-
-Strawberry Django provides a GraphQL API for flexible data access.
-
-See [GraphQL API Documentation](../api/graphql/overview.md) for details.
-
-### 3. gRPC Services
-
-gRPC services handle inter-service communication with mTLS authentication.
-
-See [gRPC API Documentation](../api/grpc/overview.md) for details.
-
-### 4. FHIR Compliance
-
-All data models follow FHIR standards for healthcare data interoperability.
-
-See [Data Models](data-models.md) for details.
-
-## Data Flow
-
-```
-Client → GraphQL API → Django ORM → Database Router → Tenant Database
-                    ↓
-                gRPC Services → Other Services
+```text
+core/
+  api/             # Envelope, pagination, permissions, URL mount
+  common/          # BaseModel, shared utils, management commands
+  users/           # User + password history, user APIs
+  authentication/  # JWT + /me + password change/reset confirm
+  systems/         # Health check selectors/API (mounted at /health/)
+config/
+  django/          # Django settings (base, local, production, test)
+  settings/        # Celery, JWT, CORS, logging, etc.
 ```
 
-## Database Routing
+## Layers (HackSoft)
 
-The service uses database routing to ensure tenant data isolation.
+Business logic lives in **services** (writes) and **selectors** (reads). APIs stay thin: validate → call service/selector → serialize.
 
-See [Database Routing](database-routing.md) for details.
+See [Django Styleguide](../standards/django-styleguide.md) and `.cursor/rules/django-styleguide.mdc`.
 
-## Security
+```mermaid
+flowchart LR
+  Client --> API
+  API --> Services
+  API --> Selectors
+  Services --> Models
+  Selectors --> Models
+  Tasks --> Services
+```
 
-- Multi-tenant data isolation
-- mTLS for gRPC communication
-- Keycloak authentication integration
-- Audit logging
+## Auth and authorization
 
-## Deployment
+- Authentication: JWT via `core.authentication` (obtain / refresh / verify / blacklist).
+- `must_change_password` blocks most authenticated APIs until cleared (password change or reset confirm).
+- Policy hooks exist (`AuthorizedAPIView`, `PolicyPermission`) but currently gate on **staff/superuser** until a real security app is added.
 
-The service can be deployed using Docker.
+## Health
 
-See [Deployment Guide](../guides/deployment.md) for details.
+`GET /health/` (not under `/api/v1/`) probes database, cache, RabbitMQ, and MinIO when used. Deploy scripts use this path.
 
+## Related
+
+- [REST API Overview](../api/rest/overview.md)
+- [ADR template](adr/0001-template.md)

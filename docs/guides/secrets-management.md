@@ -1,57 +1,52 @@
-# Secrets Management Guide
+# Secrets Management
 
-This guide covers secrets management in the EHR Practitioner Service.
+How this template loads sensitive bootstrap credentials (superusers).
 
 ## Overview
 
-The service includes a secure secrets management system for handling sensitive configuration data like superuser credentials.
-
-## Quick Start
+Superuser credentials live in a **YAML file** on disk. The path is set with:
 
 ```bash
-# Load superusers from YAML secrets file
-make seed-superuser
+DJANGO_SECRETS_FILE_PATH=.secrets.yml
+```
 
-# Update existing superusers
+`.secrets.yml` is gitignored. Do not commit real passwords.
+
+## Quick start
+
+```bash
+# .env
+DJANGO_SECRETS_FILE_PATH=.secrets.yml
+
+make seed-superuser
 make seed-superuser UPDATE=1
 ```
 
-## Secrets File Format
-
-Secrets are stored in YAML format:
+## YAML format
 
 ```yaml
 superusers:
   - email: admin@example.com
-    password: secure_password
-    is_superuser: true
-    is_staff: true
+    phone_number: 251900000000
+    password: "use-a-strong-unique-password"
+    # optional:
+    username: admin          # default: email local-part
+    id: afe45de5-a6fe-46fb-b0da-c27a26879012
+    first_name: Admin        # ignored by User model if fields removed; safe to omit
+    last_name: User
 ```
 
-## Configuration
-
-The secrets file path is configured via environment variable:
-
-```bash
-export SECRETS_FILE_PATH=/path/to/secrets.yaml
-```
+Required fields per entry: `email`, `password`, `phone_number`.
 
 ## Security
 
-- Secrets file never committed to Git
-- Use environment variables for file path
-- Store secrets in secure location
-- Rotate secrets regularly
+- Keep the file out of git and shared channels
+- Use unique strong passwords (HIBP-backed validators may reject breached passwords)
+- Prefer a dedicated JWT signing key in production (`DJANGO_JWT_SIGNING_KEY`)
+- Rotate credentials when compromised
 
-## Features
+## Related
 
-- **YAML-based**: Store secrets in YAML format
-- **Environment-driven**: File path configured via env var
-- **Secure**: Secrets file never committed
-- **Flexible**: Works with Docker, local, and production
-
-## Related Documentation
-
-- [Development Guide](development.md)
-- [Deployment Guide](deployment.md)
-
+- [Seeding](seeding.md)
+- Command docs: `core/common/management/commands/docs/load_superusers.md`
+- Loader: `core/common/management/commands/secrets_loader.py`

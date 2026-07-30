@@ -1,75 +1,60 @@
-# EHR Practitioner Service Documentation
+# Vendor Management Core Documentation
 
-Welcome to the EHR Practitioner Service documentation. This documentation provides comprehensive guides, API references, architecture details, and standards for developers and AI agents.
+Django application template with REST APIs (DRF), JWT auth, Celery, and shared scaffolding tools.
 
 ## Quick Navigation
 
 ### Getting Started
 
-- [Getting Started Guide](getting-started.md) - Quick start guide for new developers
+- [Getting Started](getting-started.md) — local setup, seed superuser, run server
 
 ### Architecture
 
-- [Architecture Overview](architecture/overview.md) - System architecture overview
-- [Multi-Tenant Architecture](architecture/multi-tenant.md) - Multi-tenant architecture details
-- [Data Models](architecture/data-models.md) - Data model structure
-- [Database Routing](architecture/database-routing.md) - Database routing mechanism
-- [Architecture Decision Records](architecture/adr/) - ADRs for major architectural decisions
+- [Architecture Overview](architecture/overview.md) — apps, layers, stack
+- [Architecture Decision Records](architecture/adr/) — ADR template and decisions
 
 ### APIs
 
-- [GraphQL API](api/graphql/overview.md) - GraphQL API documentation
-- [gRPC API](api/grpc/overview.md) - gRPC API documentation
+- [REST API Overview](api/rest/overview.md) — auth, users, health, envelope, Postman
 
 ### Guides
 
-- [Development Guide](guides/development.md) - Development setup and workflow
-- [Testing Guide](guides/testing.md) - Testing practices and guidelines
-- [Deployment Guide](guides/deployment.md) - Deployment procedures
-- [Seeding Guide](guides/seeding.md) - Data seeding guide
-- [Secrets Management](guides/secrets-management.md) - Secrets management guide
+- [Development](guides/development.md) — workflow and project layout
+- [Testing](guides/testing.md) — pytest layout and practices
+- [Deployment](guides/deployment.md) — deploy scripts and health checks
+- [Seeding](guides/seeding.md) — `seed-superuser`
+- [Secrets Management](guides/secrets-management.md) — `.secrets.yml` and env
 
 ### Standards
 
-- [Django Modeling Standard](standards/modeling.md) - Model creation standards for AI agents
-- [Django Fixtures Standard](standards/fixtures.md) - Fixture creation standards for AI agents
-- [Django Admin Standard](standards/admin.md) - Admin interface creation standards for AI agents
-- [GraphQL Codegen Standard](standards/graphql-codegen.md) - GraphQL codegen configuration standards for AI agents
+- [Django Styleguide](standards/django-styleguide.md) — HackSoft layers (Cursor rule)
+- [Django Admin Standard](standards/admin.md) — admin conventions (Cursor rule)
 
 ### Reference
 
-- [Models Reference](reference/models.md) - Models reference documentation
-- [Services Reference](reference/services.md) - Services reference documentation
-- [Configuration Reference](reference/configuration.md) - Configuration reference
-- [Codegen Configuration Reference](reference/codegen-config.md) - Complete reference for codegen configuration options
+- [Configuration](reference/configuration.md) — settings layout and env prefixes
 
-## Project Overview
+## Stack
 
-EHR Practitioner Service is a Django application built with Strawberry Django for GraphQL APIs, featuring gRPC support, multi-tenant architecture with isolated databases, and FHIR-compliant data models.
+- **Django 5.2** + **Django REST Framework**
+- **SimpleJWT** (access/refresh, blacklist)
+- **Celery** + RabbitMQ (optional broker)
+- **PostgreSQL**, Redis (cache / channels)
+- **drf-spectacular** (OpenAPI at `/schema/`, Swagger at `/docs/`)
 
-### Key Features
+## Apps
 
-- **Strawberry Django**: GraphQL API framework
-- **gRPC**: Inter-service communication with mTLS authentication
-- **Multi-tenant**: Isolated database per tenant
-- **FHIR**: FHIR-compliant data models and types
-- **Django Extensions**: Django admin, authentication, and audit logging
+| App | Role |
+|-----|------|
+| `core.common` | BaseModel, shared utils, management commands |
+| `core.users` | User model, list/update, login events |
+| `core.authentication` | JWT obtain/refresh/verify/blacklist, `/me`, password flows |
+| `core.systems` | Infrastructure health probe (`/health/`) |
+| `core.api` | Envelope, pagination, exception handling, URL mount |
 
 ## Contributing
 
-When contributing to this project, please:
-
-1. Follow the [Django Modeling Standard](standards/modeling.md) for all model creation
-2. Follow the [Django Admin Standard](standards/admin.md) for all admin interface creation
-3. Follow the [Django Fixtures Standard](standards/fixtures.md) for all fixture creation
-4. Follow the [GraphQL Codegen Standard](standards/graphql-codegen.md) for all GraphQL codegen configuration
-5. Update relevant documentation when making changes
-6. Ensure all tests pass before submitting changes
-7. Follow the established code style and conventions
-
-## Support
-
-For technical questions or contributions, contact:
-
-- **Developer**: [Yeabsera](https://github.com/Yab1)
-- **Organization**: [Tilla Health Insurance](https://tillahealth.com/en-US)
+1. Follow the [Django Styleguide](standards/django-styleguide.md) (services / selectors / thin APIs).
+2. Follow the [Admin Standard](standards/admin.md) for admin changes.
+3. Update docs when behavior or public APIs change.
+4. Prefer testing services and selectors; run `make test` / `make lint` before pushing.

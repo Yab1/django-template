@@ -1,90 +1,77 @@
 # Development Guide
 
-This guide covers development setup, workflow, and best practices for the EHR Practitioner Service.
+Day-to-day development for Vendor Management Core.
 
-## Development Setup
+## Tooling
 
-### Prerequisites
+- **Package manager:** `uv` (see `pyproject.toml` / `uv.lock`)
+- **Commands:** root `Makefile` — run `make help`
+- **Settings module:** `config.django.base` (override via `DJANGO_SETTINGS_MODULE`)
 
-- Python 3.12+
-- PostgreSQL
-- Docker & Docker Compose (optional)
-- Git
-
-### Initial Setup
-
-1. Clone the repository
-2. Create virtual environment
-3. Install dependencies: `make update`
-4. Configure environment variables
-5. Run migrations: `python manage.py migrate`
-6. Start development server: `make run`
-
-## Development Workflow
-
-### Code Style
-
-- Follow PEP 8 guidelines
-- Use Ruff for linting and formatting
-- Run `ruff check .` and `ruff format .` before committing
-
-### Testing
-
-- Write tests for all new features
-- Run tests: `pytest`
-- Maintain 80%+ test coverage
-- Use pytest fixtures for test data
-
-### Model Creation
-
-- Follow the [Django Modeling Standard](../standards/modeling.md)
-- Include proper docstrings
-- Add help_text to all fields
-- Use proper related_name patterns
-
-### Git Workflow
-
-- Create feature branches
-- Write descriptive commit messages
-- Run tests before pushing
-- Create pull requests for review
-
-## Common Tasks
-
-### Creating Migrations
+Common targets:
 
 ```bash
-python manage.py makemigrations
-python manage.py migrate
+make update    # deps + migrations
+make run       # development server
+make test      # pytest
+make lint      # project lint target
+make seed-superuser
 ```
 
-### Running Tests
+## Project layout
+
+```text
+core/<app>/
+  models/       # or models.py
+  services/     # writes
+  selectors/    # reads
+  apis/         # thin DRF views
+  serializers/
+  urls.py
+  admin.py
+config/
+  django/       # Django settings
+  settings/     # Celery, JWT, CORS, …
+postman/<app>/  # Postman collections
+```
+
+Wire new app URLs in [`core/api/urls.py`](../../core/api/urls.py) and register the app in `LOCAL_APPS` (`config/django/base.py`).
+
+## Style
+
+Follow the HackSoft-inspired layers:
+
+- Writes → **services** (`<entity>_<action>`, keyword-only args)
+- Reads → **selectors**
+- APIs → validate → call service/selector → serialize (no domain logic in views)
+
+Cursor rule: [`.cursor/rules/django-styleguide.mdc`](../../.cursor/rules/django-styleguide.mdc)  
+Doc pointer: [Django Styleguide](../standards/django-styleguide.md)
+
+Admin: [`.cursor/rules/admin-standard.mdc`](../../.cursor/rules/admin-standard.mdc)
+
+## Scaffolding
+
+Management helpers under `core/common/management/commands/`:
+
+- `create_app` — new Django app scaffold
+- `scaffold_standard_api` / serializers — generate REST boilerplate
+- `load_superusers` — seed from secrets YAML
+- `generate_postman_collection` — optional generator for Postman
+
+Command docs: `core/common/management/commands/docs/`.
+
+## Git hooks
 
 ```bash
-# All tests
-pytest
-
-# With coverage
-pytest --cov=core --cov-report=html
-
-# Specific test file
-pytest core/practitioners/tests/test_models.py
+make install-hooks   # or make precommit
 ```
 
-### Seeding Data
+Pre-push may block direct pushes to `main` (use a branch + PR).
 
-```bash
-make seed-practitioners COUNT=10
-```
+## Useful URLs (local)
 
-## Debugging
-
-- Use Django Debug Toolbar in development
-- Check logs in `logs/` directory
-- Use Django shell: `python manage.py shell`
-
-## Related Documentation
-
-- [Testing Guide](testing.md)
-- [Modeling Standard](../standards/modeling.md)
-
+- App: `http://localhost:7000/` (port from env)
+- Health: `/health/`
+- Swagger: `/docs/`
+- API: `/api/v1/`
