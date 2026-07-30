@@ -1,7 +1,7 @@
 # ==============================================================================
 # Django Management
 # ==============================================================================
-.PHONY: run migrate makemigrate dry-migrate shell superuser seed-superuser collectstatic flush seed-patients django-check migrations
+.PHONY: run migrate makemigrate dry-migrate shell superuser collectstatic flush django-check migrations postman-collection
 
 # ==============================================================================
 # Server & Development
@@ -15,6 +15,26 @@ shell: ## Open Django shell
 
 django-check: ## Check Django health and perform checks
 	$(MANAGE) check
+
+# ==============================================================================
+# Postman
+# ==============================================================================
+postman-collection: ## Generate Postman collection JSON (APP= required; optional: RESOURCE, CATEGORY, OUTPUT, NAME, …)
+	@$(if $(APP),,$(error APP= is required. Example: make postman-collection APP=billing RESOURCE=charge_item))
+	$(call title,Generating Postman collection for $(APP))
+	$(MANAGE) generate_postman_collection $(APP) \
+		$(if $(RESOURCE),--resource $(RESOURCE),) \
+		$(if $(CATEGORY),--category $(CATEGORY),) \
+		$(if $(EXCLUDE_CATEGORY),--exclude-category $(EXCLUDE_CATEGORY),) \
+		$(if $(OUTPUT),--output $(OUTPUT),) \
+		$(if $(NAME),--name $(NAME),) \
+		$(if $(filter true,$(DRY_RUN)),--dry-run,) \
+		$(if $(filter true,$(MERGE)),--merge,) \
+		$(if $(filter true,$(MANIFEST)),--manifest,) \
+		$(if $(filter true,$(SKIP_RESPONSES)),--skip-responses,) \
+		$(if $(filter true,$(SKIP_SCRIPTS)),--skip-scripts,) \
+		$(if $(PR),--pr $(PR),)
+	$(call ok,Postman collection generated)
 
 # ==============================================================================
 # Migrations
@@ -38,19 +58,11 @@ dry-migrate: ## Dry run migrations
 flush: ## Flush database
 	$(MANAGE) flush --noinput
 
-seed-patients: ## Seed patient data (COUNT=10, use --clear to clear existing)
-	$(call title,Seeding patients)
-	$(MANAGE) seed_patients --count $(or $(COUNT),10) $(if $(CLEAR),--clear,)
-
 # ==============================================================================
 # User Management
 # ==============================================================================
 superuser: ## Create superuser
 	$(MANAGE) createsuperuser
-
-seed-superuser: ## Load superusers from YAML secrets file (use --update to update existing)
-	$(call title,Loading superusers from secrets file)
-	$(MANAGE) load_superusers $(if $(UPDATE),--update,)
 
 # ==============================================================================
 # Static Files

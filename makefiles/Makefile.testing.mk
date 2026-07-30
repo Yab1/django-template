@@ -1,7 +1,7 @@
 # ==============================================================================
 # Testing
 # ==============================================================================
-.PHONY: test test-cov test-html test-xml test-fast test-watch test-app test-models test-services test-mutations test-queries test-unit test-integration pytest open-coverage
+.PHONY: test test-cov test-html test-xml test-fast test-watch test-app test-models test-services test-mutations test-queries test-unit test-integration test-create-db pytest open-coverage
 
 test: ## Run all tests
 	$(call title,Running all tests)
@@ -56,6 +56,10 @@ test-unit: ## Run unit tests (marked with @pytest.mark.unit)
 test-integration: ## Run integration tests (marked with @pytest.mark.integration)
 	$(call title,Running integration tests)
 	uv run python -m pytest -m integration --cov=core --cov-report=term-missing
+
+test-create-db: ## Recreate pytest DB after migrations (ARGS= optional paths, e.g. ARGS="core/lab/tests/ -q")
+	$(call title,Recreating pytest database and running tests)
+	uv run python -m pytest --create-db $(ARGS)
 
 pytest: test-cov ## Alias for test-cov (backward compatibility)
 
