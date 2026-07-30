@@ -11,7 +11,7 @@ DEPLOY_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 ACTIVE_SLOT_FILE="$DEPLOY_DIR/.active-slot"
 NGINX_TEMPLATE="$DEPLOY_DIR/nginx/app-active.conf.template"
 NGINX_ACTIVE="$DEPLOY_DIR/nginx/app-active.conf"
-HEALTH_PATH="/api/v1/systems/health-check/"
+HEALTH_PATH="/health/"
 # Printed by deployment/entrypoint.sh immediately before `exec gunicorn` (after migrate + collectstatic).
 ENTRYPOINT_GUNICORN_MARKER="${ENTRYPOINT_GUNICORN_MARKER:-vendor-management-core-entrypoint: ready-for-gunicorn}"
 
