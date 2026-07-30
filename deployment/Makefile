@@ -1,26 +1,20 @@
 # ==============================================================================
 # Deployment Orchestration
 # ==============================================================================
-.PHONY: up down restart ps deploy help
+.PHONY: start stop restart status deploy
 
-help: ## Show this help message
-	@echo "Usage: make [target]"
-	@echo ""
-	@echo "Targets:"
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  %-15s %s\n", $$1, $$2}'
+start: ## Start services
+	@./deployment/scripts/orchestrate.sh start
 
-up: ## Start services
-	@./deployment/docker-orchestrate.sh up
-
-down: ## Stop services
-	@./deployment/docker-orchestrate.sh down
+stop: ## Stop services
+	@./deployment/scripts/orchestrate.sh stop
 
 restart: ## Restart services
-	@./deployment/docker-orchestrate.sh restart
+	@./deployment/scripts/orchestrate.sh restart
 
-ps: ## Show service status
-	@./deployment/docker-orchestrate.sh ps
+status: ## Show service status
+	@./deployment/scripts/orchestrate.sh status
 
 deploy: ## Deploy with optimized build and caching
-	@./deployment/docker-orchestrate.sh deploy
+	@./deployment/scripts/deploy.sh
 

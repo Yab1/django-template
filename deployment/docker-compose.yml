@@ -1,66 +1,76 @@
+name: vendor_management
+
+x-django: &django_app
+  build:
+    context: ${DOCKER_BUILD_CONTEXT:-..}
+    dockerfile: deployment/Dockerfile
+  image: vendor_management:latest
+  restart: on-failure
+  networks:
+    - vendor_management_network
+    - tilla_infrastructure_network
+
+x-worker: &worker_app
+  <<: *django_app
+  entrypoint: ["./deployment/worker-entrypoint.sh"]
+
 services:
-  # Django application service
-  ehr_django_template_django:
-    build:
-      context: ${DOCKER_BUILD_CONTEXT:-..}
-      dockerfile: deployment/Dockerfile
-    image: ehr_django_template:latest
-    container_name: ehr_django_template_django
+  vendor_management_blue:
+    <<: *django_app
+    container_name: vendor_management_blue
+
+  vendor_management_green:
+    <<: *django_app
+    container_name: vendor_management_green
+
+  vendor_management_celery:
+    <<: *worker_app
+    container_name: vendor_management_celery
+    command:
+      - celery
+      - -A
+      - config.settings.celery
+      - worker
+      - --loglevel=info
+
+  vendor_management_celery_beat:
+    <<: *worker_app
+    container_name: vendor_management_celery_beat
+    command:
+      - celery
+      - -A
+      - config.settings.celery
+      - beat
+      - --loglevel=info
+
+  vendor_management_temporal_worker:
+    <<: *worker_app
+    container_name: vendor_management_temporal_worker
+    command:
+      - python
+      - -m
+      - core.workflows.temporal.worker
+
+  # Publishes :7000 for Nginx Proxy Manager. Routes to the active blue/green slot (see deploy.sh).
+  vendor_management_proxy:
+    image: nginx:1.27-alpine
+    container_name: vendor_management_proxy
     ports:
-      - "7002:7002"
+      - "7000:80"
+    volumes:
+      - ./nginx/app-active.conf:/etc/nginx/conf.d/default.conf:ro
     restart: on-failure
     networks:
-      - ehr_dev_network
-      - tilla_infrastructure_network
-
-  # Celery worker service
-  ehr_django_template_celery:
-    container_name: ehr_django_template_celery
-    image: ehr_django_template:latest
-    command: celery -A config.settings.celery.app worker --loglevel=info --pool=solo
-    depends_on:
-      ehr_django_template_django:
-        condition: service_started
-    restart: on-failure
-    networks:
-      - ehr_dev_network
-      - tilla_infrastructure_network
-
-  # Celery Beat service
-  ehr_django_template_celery_beat:
-    container_name: ehr_django_template_celery_beat
-    image: ehr_django_template:latest
-    command: celery -A config.settings.celery.app beat --loglevel=info
-    depends_on:
-      ehr_django_template_django:
-        condition: service_started
-    restart: on-failure
-    networks:
-      - ehr_dev_network
-      - tilla_infrastructure_network
-
-  # gRPC server service
-  ehr_django_template_grpc:
-    container_name: ehr_django_template_grpc
-    image: ehr_django_template:latest
-    command: python manage.py grpcserver --port 50052
-    ports:
-      - "50052:50052"
-    depends_on:
-      ehr_django_template_django:
-        condition: service_started
-    restart: on-failure
-    networks:
-      - ehr_dev_network
+      - vendor_management_network
       - tilla_infrastructure_network
 
 volumes:
-  ehr_django_template_media:
-    name: ehr_django_template_media
+  vendor_management_media:
+    name: vendor_management_media
 
 networks:
-  ehr_dev_network:
-    name: ehr_dev_network
+  vendor_management_network:
+    name: vendor_management_network
     external: true
 
   tilla_infrastructure_network:

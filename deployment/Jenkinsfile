@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        ENV_FILE = "${env.ENV_FILE ?: '/var/lib/jenkins/api/ehr/ehr_django_template.env'}"
-        SECRETS_FILE = "${env.SECRETS_FILE ?: '/var/lib/jenkins/api/secrets.yml'}"
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -13,52 +8,44 @@ pipeline {
             }
         }
 
-        stage('Copy Configuration') {
+        stage('Prepare Environment') {
             steps {
                 script {
-                    // Check and copy environment file
-                    def envFile = env.ENV_FILE
-                    if (fileExists(envFile)) {
-                        sh """
-                            echo "[INFO] Copying environment file from ${envFile}..."
-                            cp "${envFile}" .env
-                        """
-                    } else {
-                        echo "[ERROR] Environment file not found at: ${envFile}"
-                        echo "[ERROR] Please set ENV_FILE environment variable in Jenkins job configuration"
-                        echo "[ERROR] Or ensure the file exists at the specified path"
-                        error("Environment file not found: ${envFile}")
+                    // Load config values from config.sh
+                    def configScript = """
+                        bash -c 'source deployment/scripts/config.sh && \
+                        echo "PROJECT_NAME=\${PROJECT_NAME}" && \
+                        echo "JENKINS_ENV_FILE=\${JENKINS_ENV_FILE}" && \
+                        echo "JENKINS_SECRETS_FILE=\${JENKINS_SECRETS_FILE}"'
+                    """
+                    def configOutput = sh(script: configScript, returnStdout: true).trim()
+                    
+                    def config = [:]
+                    configOutput.split('\n').each { line ->
+                        def parts = line.split('=', 2)
+                        if (parts.length == 2) {
+                            config[parts[0]] = parts[1]
+                        }
                     }
-
-                    // Check and copy secrets file
-                    def secretsFile = env.SECRETS_FILE
-                    if (fileExists(secretsFile)) {
-                        sh """
-                            echo "[INFO] Copying secrets file from ${secretsFile}..."
-                            cp "${secretsFile}" .secrets.yml
-                        """
+                    
+                    def ENV_FILE = config['JENKINS_ENV_FILE']
+                    def SECRETS_FILE = config['JENKINS_SECRETS_FILE']
+                    
+                    echo "[INFO] Preparing environment files..."
+                    
+                    if (fileExists(ENV_FILE)) {
+                        sh "cp ${ENV_FILE} .env"
+                        echo "[SUCCESS] Environment file copied"
                     } else {
-                        echo "[WARNING] Secrets file not found at: ${secretsFile}"
-                        echo "[WARNING] Creating empty .secrets.yml file..."
-                        sh "touch .secrets.yml"
+                        error("[ERROR] Environment file not found: ${ENV_FILE}")
                     }
-                }
-            }
-        }
-
-        stage('Load Environment') {
-            steps {
-                script {
-                    // Load environment variables - this stage mainly ensures .env exists
-                    // The actual env vars will be loaded by docker-orchestrate.sh
-                    sh '''
-                        echo "[INFO] Verifying environment file..."
-                        if [ ! -f .env ]; then
-                            echo "[ERROR] .env file not found"
-                            exit 1
-                        fi
-                        echo "[INFO] Environment file verified"
-                    '''
+                    
+                    if (fileExists(SECRETS_FILE)) {
+                        sh "cp ${SECRETS_FILE} .secrets.yml"
+                        echo "[SUCCESS] Secrets file copied"
+                    } else {
+                        echo "[WARNING] Secrets file not found: ${SECRETS_FILE}"
+                    }
                 }
             }
         }
@@ -66,20 +53,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'echo "[INFO] Deploying infrastructure (via orchestrator)..."'
-                    sh './deployment/docker-orchestrate.sh deploy'
-                }
-            }
-        }
-
-        stage('Wait for Services') {
-            steps {
-                script {
-                    sh '''
-                        echo "[INFO] Waiting for service to be ready..."
-                        sleep 20
-                        echo "[SUCCESS] Service is ready"
-                    '''
+                    sh './deployment/scripts/deploy.sh'
                 }
             }
         }
@@ -87,11 +61,58 @@ pipeline {
 
     post {
         success {
-            echo "[SUCCESS] Deployment completed successfully"
+            script {
+                def message = """
+                    ✅ *Deployment Successful*
+                    
+                    Job: ${env.JOB_NAME}
+                    Build: #${env.BUILD_NUMBER}
+                    Branch: ${env.GIT_BRANCH ?: 'N/A'}
+                    Commit: ${env.GIT_COMMIT ? env.GIT_COMMIT.take(7) : 'N/A'}
+                    Duration: ${currentBuild.durationString.replace(' and counting', '')}
+                """.stripIndent()
+                
+                echo message
+                
+                // Slack notification (requires Slack plugin)
+                // slackSend(
+                //     color: 'good',
+                //     message: message,
+                //     channel: '#deployments'
+                // )
+            }
         }
+        
         failure {
-            echo "[ERROR] Deployment failed"
+            script {
+                def message = """
+                    ❌ *Deployment Failed*
+                    
+                    Job: ${env.JOB_NAME}
+                    Build: #${env.BUILD_NUMBER}
+                    Branch: ${env.GIT_BRANCH ?: 'N/A'}
+                    Commit: ${env.GIT_COMMIT ? env.GIT_COMMIT.take(7) : 'N/A'}
+                    Duration: ${currentBuild.durationString.replace(' and counting', '')}
+                    
+                    Console: ${env.BUILD_URL}console
+                """.stripIndent()
+                
+                echo message
+                
+                // Slack notification (requires Slack plugin)
+                // slackSend(
+                //     color: 'danger',
+                //     message: message,
+                //     channel: '#deployments'
+                // )
+            
+            }
+        }
+        
+        always {
+            script {
+                echo "[INFO] Deployment pipeline completed"
+            }
         }
     }
 }
-

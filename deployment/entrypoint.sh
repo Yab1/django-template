@@ -30,5 +30,7 @@ fi
 
 # Start ASGI server (Gunicorn+Uvicorn)
 # Using exec to replace shell process for proper signal handling
-echo "Starting Gunicorn+Uvicorn (ASGI) on port ${PORT:-7002}..."
+# Stable line for deployment/scripts/deploy.sh (wait after migrate/collectstatic before HTTP health).
+echo "vendor-management-entrypoint: ready-for-gunicorn"
+echo "Starting Gunicorn+Uvicorn (ASGI) on port ${PORT:-7000}..."
 exec gunicorn --config deployment/gunicorn.config.py config.asgi:application

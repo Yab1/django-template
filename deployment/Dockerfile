@@ -4,16 +4,14 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PATH=/root/.local/bin:/root/.cargo/bin:$PATH
 
-# Install build dependencies
+# Install build dependencies (libffi-dev for cffi-backed wheels e.g. WeasyPrint deps)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     gcc \
-    gdal-bin \
-    libgdal-dev \
-    libproj-dev \
     binutils \
     git \
     curl \
+    libffi-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -40,10 +38,14 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     PATH=/usr/src/app/.venv/bin:$PATH
 
-# Install only runtime libraries (no dev packages)
+# WeasyPrint PDF rendering (document generation Celery tasks)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgdal32 \
-    libproj25 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libpangoft2-1.0-0 \
+    libgdk-pixbuf2.0-0 \
+    libharfbuzz-subset0 \
+    shared-mime-info \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -68,19 +70,14 @@ RUN test -d /usr/src/app/.venv && echo "Virtual environment copied successfully"
 # Copy application source (already includes submodules)
 COPY --chown=appuser:app . .
 
-# Generate protobuf files (submodules must be available)
-# Run as root to generate files, then chown to appuser
-# Use 'python' since PATH already includes /usr/src/app/.venv/bin
-RUN chmod +x protos/ehr_protos/scripts/generate_protos.sh && \
-    bash protos/ehr_protos/scripts/generate_protos.sh python && \
-    chown -R appuser:app core/grpc
-
-# Copy and set up entrypoint
+# Copy and set up entrypoints
 COPY --chown=appuser:app deployment/entrypoint.sh /usr/src/app/entrypoint.sh
-RUN chmod +x /usr/src/app/entrypoint.sh
+COPY --chown=appuser:app deployment/worker-entrypoint.sh /usr/src/app/deployment/worker-entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh /usr/src/app/deployment/worker-entrypoint.sh
 
-# Create logs directory (chown only logs, not entire tree - COPY already set ownership)
-RUN mkdir -p /usr/src/app/logs && chown appuser:app /usr/src/app/logs
+# Create logs and staticfiles directories (chown only these, not entire tree - COPY already set ownership)
+RUN mkdir -p /usr/src/app/logs /usr/src/app/staticfiles && \
+    chown appuser:app /usr/src/app/logs /usr/src/app/staticfiles
 
 USER appuser
 

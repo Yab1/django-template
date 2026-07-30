@@ -1,10 +1,9 @@
 import os
 
 # Gunicorn configuration for Django + Uvicorn ASGI
-# Configurable via environment variables for different environments
 
 # Server socket
-bind = f"0.0.0.0:{os.environ.get('PORT', '7002')}"
+bind = f"0.0.0.0:{os.environ.get('PORT', '7000')}"
 backlog = int(os.environ.get("GUNICORN_BACKLOG", "1024"))
 
 # Worker processes
@@ -15,8 +14,8 @@ max_requests = int(os.environ.get("GUNICORN_MAX_REQUESTS", "1000"))
 max_requests_jitter = int(os.environ.get("GUNICORN_MAX_REQUESTS_JITTER", "100"))
 preload_app = os.environ.get("GUNICORN_PRELOAD_APP", "True").lower() == "true"
 
-# Timeout settings (increased for WebSocket subscriptions)
-timeout = int(os.environ.get("GUNICORN_TIMEOUT", "300"))  # 5 minutes for long-lived WebSocket connections
+# Increased for long-lived WebSocket connections
+timeout = int(os.environ.get("GUNICORN_TIMEOUT", "300"))
 keepalive = int(os.environ.get("GUNICORN_KEEPALIVE", "5"))
 graceful_timeout = int(os.environ.get("GUNICORN_GRACEFUL_TIMEOUT", "30"))
 
@@ -26,8 +25,7 @@ errorlog = "-"
 loglevel = os.environ.get("GUNICORN_LOG_LEVEL", "info")
 access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %(D)s'
 
-# Process naming
-proc_name = os.environ.get("GUNICORN_PROC_NAME", "ehr_django_template_gunicorn")
+proc_name = os.environ.get("GUNICORN_PROC_NAME", "vendor_management_gunicorn")
 
 # Security
 limit_request_line = int(os.environ.get("GUNICORN_LIMIT_REQUEST_LINE", "4094"))
