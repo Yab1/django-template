@@ -1,0 +1,67 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "3bf419ee-e2ad-466e-8899-2376132d6e3e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/contact-point-use",
+      "version": "5.0.0",
+      "code": "home",
+      "display": "Home",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c3602efb-4668-4e96-8072-c7b16ee11902",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/contact-point-use",
+      "version": "5.0.0",
+      "code": "work",
+      "display": "Work",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f16f3291-3a92-4e75-8b3a-681b30a2e945",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/contact-point-use",
+      "version": "5.0.0",
+      "code": "temp",
+      "display": "Temp",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "18f6e3ae-08d5-41f6-80ec-e95479c6f7d4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/contact-point-use",
+      "version": "5.0.0",
+      "code": "old",
+      "display": "Old",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "5efd4520-5c06-48a8-b7de-4226a744b7ab",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/contact-point-use",
+      "version": "5.0.0",
+      "code": "mobile",
+      "display": "Mobile",
+      "user_selected": false
+    }
+  }
+]

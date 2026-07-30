@@ -1,0 +1,182 @@
+[
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "c3c30c9b-d9da-46de-a66a-f8c03416829a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A collection of buildings or other locations such as a site or a campus.",
+      "coding": [
+        "bb16043c-b67a-423b-8b73-5ef23682264c"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "6a015d13-cc12-4506-a822-af5d2f11b23c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Any Building or structure. This may contain rooms, corridors, wings, etc. It might not have walls, or a roof, but is considered a defined/allocated space.",
+      "coding": [
+        "3e506225-5c30-465e-b0b5-46d180c3cd0d"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "020decf5-23ee-4f5c-8602-de9b2c00cf21",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A Wing within a Building, this often contains levels, rooms and corridors.",
+      "coding": [
+        "8db482ee-956e-4020-b440-0c6c6c9e2f61"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "35f75eac-864e-45e5-9553-52f318e82c7e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A Ward is a section of a medical facility that may contain rooms and other types of location.",
+      "coding": [
+        "de2ff2cf-0b40-4aeb-89cc-976110def19b"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "4f570476-a008-46c1-b754-35e351ca6649",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A Level in a multi-level Building/Structure.",
+      "coding": [
+        "d1c1a615-df7d-4d51-8faa-778371a62504"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "dd92877f-d80a-4199-91fa-9d35a507b8bd",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Any corridor within a Building, that may connect rooms.",
+      "coding": [
+        "0db3051a-a07c-45d7-a895-05d75d93c3b5"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d17bff54-c03a-44cc-8b95-8cec2ac2f435",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A space that is allocated as a room, it may have walls/roof etc., but does not require these.",
+      "coding": [
+        "9bad4432-18c9-4521-9ff2-947008315c5c"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "afd82cae-ebec-41af-84f5-0784123e6519",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A space that is allocated for sleeping/laying on. This is not the physical bed/trolley that may be moved about, but the space it may occupy.",
+      "coding": [
+        "e889ae6f-6a9e-4d7f-a5c3-342d98f58ddd"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "327cd409-7819-432d-9dbe-2c266e2eff37",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A means of transportation.",
+      "coding": [
+        "1b616f89-bfa6-4c17-9c12-9d2b05b286ce"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "01e4e4a4-5d45-4b0d-b4a7-816d8f2f0ce7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A residential dwelling. Usually used to reference a location that a person/patient may reside.",
+      "coding": [
+        "71534c45-477d-48bc-a28d-b6e616bf729b"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d58a90c7-7f1a-4a70-b8ef-4bf49c1d455b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A container that can store goods, equipment, medications or other items.",
+      "coding": [
+        "01b0ef9a-00cb-4cc4-af11-b31b65ae3bee"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d02f2985-7640-4474-856c-2cc4a8e42ed7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A defined path to travel between 2 points that has a known name.",
+      "coding": [
+        "a2c40715-dc29-4613-8c2a-7e807eb23d55"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "5038a580-5a53-434f-a595-ce656f8b13dc",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A defined physical boundary of something, such as a flood risk zone, region, postcode",
+      "coding": [
+        "fce3ba48-1498-4268-8a1a-6c2c02435907"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "becc4d4c-96a4-4b4a-a1ee-58028d85aacb",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A wide scope that covers a conceptual domain, such as a Nation (Country wide community or Federal Government - e.g. Ministry of Health), Province or State (community or Government), Business (throughout the enterprise), Nation with a business scope of an agency (e.g. CDC, FDA etc.) or a Business segment (UK Pharmacy), not just an physical boundary",
+      "coding": [
+        "f624d852-b9e7-49c1-bf4d-9ab72a67cea2"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9e451ce9-566e-494d-a84c-52915b40286c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A location that is virtual in nature, such as a conference call or virtual meeting space",
+      "coding": [
+        "2d3a82cd-4157-42c9-b28f-a092fae3fd3c"
+      ]
+    }
+  }
+]

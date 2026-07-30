@@ -1,0 +1,80 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "497c83e5-9575-4e3c-8f39-cf468a174302",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+      "version": "0.5.0",
+      "code": "BILL",
+      "display": "Billing",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "56870b7e-139d-4419-bc8e-60fdb99bf442",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+      "version": "0.5.0",
+      "code": "ADMIN",
+      "display": "Administrative",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "67835010-6d79-40db-b9ca-12f94795c011",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+      "version": "0.5.0",
+      "code": "HR",
+      "display": "Human Resource",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "aa5dcb63-507a-4c25-a5b1-5fce0615d101",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+      "version": "0.5.0",
+      "code": "PAYOR",
+      "display": "Payor",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "6194c60e-42db-4922-8faf-a21f48b3f1c1",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+      "version": "0.5.0",
+      "code": "PATINF",
+      "display": "Patient",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "650ae304-724e-45d5-8e83-e4f66a739f49",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+      "version": "0.5.0",
+      "code": "PRESS",
+      "display": "Press",
+      "user_selected": false
+    }
+  }
+]

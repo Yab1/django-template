@@ -1,0 +1,93 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "28b8175e-abf0-4444-aa1c-8bd9ba894cda",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://unitsofmeasure.org",
+      "version": "5.0.0",
+      "code": "s",
+      "display": "second",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "18b0b18b-d7b4-4a0e-bc5b-1a4cdee8f425",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://unitsofmeasure.org",
+      "version": "5.0.0",
+      "code": "min",
+      "display": "minute",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "feec6e48-2398-4f30-8429-373632cb409f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://unitsofmeasure.org",
+      "version": "5.0.0",
+      "code": "h",
+      "display": "hour",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "e0cf1007-5621-4e08-a7de-0f1c407ac855",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://unitsofmeasure.org",
+      "version": "5.0.0",
+      "code": "d",
+      "display": "day",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "3066b85d-6ee6-4069-8b32-0b7e228c45bd",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://unitsofmeasure.org",
+      "version": "5.0.0",
+      "code": "wk",
+      "display": "week",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "13b64153-40fb-45f1-bbd7-b1c6f145d4a6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://unitsofmeasure.org",
+      "version": "5.0.0",
+      "code": "mo",
+      "display": "month",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "9135d518-fe2d-4a31-acb2-9aad4b5d1af4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://unitsofmeasure.org",
+      "version": "5.0.0",
+      "code": "a",
+      "display": "year",
+      "user_selected": false
+    }
+  }
+]

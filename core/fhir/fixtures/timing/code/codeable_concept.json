@@ -1,0 +1,206 @@
+[
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "08c63ecd-d04d-47e8-8a16-f13c172aa709",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Service is provided continuously between start time and stop time.",
+      "coding": [
+        "052b56f8-a7b3-4cf0-9761-30159e8cd9ed"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "b4271584-5677-4f30-8a28-acb899757ca6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Two times a day at institution specified time.",
+      "coding": [
+        "ae948b15-cc54-49ad-a8b2-567f7aece321"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "3d6063bc-a3a1-42dc-9cce-58f90d350c2c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Three times a day at institution specified time.",
+      "coding": [
+        "c0cda891-5930-4357-a993-052826bc7a03"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9d84e823-db2e-458f-b659-7d00493e2131",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Four times a day at institution specified time.",
+      "coding": [
+        "1c4b662e-7c26-4205-805a-4c6febe30d6e"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "15f3b0e6-e6d9-448d-99b5-77e0431663d2",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every morning at institution specified times.",
+      "coding": [
+        "c7ede257-e9ac-4281-8fb5-ec54f9abb817"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "bf0e1cb8-dbb4-44b0-aee8-8c978100195e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every afternoon at institution specified times.",
+      "coding": [
+        "f40cb066-c1c3-42cb-ace3-23c1939c57e4"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "a7e3f975-e2e8-48c3-a4ac-582e6aa8ac27",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every day at institution specified times.",
+      "coding": [
+        "1f862526-4fae-4aff-9791-b829d8c59438"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9a3dcb81-a58f-4d08-a3cd-f9ae52492024",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every other day at institution specified times.",
+      "coding": [
+        "1061fb78-692c-4cd9-9870-14c749f2cd8f"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "69302577-741f-46d8-8542-7b848a701294",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every hour at institution specified times.",
+      "coding": [
+        "d3588811-760e-457c-b99c-3bb5556a989c"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "0678bcc1-1b5c-48b2-bee6-311039d4ee2d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every 2 hours at institution specified times.",
+      "coding": [
+        "0ec88744-e9ae-4ad0-bf10-24c2d70da0f5"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "df603da1-088b-44a0-a598-716304fd3d6f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every 3 hours at institution specified times.",
+      "coding": [
+        "fe00ec6a-6a68-4460-9081-e1c839ce9512"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "a9c5424e-11a2-4f19-b9a6-a05adc273c51",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every 4 hours at institution specified time.",
+      "coding": [
+        "f82b467c-fa4b-4e15-96bb-33e054839648"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d161d2d2-2353-4364-810a-fab685b9e89e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every 6 hours at institution specified time.",
+      "coding": [
+        "d08c2246-bf6f-4cb3-bc80-ce8a92c87f42"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d09c4cac-fe32-4c72-9a55-0f2bbaa1d41e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Every 8 hours at institution specified times.",
+      "coding": [
+        "ac6fff4b-8864-4b02-a021-495fdec4b1e0"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "bb47d8d8-dc30-4713-809d-105c1b39889f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "At bedtime (institution specified time).",
+      "coding": [
+        "b803794a-7046-483f-b03b-4409b4818bef"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "329ec6bf-dbd4-416e-a970-cfba04af2502",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Weekly at institution specified time.",
+      "coding": [
+        "37130648-8ffb-4f18-a7a2-0594642fd020"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7c415594-19fc-40c4-819c-30bf75d8fbce",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Monthly at institution specified time.",
+      "coding": [
+        "f41dbdea-c716-4aa6-a1bb-67fcabafe578"
+      ]
+    }
+  }
+]

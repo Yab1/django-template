@@ -1,0 +1,628 @@
+---
+description: Django Admin Standard - Rules for creating and modifying Django admin interfaces with Unfold UI, consistent structure, and proper field handling
+globs:
+  - "**/admin.py"
+alwaysApply: true
+---
+
+# Django Admin Standard
+
+When creating or modifying Django admin interfaces in this project, you MUST follow the Django Admin Standard. This ensures consistency, proper Unfold UI integration, and AI-friendly code generation.
+
+## Core Requirements
+
+### 1. Unfold Integration (REQUIRED)
+
+- All admin classes MUST inherit from `unfold.admin.ModelAdmin`
+- Import: `from unfold.admin import ModelAdmin`
+- NEVER use `django.contrib.admin.ModelAdmin`
+- For inlines, use `unfold.admin.StackedInline` or `unfold.admin.TabularInline`
+
+### 2. Admin Structure (REQUIRED)
+
+- Include docstring describing the admin interface
+- Use `@admin.register(ModelName)` decorator
+- Import models from `core.<app>.models`
+- Use `gettext_lazy as _` for all user-facing strings
+
+### 3. Admin Directory Structure (REQUIRED)
+
+For apps with multiple models, use an `admin/` package structure for better organization and consistency with the model structure.
+
+**Structure Pattern:**
+
+```text
+core/
+└── app_name/
+    ├── admin.py              # Optional: Re-exports from admin package
+    └── admin/
+        ├── __init__.py       # Package barrel export (REQUIRED)
+        ├── model_name_admin.py  # Individual admin files
+        └── ...
+```
+
+**Example: Allergy Intolerance**
+
+```text
+core/allergy_intolerance/
+├── admin.py                  # Re-exports from admin package
+└── admin/
+    ├── __init__.py           # Exports all admins using relative imports
+    ├── allergy_intolerance_admin.py
+    ├── onset_admin.py
+    ├── participant_admin.py
+    └── reaction_admin.py
+```
+
+**Implementation Details:**
+
+1. **`admin/` directory**: Contains individual admin files, one admin class per file
+2. **`admin/__init__.py`**: Barrel export that imports all admins using **relative imports**
+3. **`admin.py`** (optional): Re-exports from the package for compatibility
+
+**Import Patterns:**
+
+**`admin/__init__.py`** MUST use **relative imports** to prevent circular dependencies:
+
+```python
+"""
+App admin interfaces.
+
+This module exports all admin classes for the app.
+"""
+
+from .allergy_intolerance_admin import AllergyIntoleranceAdmin
+from .onset_admin import AllergyIntoleranceOnsetAdmin
+from .participant_admin import AllergyIntoleranceParticipantAdmin
+from .reaction_admin import AllergyIntoleranceReactionAdmin
+
+__all__ = [
+    "AllergyIntoleranceAdmin",
+    "AllergyIntoleranceOnsetAdmin",
+    "AllergyIntoleranceParticipantAdmin",
+    "AllergyIntoleranceReactionAdmin",
+]
+```
+
+**`admin.py`** (if present) should re-export from the package:
+
+```python
+# Re-exports from admin package
+from .admin import (  # noqa: F401
+    AllergyIntoleranceAdmin,
+    AllergyIntoleranceOnsetAdmin,
+    AllergyIntoleranceParticipantAdmin,
+    AllergyIntoleranceReactionAdmin,
+)
+```
+
+**Individual Admin File Example:**
+
+```python
+# admin/allergy_intolerance_admin.py
+from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+from unfold.admin import ModelAdmin
+
+from core.allergy_intolerance.models import AllergyIntolerance
+
+
+@admin.register(AllergyIntolerance)
+class AllergyIntoleranceAdmin(ModelAdmin):
+    """Admin interface for AllergyIntolerance model."""
+    # ... admin attributes ...
+```
+
+**How It Works:**
+
+1. **Import resolution**: Django discovers admin classes from `admin/__init__.py` (package takes precedence over file)
+2. **`__init__.py` imports**: `from .allergy_intolerance_admin import AllergyIntoleranceAdmin` (relative)
+3. **No circular imports**: Direct import from sibling module, `admin.py` is never executed
+4. **Registration**: `@admin.register()` decorators in individual files automatically register models
+
+**Benefits:**
+
+- **Consistency**: Matches the `models/` package structure pattern
+- **No circular imports**: Package uses relative imports, `admin.py` imports from package (one-way)
+- **Better organization**: Each admin class in its own file
+- **Easier maintenance**: Find and modify specific admin classes quickly
+- **Scalability**: Easy to add new admin classes without cluttering a single file
+- **Django compatibility**: Django automatically discovers admin classes from `admin/` package
+
+**When to Use This Structure:**
+
+- Apps with 3+ models
+- Apps with nested/component models
+- Apps where admin classes will grow over time
+
+**Single Model Apps:**
+
+For apps with a single model, a simple `admin.py` file is sufficient:
+
+```python
+# admin.py
+from django.contrib import admin
+from unfold.admin import ModelAdmin
+
+from core.app.models import SingleModel
+
+
+@admin.register(SingleModel)
+class SingleModelAdmin(ModelAdmin):
+    # ...
+```
+
+### 4. Required Admin Attributes (MANDATORY)
+
+Every admin class MUST include:
+
+**list_display:**
+
+- Include: `id`, key identifying fields, status fields, `created_at`
+- Show most important fields for quick identification
+- Example: `("id", "code", "patient", "clinical_status", "created_at")`
+
+**list_filter:**
+
+- Include: ForeignKey status/type fields, date fields, `created_at`, `updated_at`
+- Helps users filter the changelist
+- Example: `("clinical_status", "type", "created_at")`
+
+**search_fields:**
+
+- Include: `id`, text fields, and related field lookups
+- Use `__text` for CodeableConcept, `__display` for Reference
+- Example: `("id", "code__text", "patient__display")`
+
+**readonly_fields:**
+
+- MUST include: `id`, `created_at`, `updated_at`
+- These are auto-generated by BaseModel
+
+**autocomplete_fields:**
+
+- Include ALL ForeignKey fields that reference models with `search_fields` defined
+- Improves UX for selecting related objects
+- Only works if referenced admin has `search_fields`
+
+**filter_horizontal:**
+
+- Include ALL ManyToManyField relationships
+- Provides better UX than default select widget
+- Example: `("identifier", "category", "participant")`
+
+**fieldsets:**
+
+- Organize fields into logical groups
+- MUST include a "Metadata" section with `created_at`, `updated_at`, `metadata`
+- Use `classes: ("collapse",)` for Metadata section
+
+**ordering:**
+
+- Default: `("-created_at",)` (newest first)
+
+**show_in_index:**
+
+- Set to `True` to show in admin index
+
+### 5. Fieldset Organization (REQUIRED)
+
+Fieldsets MUST follow this structure:
+
+1. **Basic Information** - Core identifying fields (id, patient, code, etc.)
+2. **Status** - Status, type, verification fields
+3. **Classification** - Category, identifier fields
+4. **Context** - Encounter, timing fields (onset, recorded_date, etc.)
+5. **Participants** - Participant relationships (if applicable)
+6. **Reactions** - Reaction relationships (if applicable)
+7. **Additional Information** - Notes, annotations
+8. **Metadata** - `created_at`, `updated_at`, `metadata` (collapsed)
+
+### 6. Autocomplete Fields Rules
+
+**When to use autocomplete:**
+
+- ForeignKey fields where the referenced model's admin has `search_fields` defined
+- Improves performance and UX for large related object sets
+
+**When NOT to use autocomplete:**
+
+- If referenced model admin doesn't have `search_fields` (will cause system check error)
+- For ManyToMany fields (use `filter_horizontal` instead)
+
+**Required setup:**
+
+- Referenced model's admin MUST have `search_fields` defined
+- Example: `CodeableConceptAdmin` must have `search_fields = ("id", "text")`
+
+### 7. ManyToMany Field Handling
+
+**Always use `filter_horizontal`:**
+
+- Provides better UX with dual-pane selector
+- Required for all ManyToManyField relationships
+- Example: `filter_horizontal = ("identifier", "category", "participant")`
+
+**Never use inlines for ManyToMany:**
+
+- ManyToMany relationships don't have a direct ForeignKey
+- Use `filter_horizontal` instead
+
+### 8. Inline Admin Classes
+
+**When to use inlines:**
+
+- Only for models with ForeignKey TO the parent model
+- Child model must have ForeignKey pointing to parent
+- Example: `AllergyIntoleranceOnset` has FK to `AllergyIntolerance` → can use inline
+
+**When NOT to use inlines:**
+
+- If parent has ForeignKey to child (reversed relationship)
+- For ManyToMany relationships
+- If child model doesn't have ForeignKey to parent
+
+**Inline structure:**
+
+```python
+class ChildModelInline(StackedInline):
+    """Inline admin for ChildModel within ParentModel."""
+    model = ChildModel
+    extra = 0
+    min_num = 0
+    fields = ("field1", "field2", ...)
+    verbose_name = _("Child Model")
+    verbose_name_plural = _("Child Models")
+    autocomplete_fields = ("fk_field1", "fk_field2")
+```
+
+### 9. Metadata Field (REQUIRED)
+
+**MUST include in all admins:**
+
+- `metadata` field from BaseModel
+- Place in "Metadata" fieldset with `created_at`, `updated_at`
+- Use collapsible section: `"classes": ("collapse",)`
+
+### 10. Search Fields Patterns
+
+**Common patterns:**
+
+- `id` - Always include
+- `text` - For TextField, CharField
+- `code__text` - For ForeignKey to CodeableConcept
+- `patient__display` - For ForeignKey to Reference
+- `description` - For TextField descriptions
+
+**Related field lookups:**
+
+- Use `__text` for CodeableConcept fields
+- Use `__display` for Reference fields
+- Use `__code` for Coding fields
+
+### 11. List Display Patterns
+
+**Include in order:**
+
+1. `id` - Always first
+2. Key identifying fields (code, patient, name)
+3. Status/type fields (clinical_status, type)
+4. Important dates (recorded_date, onset)
+5. `created_at` - Always last
+
+**Keep it concise:**
+
+- Maximum 8-10 fields
+- Focus on fields users need to identify records quickly
+
+### 12. List Filter Patterns
+
+**Include:**
+
+- ForeignKey status/type fields (clinical_status, verification_status, type)
+- Date fields (recorded_date, created_at, updated_at)
+- Boolean fields (if any)
+- Important categorization fields
+
+**Order:**
+
+- Status/type fields first
+- Date fields last
+
+### 13. Complete Admin Template
+
+**For apps with multiple models, use the package structure:**
+
+**`admin/__init__.py`:**
+
+```python
+"""
+App admin interfaces.
+
+This module exports all admin classes for the app.
+"""
+
+from .model_name_admin import ModelNameAdmin
+from .related_model_admin import RelatedModelAdmin
+
+__all__ = [
+    "ModelNameAdmin",
+    "RelatedModelAdmin",
+]
+```
+
+**`admin/model_name_admin.py`:**
+
+```python
+from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+from unfold.admin import ModelAdmin
+
+from core.<app>.models import ModelName
+
+
+@admin.register(ModelName)
+class ModelNameAdmin(ModelAdmin):
+    """Admin interface for ModelName model."""
+
+    list_display = (
+        "id",
+        "code",
+        "patient",
+        "clinical_status",
+        "created_at",
+    )
+    list_filter = (
+        "clinical_status",
+        "verification_status",
+        "type",
+        "created_at",
+    )
+    search_fields = (
+        "id",
+        "code__text",
+        "patient__display",
+    )
+    readonly_fields = (
+        "id",
+        "created_at",
+        "updated_at",
+    )
+    autocomplete_fields = (
+        "clinical_status",
+        "verification_status",
+        "code",
+        "patient",
+    )
+    filter_horizontal = (
+        "identifier",
+        "category",
+    )
+    fieldsets = (
+        (
+            _("Basic Information"),
+            {
+                "fields": (
+                    "id",
+                    "patient",
+                    "code",
+                ),
+            },
+        ),
+        (
+            _("Status"),
+            {
+                "fields": (
+                    "clinical_status",
+                    "verification_status",
+                    "type",
+                ),
+            },
+        ),
+        (
+            _("Classification"),
+            {
+                "fields": (
+                    "category",
+                    "identifier",
+                ),
+            },
+        ),
+        (
+            _("Context"),
+            {
+                "fields": (
+                    "encounter",
+                    "recorded_date",
+                ),
+            },
+        ),
+        (
+            _("Additional Information"),
+            {
+                "fields": (
+                    "note",
+                ),
+            },
+        ),
+        (
+            _("Metadata"),
+            {
+                "fields": (
+                    "created_at",
+                    "updated_at",
+                    "metadata",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+    ordering = ("-created_at",)
+    show_in_index = True
+```
+
+**`admin/related_model_admin.py`:**
+
+```python
+from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
+from unfold.admin import ModelAdmin
+
+from core.<app>.models import RelatedModel
+
+
+@admin.register(RelatedModel)
+class RelatedModelAdmin(ModelAdmin):
+    """Admin interface for RelatedModel model."""
+
+    list_display = (
+        "id",
+        "field1",
+        "field2",
+        "created_at",
+    )
+    list_filter = (
+        "created_at",
+        "updated_at",
+    )
+    search_fields = (
+        "id",
+        "field1",
+    )
+    readonly_fields = (
+        "id",
+        "created_at",
+        "updated_at",
+    )
+    autocomplete_fields = (
+        "fk_field1",
+        "fk_field2",
+    )
+    fieldsets = (
+        (
+            _("Model Information"),
+            {
+                "fields": (
+                    "id",
+                    "field1",
+                    "field2",
+                ),
+            },
+        ),
+        (
+            _("Metadata"),
+            {
+                "fields": (
+                    "created_at",
+                    "updated_at",
+                    "metadata",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+    )
+    ordering = ("-created_at",)
+    show_in_index = True
+```
+
+**`admin.py` (optional compatibility re-export):**
+
+```python
+# Re-exports from admin package
+from .admin import (  # noqa: F401
+    ModelNameAdmin,
+    RelatedModelAdmin,
+)
+```
+
+## Field Type Handling
+
+### ForeignKey Fields
+
+- Add to `autocomplete_fields` if referenced admin has `search_fields`
+- Add to `fieldsets` in appropriate section
+- Add to `list_filter` if it's a status/type field
+- Add to `list_display` if it's a key identifying field
+
+### ManyToMany Fields
+
+- Add to `filter_horizontal` (REQUIRED)
+- Add to `fieldsets` in appropriate section
+- Do NOT add to `autocomplete_fields`
+
+### DateTime Fields
+
+- Add to `fieldsets` in "Context" section
+- Add to `list_filter` if important for filtering
+- Add to `list_display` if important for identification
+
+### Text Fields
+
+- Add to `search_fields` if searchable
+- Add to `fieldsets` in appropriate section
+- Add to `list_display` if it's a key identifying field
+
+### BaseModel Fields
+
+- `id` - Always in `readonly_fields`, `list_display`, and first fieldset
+- `created_at` - Always in `readonly_fields`, `list_filter`, and Metadata fieldset
+- `updated_at` - Always in `readonly_fields` and Metadata fieldset
+- `metadata` - Always in Metadata fieldset (collapsed)
+
+## Common Mistakes to Avoid
+
+❌ **Using `django.contrib.admin.ModelAdmin`** - Must use `unfold.admin.ModelAdmin`
+❌ **Missing `admin/__init__.py` in package structure** - Required for proper admin discovery
+❌ **Using absolute imports in `admin/__init__.py`** - Must use relative imports to prevent circular dependencies
+❌ **Missing `search_fields` in referenced admins** - Autocomplete won't work
+❌ **Using inlines for ManyToMany** - Use `filter_horizontal` instead
+❌ **Using inline for reversed FK** - Child must have FK to parent
+❌ **Missing `metadata` field** - Must include in all admins
+❌ **Missing `id` in readonly_fields** - Required for BaseModel
+❌ **Not including all fields in fieldsets** - All model fields must be included
+❌ **Missing `show_in_index = True`** - Model won't appear in admin index
+❌ **Putting all admins in single `admin.py` file** - Use `admin/` package structure for apps with 3+ models
+
+## Checklist
+
+When creating admin classes, ensure:
+
+**Structure:**
+
+- [ ] Uses `admin/` package structure for apps with 3+ models
+- [ ] `admin/__init__.py` uses relative imports
+- [ ] Each admin class in separate file (for package structure)
+- [ ] `admin.py` re-exports from package (if using package structure)
+
+**Admin Class:**
+
+- [ ] Inherits from `unfold.admin.ModelAdmin`
+- [ ] All models are registered with `@admin.register()`
+- [ ] `list_display` includes `id` and key fields
+- [ ] `list_filter` includes status/type and date fields
+- [ ] `search_fields` includes `id` and searchable fields
+- [ ] `readonly_fields` includes `id`, `created_at`, `updated_at`
+- [ ] `autocomplete_fields` includes all ForeignKeys (where applicable)
+- [ ] `filter_horizontal` includes all ManyToMany fields
+- [ ] `fieldsets` includes ALL model fields
+- [ ] Metadata fieldset includes `created_at`, `updated_at`, `metadata`
+- [ ] Metadata fieldset is collapsible
+- [ ] `ordering = ("-created_at",)`
+- [ ] `show_in_index = True`
+- [ ] All referenced model admins have `search_fields` defined
+
+## System Check Requirements
+
+Before admin will work:
+
+- All ForeignKey models referenced in `autocomplete_fields` must have registered admins
+- All referenced admins must have `search_fields` defined
+- All models must be properly registered
+
+## Reference
+
+For model creation standards, see: `.cursor/rules/modeling-standard.mdc`
+For fixture standards, see: `.cursor/rules/fixtures-standard.mdc`
+For resource patterns, see: `.cursor/rules/resource-patterns.mdc`
+
+For example implementation, see: `core/allergy_intolerance/admin/` (when implemented)

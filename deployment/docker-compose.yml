@@ -1,0 +1,68 @@
+services:
+  # Django application service
+  ehr_django_template_django:
+    build:
+      context: ${DOCKER_BUILD_CONTEXT:-..}
+      dockerfile: deployment/Dockerfile
+    image: ehr_django_template:latest
+    container_name: ehr_django_template_django
+    ports:
+      - "7002:7002"
+    restart: on-failure
+    networks:
+      - ehr_dev_network
+      - tilla_infrastructure_network
+
+  # Celery worker service
+  ehr_django_template_celery:
+    container_name: ehr_django_template_celery
+    image: ehr_django_template:latest
+    command: celery -A config.settings.celery.app worker --loglevel=info --pool=solo
+    depends_on:
+      ehr_django_template_django:
+        condition: service_started
+    restart: on-failure
+    networks:
+      - ehr_dev_network
+      - tilla_infrastructure_network
+
+  # Celery Beat service
+  ehr_django_template_celery_beat:
+    container_name: ehr_django_template_celery_beat
+    image: ehr_django_template:latest
+    command: celery -A config.settings.celery.app beat --loglevel=info
+    depends_on:
+      ehr_django_template_django:
+        condition: service_started
+    restart: on-failure
+    networks:
+      - ehr_dev_network
+      - tilla_infrastructure_network
+
+  # gRPC server service
+  ehr_django_template_grpc:
+    container_name: ehr_django_template_grpc
+    image: ehr_django_template:latest
+    command: python manage.py grpcserver --port 50052
+    ports:
+      - "50052:50052"
+    depends_on:
+      ehr_django_template_django:
+        condition: service_started
+    restart: on-failure
+    networks:
+      - ehr_dev_network
+      - tilla_infrastructure_network
+
+volumes:
+  ehr_django_template_media:
+    name: ehr_django_template_media
+
+networks:
+  ehr_dev_network:
+    name: ehr_dev_network
+    external: true
+
+  tilla_infrastructure_network:
+    name: tilla_infrastructure_network
+    external: true

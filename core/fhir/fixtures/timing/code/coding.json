@@ -1,0 +1,223 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "052b56f8-a7b3-4cf0-9761-30159e8cd9ed",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/timing-abbreviation",
+      "version": "5.0.0",
+      "code": "C",
+      "display": "Continuous (frequency)",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "ae948b15-cc54-49ad-a8b2-567f7aece321",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "BID",
+      "display": "BID",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c0cda891-5930-4357-a993-052826bc7a03",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "TID",
+      "display": "TID",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "1c4b662e-7c26-4205-805a-4c6febe30d6e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "QID",
+      "display": "QID",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c7ede257-e9ac-4281-8fb5-ec54f9abb817",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "AM",
+      "display": "AM",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f40cb066-c1c3-42cb-ace3-23c1939c57e4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "PM",
+      "display": "PM",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "1f862526-4fae-4aff-9791-b829d8c59438",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "QD",
+      "display": "QD",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "1061fb78-692c-4cd9-9870-14c749f2cd8f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "QOD",
+      "display": "QOD",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "d3588811-760e-457c-b99c-3bb5556a989c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "Q1H",
+      "display": "every hour",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "0ec88744-e9ae-4ad0-bf10-24c2d70da0f5",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "Q2H",
+      "display": "every 2 hours",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "fe00ec6a-6a68-4460-9081-e1c839ce9512",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "Q3H",
+      "display": "every 3 hours",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f82b467c-fa4b-4e15-96bb-33e054839648",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "Q4H",
+      "display": "Q4H",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "d08c2246-bf6f-4cb3-bc80-ce8a92c87f42",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "Q6H",
+      "display": "Q6H",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "ac6fff4b-8864-4b02-a021-495fdec4b1e0",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "Q8H",
+      "display": "every 8 hours",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b803794a-7046-483f-b03b-4409b4818bef",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "BED",
+      "display": "at bedtime",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "37130648-8ffb-4f18-a7a2-0594642fd020",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "WK",
+      "display": "weekly",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f41dbdea-c716-4aa6-a1bb-67fcabafe578",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-GTSAbbreviation",
+      "version": "5.0.0",
+      "code": "MO",
+      "display": "monthly",
+      "user_selected": false
+    }
+  }
+]

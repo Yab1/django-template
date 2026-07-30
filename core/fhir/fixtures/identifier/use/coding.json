@@ -1,0 +1,67 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "4ff997b4-b5c4-49e4-a9f8-42d5e5c5cf04",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/identifier-use",
+      "version": "5.0.0",
+      "code": "usual",
+      "display": "Usual",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "2df876d8-4368-426e-aef3-52b714b6a667",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/identifier-use",
+      "version": "5.0.0",
+      "code": "official",
+      "display": "Official",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f7ec26f0-bcb0-4da8-8e86-39a4a5444c0d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/identifier-use",
+      "version": "5.0.0",
+      "code": "temp",
+      "display": "Temp",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4268a373-21cd-418d-824b-b70055c13a4f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/identifier-use",
+      "version": "5.0.0",
+      "code": "secondary",
+      "display": "Secondary",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "22a1dfb9-b9d5-4946-a8dc-b9df8b91ed59",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/identifier-use",
+      "version": "5.0.0",
+      "code": "old",
+      "display": "Old",
+      "user_selected": false
+    }
+  }
+]

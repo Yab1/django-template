@@ -1,0 +1,757 @@
+models:
+- app: fhir
+  model: Address
+  enabled: true
+  generate:
+    model_tests: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+    factories: true
+    fixtures: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Attachment
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: CodeableConcept
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Coding
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: ContactPoint
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: ExtendedContactDetail
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: HumanName
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Identifier
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Location
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Period
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Quantity
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Range
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Ratio
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Reference
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: SampledData
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Timing
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: Availability
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests:
+    available_times:
+      test_create: true
+      test_update: true
+      test_delete: true
+      test_bulk_operations: true
+      test_queries: true
+    not_available_times:
+      test_create: true
+      test_update: true
+      test_delete: true
+      test_bulk_operations: true
+      test_queries: true
+- app: fhir
+  model: AvailableTime
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests: {}
+- app: fhir
+  model: NotAvailableTime
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests:
+    during:
+      test_create: true
+      test_update: true
+      test_delete: true
+      test_bulk_operations: false
+      test_queries: true
+- app: fhir
+  model: VirtualAddress
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests:
+    address_contact_point:
+      test_create: true
+      test_update: true
+      test_delete: true
+      test_bulk_operations: false
+      test_queries: true
+    address_extended_contact_detail:
+      test_create: true
+      test_update: true
+      test_delete: true
+      test_bulk_operations: false
+      test_queries: true
+- app: fhir
+  model: VirtualServiceDetail
+  enabled: true
+  generate:
+    model_tests: true
+    factories: true
+    fixtures: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: true
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  scenarios:
+    success: true
+    validation: true
+    permissions: true
+    relationships: true
+    edge_cases: true
+    error_handling: true
+  fields:
+    test_required: true
+    test_unique: true
+    test_choices: true
+    test_relationships: true
+  relationship_tests:
+    channel_type:
+      test_create: true
+      test_update: true
+      test_delete: true
+      test_bulk_operations: false
+      test_queries: true
+    address:
+      test_create: true
+      test_update: true
+      test_delete: true
+      test_bulk_operations: false
+      test_queries: true

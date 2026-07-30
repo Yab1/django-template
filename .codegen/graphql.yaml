@@ -1,0 +1,129 @@
+# GraphQL codegen module configuration
+# This file contains GraphQL-specific defaults
+# App-specific overrides are in core/{app}/.codegen/graphql.yaml
+
+# GraphQL-specific settings
+global:
+  generate_services: true
+  shareable_inputs_default: false
+  shareable_types_default: false
+
+# Naming conventions for GraphQL generated classes and files
+naming:
+  type_suffix: "Type"
+  input_suffix: "Input"
+  input_partial_suffix: "InputPartial"
+  filter_suffix: "Filter"
+  order_suffix: "Order"
+  query_class_suffix: "Query"
+  mutation_class_suffix: "Mutation"
+
+# Output structure configuration - controls how generated files are organized
+output_structure:
+  use_folders: true
+  generate_barrel_exports: true
+  split_mutations: true
+  split_queries: false
+  split_inputs: false
+  split_services: true
+
+# File path templates for generated GraphQL code
+# Placeholders: {app}, {model_lower}, {relationship_name}
+output_paths:
+  types:
+    base: "{app}/types"
+    file: "{app}/types.py"
+    folder: "{app}/types/"
+    barrel: "{app}/types/__init__.py"
+    model_file: "{app}/types/{model_lower}_type.py"
+    relationship_file: "{app}/types/{relationship_name}_type.py"
+  inputs:
+    base: "{app}/inputs"
+    file: "{app}/inputs.py"
+    folder: "{app}/inputs/"
+    barrel: "{app}/inputs/__init__.py"
+    model_file: "{app}/inputs/{model_lower}_input.py"
+    relationship_file: "{app}/inputs/{relationship_name}_input.py"
+  mutations:
+    base: "{app}/mutations"
+    file: "{app}/mutations.py"
+    folder: "{app}/mutations/"
+    barrel: "{app}/mutations/__init__.py"
+    # Model mutations in subfolder: mutations/{model_lower}/
+    model_folder: "{app}/mutations/{model_lower}"
+    main_file: "{app}/mutations/{model_lower}/{model_lower}_mutation.py"
+    create_file: "{app}/mutations/{model_lower}/{model_lower}_create.py"
+    update_file: "{app}/mutations/{model_lower}/{model_lower}_update.py"
+    delete_file: "{app}/mutations/{model_lower}/{model_lower}_delete.py"
+    bulk_create_file: "{app}/mutations/{model_lower}/{model_lower}_bulk_create.py"
+    bulk_update_file: "{app}/mutations/{model_lower}/{model_lower}_bulk_update.py"
+    bulk_upsert_file: "{app}/mutations/{model_lower}/{model_lower}_bulk_upsert.py"
+    bulk_delete_file: "{app}/mutations/{model_lower}/{model_lower}_bulk_delete.py"
+    upsert_file: "{app}/mutations/{model_lower}/{model_lower}_upsert.py"
+    # Relationship mutations in subfolder: mutations/{model_lower}/{relationship_name}/
+    relationship_folder: "{app}/mutations/{model_lower}/{relationship_name}"
+    relationship_create_file: "{app}/mutations/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_create.py"
+    relationship_update_file: "{app}/mutations/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_update.py"
+    relationship_delete_file: "{app}/mutations/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_delete.py"
+    relationship_bulk_create_file: "{app}/mutations/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_bulk_create.py"
+    relationship_bulk_update_file: "{app}/mutations/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_bulk_update.py"
+    relationship_bulk_delete_file: "{app}/mutations/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_bulk_delete.py"
+    relationship_file: "{app}/mutations/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_mutation.py"
+  queries:
+    base: "{app}/queries"
+    file: "{app}/queries.py"
+    folder: "{app}/queries/"
+    barrel: "{app}/queries/__init__.py"
+    # Model queries in subfolder: queries/{model_lower}/
+    model_folder: "{app}/queries/{model_lower}"
+    main_file: "{app}/queries/{model_lower}/{model_lower}_query.py"
+    single_file: "{app}/queries/{model_lower}/{model_lower}_single.py"
+    list_file: "{app}/queries/{model_lower}/{model_lower}_list.py"
+    paginated_file: "{app}/queries/{model_lower}/{model_lower}_paginated.py"
+    # Relationship queries in subfolder: queries/{model_lower}/{relationship_name}/
+    relationship_folder: "{app}/queries/{model_lower}/{relationship_name}"
+    relationship_query_file: "{app}/queries/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_query.py"
+  filters:
+    base: "{app}/filters"
+    file: "{app}/filters.py"
+    folder: "{app}/filters/"
+    barrel: "{app}/filters/__init__.py"
+    model_file: "{app}/filters/{model_lower}_filter.py"
+  orders:
+    base: "{app}/orders"
+    file: "{app}/orders.py"
+    folder: "{app}/orders/"
+    barrel: "{app}/orders/__init__.py"
+    model_file: "{app}/orders/{model_lower}_order.py"
+  services:
+    base: "{app}/services"
+    file: "{app}/services.py"
+    folder: "{app}/services/"
+    barrel: "{app}/services/__init__.py"
+    # Model services in subfolder: services/{model_lower}/
+    model_folder: "{app}/services/{model_lower}"
+    main_file: "{app}/services/{model_lower}/{model_lower}_service.py"
+    create_file: "{app}/services/{model_lower}/{model_lower}_create.py"
+    update_file: "{app}/services/{model_lower}/{model_lower}_update.py"
+    delete_file: "{app}/services/{model_lower}/{model_lower}_delete.py"
+    bulk_create_file: "{app}/services/{model_lower}/{model_lower}_bulk_create.py"
+    bulk_update_file: "{app}/services/{model_lower}/{model_lower}_bulk_update.py"
+    bulk_upsert_file: "{app}/services/{model_lower}/{model_lower}_bulk_upsert.py"
+    bulk_delete_file: "{app}/services/{model_lower}/{model_lower}_bulk_delete.py"
+    upsert_file: "{app}/services/{model_lower}/{model_lower}_upsert.py"
+    # Relationship services in subfolder: services/{model_lower}/{relationship_name}/
+    relationship_folder: "{app}/services/{model_lower}/{relationship_name}"
+    relationship_create_file: "{app}/services/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_create.py"
+    relationship_update_file: "{app}/services/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_update.py"
+    relationship_delete_file: "{app}/services/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_delete.py"
+    relationship_bulk_create_file: "{app}/services/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_bulk_create.py"
+    relationship_bulk_update_file: "{app}/services/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_bulk_update.py"
+    relationship_bulk_delete_file: "{app}/services/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_bulk_delete.py"
+    relationship_file: "{app}/services/{model_lower}/{relationship_name}/{model_lower}_{relationship_name}_service.py"
+
+# Base types used for GraphQL delete operations
+base_types:
+  delete_input: "core.common.inputs.DeleteInput"
+  delete_type: "core.common.types.DeleteType"
+  bulk_delete_input: "core.common.inputs.BulkDeleteInput"
+  bulk_delete_type: "core.common.types.BulkDeleteType"

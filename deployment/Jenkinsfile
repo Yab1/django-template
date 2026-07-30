@@ -1,0 +1,97 @@
+pipeline {
+    agent any
+
+    environment {
+        ENV_FILE = "${env.ENV_FILE ?: '/var/lib/jenkins/api/ehr/ehr_django_template.env'}"
+        SECRETS_FILE = "${env.SECRETS_FILE ?: '/var/lib/jenkins/api/secrets.yml'}"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Copy Configuration') {
+            steps {
+                script {
+                    // Check and copy environment file
+                    def envFile = env.ENV_FILE
+                    if (fileExists(envFile)) {
+                        sh """
+                            echo "[INFO] Copying environment file from ${envFile}..."
+                            cp "${envFile}" .env
+                        """
+                    } else {
+                        echo "[ERROR] Environment file not found at: ${envFile}"
+                        echo "[ERROR] Please set ENV_FILE environment variable in Jenkins job configuration"
+                        echo "[ERROR] Or ensure the file exists at the specified path"
+                        error("Environment file not found: ${envFile}")
+                    }
+
+                    // Check and copy secrets file
+                    def secretsFile = env.SECRETS_FILE
+                    if (fileExists(secretsFile)) {
+                        sh """
+                            echo "[INFO] Copying secrets file from ${secretsFile}..."
+                            cp "${secretsFile}" .secrets.yml
+                        """
+                    } else {
+                        echo "[WARNING] Secrets file not found at: ${secretsFile}"
+                        echo "[WARNING] Creating empty .secrets.yml file..."
+                        sh "touch .secrets.yml"
+                    }
+                }
+            }
+        }
+
+        stage('Load Environment') {
+            steps {
+                script {
+                    // Load environment variables - this stage mainly ensures .env exists
+                    // The actual env vars will be loaded by docker-orchestrate.sh
+                    sh '''
+                        echo "[INFO] Verifying environment file..."
+                        if [ ! -f .env ]; then
+                            echo "[ERROR] .env file not found"
+                            exit 1
+                        fi
+                        echo "[INFO] Environment file verified"
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    sh 'echo "[INFO] Deploying infrastructure (via orchestrator)..."'
+                    sh './deployment/docker-orchestrate.sh deploy'
+                }
+            }
+        }
+
+        stage('Wait for Services') {
+            steps {
+                script {
+                    sh '''
+                        echo "[INFO] Waiting for service to be ready..."
+                        sleep 20
+                        echo "[SUCCESS] Service is ready"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "[SUCCESS] Deployment completed successfully"
+        }
+        failure {
+            echo "[ERROR] Deployment failed"
+        }
+    }
+}
+

@@ -1,0 +1,93 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "ded235ed-4aa2-4577-a439-83c25904d791",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/days-of-week",
+      "version": "5.0.0",
+      "code": "mon",
+      "display": "Monday",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f7c9038f-fd20-472c-a41f-cd00e866b3ee",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/days-of-week",
+      "version": "5.0.0",
+      "code": "tue",
+      "display": "Tuesday",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c0888e82-5773-4fbb-a856-ec7ada5464dc",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/days-of-week",
+      "version": "5.0.0",
+      "code": "wed",
+      "display": "Wednesday",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "44988d31-d9f3-416a-b661-6db1b8d60060",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/days-of-week",
+      "version": "5.0.0",
+      "code": "thu",
+      "display": "Thursday",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "65d1c091-8dd4-4d3b-926a-4eb3cbc04f08",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/days-of-week",
+      "version": "5.0.0",
+      "code": "fri",
+      "display": "Friday",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c8459479-48f2-46d5-9552-2fa3bd6c6a76",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/days-of-week",
+      "version": "5.0.0",
+      "code": "sat",
+      "display": "Saturday",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "dd6610a9-0bf2-4844-9787-ae36dddd45db",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/days-of-week",
+      "version": "5.0.0",
+      "code": "sun",
+      "display": "Sunday",
+      "user_selected": false
+    }
+  }
+]

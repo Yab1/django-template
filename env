@@ -1,0 +1,135 @@
+# -------------------------------
+# Basic Django Configuration
+# -------------------------------
+DJANGO_DEBUG=True
+DJANGO_SETTINGS_MODULE="config.django.base"
+DJANGO_SECRET_KEY="iyi18+la2g@&ui8=q+)5f*9_o0zx1^zw*le8)q0c=i@^y0o-_c"
+DJANGO_ALLOWED_HOSTS="*"
+APP_DOMAIN=localhost
+APP_PORT=7000
+
+# -------------------------------
+# CSRF and Session Configuration
+# -------------------------------
+CSRF_COOKIE_DOMAIN=
+SESSION_COOKIE_DOMAIN=
+
+# -------------------------------
+# CORS Configuration
+# -------------------------------
+CORS_ORIGIN_WHITELIST=
+DJANGO_CORS_ORIGIN_WHITELIST="http://localhost:3000"
+
+# -------------------------------
+# Debug Toolbar Configuration
+# -------------------------------
+DEBUG_TOOLBAR_ENABLED=True
+SHOW_TOOLBAR_CALLBACK=True
+
+# -------------------------------
+# Database Configuration
+# -------------------------------
+DB_NAME="ehr_django_template"
+DB_USER="ehr_admin"
+DB_PASSWORD="ehr_secure_2025"
+DB_HOST="ehr_postgres"
+DB_PORT=5432
+DB_HOST=localhost
+DB_PORT=5431
+
+# -------------------------------
+# File and Storage Configuration
+# -------------------------------
+DEFAULT_FILE_STORAGE="minio_storage.storage.MinioMediaStorage"
+FILE_STORAGE_ENDPOINT="localhost:9002"
+# FILE_STORAGE_ENDPOINT="ehr_minio:9000"
+
+# AWS
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_STORAGE_BUCKET_NAME="ehr_patient"
+AWS_S3_CUSTOM_DOMAIN=""
+AWS_S3_REGION_NAME="us-east-1"
+AWS_S3_USE_SSL=False
+AWS_S3_VERIFY=False
+
+# MINIO
+MINIO_ROOT_USER="ehr_minio_admin_2025"
+MINIO_ROOT_PASSWORD="EHR2025Yzk758"
+MINIO_STORAGE_ENDPOINT="localhost:9002"
+# MINIO_STORAGE_ENDPOINT="ehr_minio:9000"
+MINIO_STORAGE_MEDIA_BUCKET_NAME="ehr-patient-media"
+MINIO_STORAGE_STATIC_BUCKET_NAME="ehr-patient-static"
+MINIO_STORAGE_USE_HTTPS=False
+
+# -------------------------------
+# Celery Configuration
+# -------------------------------
+# CELERY_BROKER_URL="amqp://guest:guest@localhost:5672//"
+CELERY_BROKER_URL="amqp://guest:guest@ehr_rabbitmq:5672//"
+
+# -------------------------------
+# Sentry/GlitchTip Configuration
+# -------------------------------
+SENTRY_DSN="http://e0972071a14d4b7891e2d7b033e113c6@localhost:2800/2"
+SENTRY_ENVIRONMENT="local"
+SENTRY_RELEASE=""
+SENTRY_SEND_DEFAULT_PII=False
+SENTRY_DEBUG=False
+
+# -------------------------------
+# Unfold Environment Variables
+# -------------------------------
+DJANGO_ENVIRONMENT=development
+APOLLO_ROUTER_URL="http://localhost:4000"
+GRAPHQL_PLAYGROUND_URL="http://localhost:7000/graphql/"
+
+# -------------------------------
+# Keycload Configuration
+# -------------------------------
+KC_BASE_URL="http://localhost:8081"
+# KC_BASE_URL="http://ehr-auth:8080"
+KC_CLIENT_ID="tenaadam-gateway"
+KC_CLIENT_SECRET="Pd0zlBip4tHatagJKAEwX73fR7niIQoG"
+
+# -------------------------------
+# Django Tenant DB Router SETUP
+# -------------------------------
+TENANT_AUTO_CREATE_DATABASE=true
+TENANT_DB_PREFIX="ehr_patient_tenant_"
+
+# -------------------------------
+# gRPC SETUP
+# -------------------------------
+SERVICE_NAME="ehr_patient"
+SERVICE_TOKEN_SECRET="dev-shared-secret"
+SERVICE_TOKEN_AUDIENCE="ehr-services"
+SERVICE_TOKEN_ISSUER="ehr-id"
+SERVICE_TOKEN_LEEWAY_SECONDS=120
+SERVICE_ROLES=admin,reader,writer
+
+# TLS configuration
+GRPC_REQUIRE_CLIENT_AUTH=true
+GRPC_TLS_ENABLED=false
+
+#  TLS certificate files
+GRPC_TLS_CERT_FILE="certs/server.crt"
+GRPC_TLS_KEY_FILE="certs/server.key"
+GRPC_TLS_CA_FILE="certs/ca.crt"
+GRPC_CLIENT_CERT_FILE="certs/client_idir.crt"
+GRPC_CLIENT_KEY_FILE="certs/client_idir.key"
+
+# gRPC Client Endpoints
+GRPC_ENDPOINT_EHR_TENANT="localhost:50051"
+GRPC_ENDPOINT_EHR_PATIENT="localhost:50054"
+
+# -------------------------------
+# Git Credentials for Private Packages
+# -------------------------------
+GIT_USERNAME="yab1"
+GIT_TOKEN="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"
+
+# -------------------------------
+# Internal Environment Variables
+# -------------------------------
+SECRETS_FILE_PATH=".secrets.yml"

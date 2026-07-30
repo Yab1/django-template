@@ -1,0 +1,1653 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "ad84145c-f937-416f-a0f8-791abae08bfb",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "_DedicatedServiceDeliveryLocationRoleType",
+      "display": "DedicatedServiceDeliveryLocationRoleType",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "6d10125d-8ff6-4d58-a6a2-4d71a3aa0149",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "_DedicatedClinicalLocationRoleType",
+      "display": "DedicatedClinicalLocationRoleType",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "873dd994-535f-43f9-b6ed-a5559c4878f5",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "DX",
+      "display": "Diagnostics or therapeutics unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "9aa1b8e5-7a8d-4455-98a2-74a8c865f571",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CVDX",
+      "display": "Cardiovascular diagnostics or therapeutics unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "6be4bbf2-0935-4e66-a7c3-db5361f0a55f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CATH",
+      "display": "Cardiac catheterization lab",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b2d97707-bf08-4e57-bd28-8d184bb71b76",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ECHO",
+      "display": "Echocardiography lab",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b4226efd-ffa9-4252-97f8-d1c55eb1e18f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "GIDX",
+      "display": "Gastroenterology diagnostics or therapeutics lab",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "819b012c-16fc-4144-8c64-3d360c417871",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ENDOS",
+      "display": "Endoscopy lab",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "2539c08f-456e-48d1-bc25-942cc0167a83",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RADDX",
+      "display": "Radiology diagnostics or therapeutics unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f7efee91-c44b-4d82-8d85-c45ba4b000f6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RADO",
+      "display": "Radiation oncology unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b5c28416-6aac-42cc-ac59-d91fb9196338",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RNEU",
+      "display": "Neuroradiology unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "92906d12-d013-4c7e-8eba-3f1188c64fa2",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HOSP",
+      "display": "Hospital",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "7004b6b0-78c7-4685-977e-d5c95e749747",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CHR",
+      "display": "Chronic Care Facility",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "87303b03-dba8-47c3-9198-b8639037d832",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "GACH",
+      "display": "Hospitals; General Acute Care Hospital",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "cdc8706c-c616-4244-b026-d13df680fff0",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "MHSP",
+      "display": "Military Hospital",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "69847c9b-e5b3-4ae3-8f78-754af05aed9b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PSYCHF",
+      "display": "Psychatric Care Facility",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "6f87c2dc-472e-4f8d-a944-69f870eaef0a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RH",
+      "display": "Rehabilitation hospital",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "557bd6e5-a79c-4380-993b-f5108fe8d490",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHAT",
+      "display": "addiction treatment center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c96cb4aa-7888-4a5f-9e98-bc02ba39b0dd",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHII",
+      "display": "intellectual impairment center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f1af634b-12d2-4bbb-889f-52d42ebf5512",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHMAD",
+      "display": "parents with adjustment difficulties center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4d9a14fe-3891-4e9d-bd34-68e6a85e56f9",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHPI",
+      "display": "physical impairment center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "16a022f8-1b53-46db-bb17-e49cbf43103d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHPIH",
+      "display": "physical impairment - hearing center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "bb12534e-12d6-4a5a-a1ac-ea99f3d2f364",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHPIMS",
+      "display": "physical impairment - motor skills center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "86ac710e-b609-41d7-bce1-d41c1ac0a1c8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHPIVS",
+      "display": "physical impairment - visual skills center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f8e27586-7bc6-4259-9cb4-815abf1fe334",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHYAD",
+      "display": "youths with adjustment difficulties center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "8e8103c7-72fa-42a9-bc3c-9b0ca1520858",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HU",
+      "display": "Hospital unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f40e7976-86a2-4d85-9458-8fd561011791",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "BMTU",
+      "display": "Bone marrow transplant unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "96829d0c-1a43-451d-ae2b-b578a953b008",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CCU",
+      "display": "Coronary care unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "8332b320-cd6c-48cf-a489-059ace311b50",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CHEST",
+      "display": "Chest unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "3d424d33-8726-4378-831c-0c426159e75d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "EPIL",
+      "display": "Epilepsy unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "99acef27-c44d-4b15-9548-aa457bfae145",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ER",
+      "display": "Emergency room",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f839866d-7169-4356-b52e-54433cbb28aa",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ETU",
+      "display": "Emergency trauma unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "07ab8a8a-c49d-4361-9549-90eca5c0f6f0",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HD",
+      "display": "Hemodialysis unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "ea808871-e400-464b-9c8f-ca06dbbc0c09",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HLAB",
+      "display": "hospital laboratory",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b53c9dbf-399f-4fb0-8821-b3dd002347d4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "INLAB",
+      "display": "inpatient laboratory",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "7e6a6604-f072-41d9-8f9a-754badc395bf",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "OUTLAB",
+      "display": "outpatient laboratory",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "ee0b97bf-59fa-456e-8689-1e257c18e72b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HRAD",
+      "display": "radiology unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c76ec89f-9ed7-4e55-a00b-d56f6e6209ea",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HUSCS",
+      "display": "specimen collection site",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "91c53a81-c7a1-47c9-92b1-641f17f0d805",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ICU",
+      "display": "Intensive care unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4bf6f0f1-3d22-49dd-acf8-105db243c6b4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDICU",
+      "display": "Pediatric intensive care unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "342f2c16-2cb6-458f-8d4d-60d64687c4cd",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDNICU",
+      "display": "Pediatric neonatal intensive care unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "fb442acb-b257-4252-89ce-5ce2867df9f7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "INPHARM",
+      "display": "inpatient pharmacy",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "6604b1f7-1e49-4117-b818-720e772bb644",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "MBL",
+      "display": "medical laboratory",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "46ccdca7-da9c-4dda-b03e-c04368b702fd",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "NCCS",
+      "display": "Neurology critical care and stroke unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "12bd74cf-ed7a-4a5b-8c75-0e6ac87dd64a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "NS",
+      "display": "Neurosurgery unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c454490a-19b6-46be-838c-fb4c90034274",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "OUTPHARM",
+      "display": "outpatient pharmacy",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "176e97aa-b97b-46b8-b3c7-62e825248273",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDU",
+      "display": "Pediatric unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "46915502-7cbf-48b7-8aef-3ba5c6c6226d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PHU",
+      "display": "Psychiatric hospital unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f5f72fd8-6d33-4cee-a402-c261ba9915d4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHU",
+      "display": "Rehabilitation hospital unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "0c70a85c-dd5e-424a-841e-ae12790a5c4e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "SLEEP",
+      "display": "Sleep disorders unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "229792c6-e329-4ff4-b76c-ef5e6456ac35",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "NCCF",
+      "display": "Nursing or custodial care facility",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f68f6089-b92c-4aa7-9834-1342a185a973",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "SNF",
+      "display": "Skilled nursing facility",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "14b3a4d1-1833-46a2-acd8-99568ba2092f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "OF",
+      "display": "Outpatient facility",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4dc0f80b-1b07-4d81-b07b-0ab062bfb077",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ALL",
+      "display": "Allergy clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "cfdc85f4-b512-4bdd-982d-9257c4ae56c8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "AMPUT",
+      "display": "Amputee clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "d187ddeb-bcfa-4988-b96d-63839d26dcf5",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "BMTC",
+      "display": "Bone marrow transplant clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "85d037d9-96e1-45ee-ba54-2b0fdd34c25b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "BREAST",
+      "display": "Breast clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "fe4bb341-316c-4931-997f-ef7f576af817",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CANC",
+      "display": "Child and adolescent neurology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "795ef220-3cc7-4ff6-bc4b-0393edb9304b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CAPC",
+      "display": "Child and adolescent psychiatry clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "0c1bf4a4-84e3-4ddd-9651-ab748c40e82d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CARD",
+      "display": "Ambulatory Health Care Facilities; Clinic/Center; Rehabilitation: Cardiac Facilities",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "732b72fa-9bc9-4f9a-919d-8b26e146f911",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDCARD",
+      "display": "Pediatric cardiology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "3476fd5f-917d-4791-b6a2-0f09f4d673f5",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "COAG",
+      "display": "Coagulation clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "22c9b165-a547-4e8e-a342-709eaa7395ed",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CRS",
+      "display": "Colon and rectal surgery clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "75e16957-88fe-4db2-b098-f65d4238145a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "DERM",
+      "display": "Dermatology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b5891428-2fb4-4c57-8293-8ede181a4562",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ENDO",
+      "display": "Endocrinology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "cad7f51d-12c3-4414-971e-40e712fbedba",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDE",
+      "display": "Pediatric endocrinology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "79637d48-da7d-4681-bed6-d6361d60764f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ENT",
+      "display": "Otorhinolaryngology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "336a911a-11f3-4b82-bbe6-7a8ea543816f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "FMC",
+      "display": "Family medicine clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "cb5dc2d1-f121-4f48-ad35-1ff0629f9d36",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "GI",
+      "display": "Gastroenterology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "267d2f55-5397-4eb3-9ec4-645abab82864",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDGI",
+      "display": "Pediatric gastroenterology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "8556ab74-375d-4e2f-93e3-4fe3dc961d01",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "GIM",
+      "display": "General internal medicine clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "988af2ba-bbb3-492e-b7df-84a5a8ef7e1b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "GYN",
+      "display": "Gynecology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f8eff494-a7fa-4705-b247-1fb4ad8f06e4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HEM",
+      "display": "Hematology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "2ed0a008-c80a-454d-bc7c-6e7f589cf641",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDHEM",
+      "display": "Pediatric hematology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "de0af274-e18a-4fe6-9c16-c37b8f54dac4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HTN",
+      "display": "Hypertension clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c0422118-638c-4a38-968b-f651542b0015",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "IEC",
+      "display": "Impairment evaluation center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "fd47256e-4048-4e04-9ede-c8f15105125f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "INFD",
+      "display": "Infectious disease clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f332b0d4-2573-44c8-9318-b4763df95a37",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDID",
+      "display": "Pediatric infectious disease clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "73c8a49d-8534-49d1-b8ca-27f9ba4c30a5",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "INV",
+      "display": "Infertility clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "7897f476-e55e-4de2-b4a1-80a6ff0279f3",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "LYMPH",
+      "display": "Lympedema clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "18a975a1-25ad-4560-8a4d-5efb90cc4176",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "MGEN",
+      "display": "Medical genetics clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "82ac9414-b600-4181-9152-d7b0cb7b8217",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "NEPH",
+      "display": "Nephrology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c62f1c9c-4b66-41dd-a9ff-e6000a158b2c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDNEPH",
+      "display": "Pediatric nephrology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "2ef4bc43-ef88-4a5f-9955-af1edb9c57d6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "NEUR",
+      "display": "Neurology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "e79cb07f-233c-4dac-a6aa-77e1d465a1eb",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "OB",
+      "display": "Obstetrics clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "7d560922-df8a-42f7-b704-056fd744bf88",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "OMS",
+      "display": "Oral and maxillofacial surgery clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "a0c3c26b-c01f-491d-8022-7a6d0f796cb6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ONCL",
+      "display": "Medical oncology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "90be8275-b256-4110-b79c-4c1bcfa88158",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDHO",
+      "display": "Pediatric oncology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "0ba566c0-ca94-4c6e-ada0-042596812f2b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "OPH",
+      "display": "Opthalmology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "dff2380c-734b-4a24-bdbb-2206ff13b872",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "OPTC",
+      "display": "optometry clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "17987f44-ebc1-4f05-87b1-979d4979a229",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ORTHO",
+      "display": "Orthopedics clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "72f9319d-21ec-4bb2-bd27-77ade7b41eed",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "HAND",
+      "display": "Hand clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "766afa51-14d3-4829-a662-f2b4240c42bf",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PAINCL",
+      "display": "Pain clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "5def90a8-0dd5-4b96-b7ae-0d33d3ad5571",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PC",
+      "display": "Primary care clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "82216f40-b914-4dd0-b815-4802934cf9d7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDC",
+      "display": "Pediatrics clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "d599f730-86b0-42cb-a331-88e26a84a261",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PEDRHEUM",
+      "display": "Pediatric rheumatology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "ea6713f2-4436-4f27-a7c5-06d104d88ae7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "POD",
+      "display": "Podiatry clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "671e0b89-5e04-46e4-b648-5af9304830a3",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PREV",
+      "display": "Preventive medicine clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "141e0e0c-823e-43aa-a2ef-44015a928349",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PROCTO",
+      "display": "Proctology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "dfef1276-a0f0-459b-acf1-ea44aa7a7e55",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PROFF",
+      "display": "Provider's Office",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "72a343a5-ee13-4961-9f06-5289887c3c68",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PROS",
+      "display": "Prosthodontics clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "d05ceb38-6df1-4dbf-91e7-0a72c6b8171e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PSI",
+      "display": "Psychology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4cf3a42e-273e-4c32-8941-ae9a6f39ccaf",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PSY",
+      "display": "Psychiatry clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "084e6a4c-dc61-4b29-b15a-5b65dfc4bcc3",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RHEUM",
+      "display": "Rheumatology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "18a4a40b-b59e-496d-a970-7ba43ef2a1a2",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "SPMED",
+      "display": "Sports medicine clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "69b87da1-7f23-4826-8fc1-e013e9f6eb0e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "SU",
+      "display": "Surgery clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "9253feb4-a28b-4a30-a211-3903e0108de1",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PLS",
+      "display": "Plastic surgery clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "d64c3869-b97a-4fc2-a067-41b546a64a1d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "URO",
+      "display": "Urology clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "607e1f35-f265-4569-a0fe-dd2c5d090385",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "TR",
+      "display": "Transplant clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "20022066-9555-483a-afe1-389881074dbc",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "TRAVEL",
+      "display": "Travel and geographic medicine clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "59bb1f44-b24b-4c5c-a8c9-147b93b56730",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "WND",
+      "display": "Wound clinic",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "74b2babc-7af2-4f8e-9735-16387c16b730",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "RTF",
+      "display": "Residential treatment facility",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b9b5bf82-db0c-4efe-8d72-8e80bdb8afda",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PRC",
+      "display": "Pain rehabilitation center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "67aeb630-fcae-4098-b1ca-35996f1c88ec",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "SURF",
+      "display": "Substance use rehabilitation facility",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b2f7163d-a406-4a8f-a557-b215cda0b38a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "_DedicatedNonClinicalLocationRoleType",
+      "display": "DedicatedNonClinicalLocationRoleType",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "18e675b5-ff24-471b-8859-7ef0e2f63bea",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "DADDR",
+      "display": "Delivery Address",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "d8090e55-1406-4374-83af-401c11db60e4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "MOBL",
+      "display": "Mobile Unit",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "bb817498-8f25-4ff2-84c5-7154a94161e5",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "AMB",
+      "display": "Ambulance",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b57cb7be-65cd-44c7-8b2f-76910a091b24",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PHARM",
+      "display": "Pharmacy",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "02a553b8-6b08-4108-b7ff-d7c136325527",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "_IncidentalServiceDeliveryLocationRoleType",
+      "display": "IncidentalServiceDeliveryLocationRoleType",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "cab622b6-5d22-4269-8a87-a1fb2396a1aa",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "ACC",
+      "display": "accident site",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "8ac2f27b-d5a4-4b3e-8201-479ad43993d9",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "COMM",
+      "display": "Community Location",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "68e980ec-0ced-41a8-b51f-a531660535c9",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "CSC",
+      "display": "community service center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "93ec89bc-bea3-4ff8-85a5-53d4b7427de3",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "PTRES",
+      "display": "Patient's Residence",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "afdbb8cd-cb92-4332-9eb4-a3517e4ba8f7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "SCHOOL",
+      "display": "school",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "84d8ef1e-8dfb-41ea-8b47-698fe3169ae8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "UPC",
+      "display": "underage protection center",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "05c87366-b9ea-45c9-b4c5-848b050b338a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version": "2.2.0",
+      "code": "WORK",
+      "display": "work site",
+      "user_selected": false
+    }
+  }
+]

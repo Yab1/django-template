@@ -1,0 +1,80 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "0a484c70-5816-4706-b1c2-fb4087ada9fb",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+      "version": "2.2.0",
+      "code": "C",
+      "display": "Closed",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "91ad82f7-e9a8-4950-b42a-0d2549709edf",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+      "version": "2.2.0",
+      "code": "H",
+      "display": "Housekeeping",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b6addbc2-ae00-4c9a-a8a0-8cad253643cd",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+      "version": "2.2.0",
+      "code": "O",
+      "display": "Occupied",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "807a72c1-d342-47a2-b63a-7b0312c2fa4d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+      "version": "2.2.0",
+      "code": "U",
+      "display": "Unoccupied",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "a6010f4d-1f91-48bf-be80-92af3788934b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+      "version": "2.2.0",
+      "code": "K",
+      "display": "Contaminated",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "55fd1bc1-9cbf-4c99-8eb6-ca60be7a0693",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v2-0116",
+      "version": "2.2.0",
+      "code": "I",
+      "display": "Isolated",
+      "user_selected": false
+    }
+  }
+]

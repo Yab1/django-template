@@ -1,0 +1,353 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "43677cfa-2703-4a2b-9673-6d88c1280f94",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "MORN",
+      "display": "Morning",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "2581c999-8774-4c48-9819-463ba7aa8e16",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "MORN.early",
+      "display": "Early Morning",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "2c825ac7-9890-4fc4-baf2-e2bf5777df5a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "MORN.late",
+      "display": "Late Morning",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "fa306efe-ac80-4e34-beb2-4ca207385a43",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "NOON",
+      "display": "Noon",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "ce9409bb-a7dc-43ba-b046-2f2e6df8e66c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "AFT",
+      "display": "Afternoon",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "f832952d-300a-4e80-922f-34093142d50a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "AFT.early",
+      "display": "Early Afternoon",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "cc9ca8f2-2561-464e-bf30-170559e90606",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "AFT.late",
+      "display": "Late Afternoon",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4e283290-e874-4b5c-827b-c9e35847d277",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "EVE",
+      "display": "Evening",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "a8357e88-bc87-4e1f-be7a-32a0f982402e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "EVE.early",
+      "display": "Early Evening",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4ecf8a14-826d-4a4b-a72b-b708cf4bbaf6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "EVE.late",
+      "display": "Late Evening",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "7027e2ea-d5a6-434b-8313-aeaa0fb1a54b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "NIGHT",
+      "display": "Night",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "bfb54c41-e384-4032-91c1-e4335d7d6ab5",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "PHS",
+      "display": "After Sleep",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "cc3e8f83-9d91-42fc-97e0-19acbd76559b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/event-timing",
+      "version": "5.0.0",
+      "code": "IMD",
+      "display": "Immediate",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "84bc5774-2313-4c17-a885-2461f73e6579",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "HS",
+      "display": "HS",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "856eec50-51d1-4b77-9bc7-65f55984fe5f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "WAKE",
+      "display": "WAKE",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "b543c2c3-7225-49dc-bdb7-57690e0e5a5f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "C",
+      "display": "C",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4b75f787-0f69-435d-aba4-4cd69e8bd39c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "CM",
+      "display": "CM",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "0d9a890a-c645-4eb9-b668-3340a1cc152c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "CD",
+      "display": "CD",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "9fc99317-ad42-43c2-81ee-3a20d8c94f65",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "CV",
+      "display": "CV",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "e1b32c2d-b5d0-4468-bd2c-432c11056906",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "AC",
+      "display": "AC",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "2fb12568-9902-4ad5-beed-608542a0dc70",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "ACM",
+      "display": "ACM",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "71c08da7-6d06-432b-88bb-91eb2fb584a4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "ACD",
+      "display": "ACD",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "7a2b3fe2-f3b2-4b58-942c-e602cad83d3f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "ACV",
+      "display": "ACV",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "5b83ffe7-c4f0-4fb0-a17f-3e9c6384515c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "PC",
+      "display": "PC",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "4cbc46c5-25f2-4f5a-b2df-6549ffd1bbb2",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "PCM",
+      "display": "PCM",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "c8b25323-53d6-4c50-854b-4cd61fd65acc",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "PCD",
+      "display": "PCD",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "affea0f7-0568-4ad2-8945-f7f04c2d60ee",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-TimingEvent",
+      "version": "5.0.0",
+      "code": "PCV",
+      "display": "PCV",
+      "user_selected": false
+    }
+  }
+]

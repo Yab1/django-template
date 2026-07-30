@@ -1,0 +1,150 @@
+# Test codegen module configuration
+# This file contains test-specific defaults
+# App-specific overrides are in core/{app}/.codegen/test.yaml
+
+# Test-specific settings
+global:
+  test_framework: "pytest"  # pytest, unittest, etc.
+  use_fixtures: true
+  use_factories: true  # Use factory_boy or similar
+  use_mocks: true  # Use unittest.mock or pytest-mock
+  default_test_coverage: 80  # Minimum coverage percentage
+
+# Naming conventions for test files and classes
+naming:
+  test_file_suffix: "_test.py"  # e.g., test_model_test.py
+  test_class_prefix: "Test"  # e.g., TestModelCreate
+  test_function_prefix: "test_"  # e.g., test_create_model
+  fixture_suffix: "_fixture"  # e.g., model_fixture
+  factory_suffix: "Factory"  # e.g., ModelFactory
+
+# Output structure configuration - controls how test files are organized
+output_structure:
+  use_folders: true
+  separate_test_types: true  # Separate model, service, mutation, query tests
+  split_by_operation: false  # Split tests by operation (create, update, delete, etc.)
+  generate_conftest: true  # Generate conftest.py with shared fixtures
+
+# File path templates for generated test code
+# Placeholders: {app}, {model_lower}, {test_type}
+output_paths:
+  # Model tests - test Django models
+  model_tests:
+    base: "{app}/tests/models"
+    folder: "{app}/tests/models/"
+    conftest: "{app}/tests/models/conftest.py"
+    model_file: "{app}/tests/models/test_{model_lower}.py"
+    all_models_file: "{app}/tests/models/test_all_models.py"
+  
+  # Service tests - test service functions
+  service_tests:
+    base: "{app}/tests/services"
+    folder: "{app}/tests/services/"
+    conftest: "{app}/tests/services/conftest.py"
+    model_file: "{app}/tests/services/test_{model_lower}_services.py"
+    operation_file: "{app}/tests/services/test_{model_lower}_{operation}.py"  # if split_by_operation
+    all_services_file: "{app}/tests/services/test_all_services.py"
+  
+  # Mutation tests - test GraphQL mutations
+  mutation_tests:
+    base: "{app}/tests/mutations"
+    folder: "{app}/tests/mutations/"
+    conftest: "{app}/tests/mutations/conftest.py"
+    model_file: "{app}/tests/mutations/test_{model_lower}_mutations.py"
+    operation_file: "{app}/tests/mutations/test_{model_lower}_{operation}.py"  # if split_by_operation
+    relationship_file: "{app}/tests/mutations/test_{model_lower}_{relationship_name}_mutations.py"
+    all_mutations_file: "{app}/tests/mutations/test_all_mutations.py"
+  
+  # Query tests - test GraphQL queries
+  query_tests:
+    base: "{app}/tests/queries"
+    folder: "{app}/tests/queries/"
+    conftest: "{app}/tests/queries/conftest.py"
+    model_file: "{app}/tests/queries/test_{model_lower}_queries.py"
+    query_type_file: "{app}/tests/queries/test_{model_lower}_{query_type}.py"  # single, list, paginated
+    relationship_file: "{app}/tests/queries/test_{model_lower}_{relationship_name}_queries.py"
+    all_queries_file: "{app}/tests/queries/test_all_queries.py"
+  
+  # Integration tests - end-to-end tests
+  integration_tests:
+    base: "{app}/tests/integration"
+    folder: "{app}/tests/integration/"
+    conftest: "{app}/tests/integration/conftest.py"
+    model_file: "{app}/tests/integration/test_{model_lower}_integration.py"
+    all_integration_file: "{app}/tests/integration/test_all_integration.py"
+  
+  # Factories - test data factories
+  factories:
+    base: "{app}/tests/factories"
+    folder: "{app}/tests/factories/"
+    conftest: "{app}/tests/factories/conftest.py"
+    model_file: "{app}/tests/factories/{model_lower}_factory.py"
+    all_factories_file: "{app}/tests/factories/__init__.py"
+  
+  # Fixtures - shared test fixtures
+  fixtures:
+    base: "{app}/tests/fixtures"
+    folder: "{app}/tests/fixtures/"
+    conftest: "{app}/tests/fixtures/conftest.py"
+    model_file: "{app}/tests/fixtures/{model_lower}_fixtures.py"
+    all_fixtures_file: "{app}/tests/fixtures/__init__.py"
+
+# Test generation configuration
+test_generation:
+  # What types of tests to generate
+  generate:
+    model_tests: true
+    service_tests: true
+    mutation_tests: true
+    query_tests: true
+    integration_tests: false  # Usually manual
+    factories: true
+    fixtures: true
+  
+  # Test operations to generate
+  operations:
+    create: true
+    update: true
+    delete: true
+    bulk_create: true
+    bulk_update: true
+    bulk_delete: true
+    single_query: true
+    list_query: true
+    paginated_query: true
+  
+  # Test scenarios to include
+  scenarios:
+    success: true  # Test successful operations
+    validation: true  # Test validation errors
+    permissions: true  # Test permission checks
+    relationships: true  # Test relationship handling
+    edge_cases: true  # Test edge cases
+    error_handling: true  # Test error scenarios
+
+# Test data configuration
+test_data:
+  use_factories: true
+  factory_library: "factory_boy"  # factory_boy, faker, etc.
+  default_fixture_count: 5  # Default number of fixtures to create
+  use_random_data: true
+  seed_data: false  # Use seed data from fixtures
+
+# Assertions and validations
+assertions:
+  use_django_assertions: true  # Use Django's TestCase assertions
+  use_pytest_assertions: true  # Use pytest assertions
+  validate_response_schema: true  # For GraphQL tests
+  check_permissions: true
+  verify_relationships: true
+
+# Coverage configuration
+coverage:
+  enabled: true
+  minimum_coverage: 80
+  exclude_patterns:
+    - "*/migrations/*"
+    - "*/tests/*"
+    - "*/venv/*"
+    - "*/__pycache__/*"
+

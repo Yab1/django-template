@@ -1,0 +1,80 @@
+[
+  {
+    "model": "fhir.Coding",
+    "pk": "75ec70d5-aa30-483c-9160-312ea19bdb73",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/location-characteristic",
+      "version": "5.0.0",
+      "code": "wheelchair",
+      "display": "Wheelchair accessible",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "d3d114f8-5b3a-428e-b318-b667146bf554",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/location-characteristic",
+      "version": "5.0.0",
+      "code": "has-translation",
+      "display": "translation services available",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "184e311e-d52e-4152-a9d4-c1563d36c2ae",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/location-characteristic",
+      "version": "5.0.0",
+      "code": "has-oxy-nitro",
+      "display": "oxygen/nitrogen available",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "fe6dc10b-6db4-4050-90e4-0258b79bc369",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/location-characteristic",
+      "version": "5.0.0",
+      "code": "has-neg-press",
+      "display": "negative pressure rooms available",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "a90de471-fd5d-45f4-ad3e-f07fe0c5c0ee",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/location-characteristic",
+      "version": "5.0.0",
+      "code": "has-iso-ward",
+      "display": "isolation ward",
+      "user_selected": false
+    }
+  },
+  {
+    "model": "fhir.Coding",
+    "pk": "e215db6b-2396-4c6c-8cd2-d2bd171685a6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "system": "http://hl7.org/fhir/location-characteristic",
+      "version": "5.0.0",
+      "code": "has-icu",
+      "display": "has ICU",
+      "user_selected": false
+    }
+  }
+]

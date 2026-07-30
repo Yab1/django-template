@@ -1,0 +1,1526 @@
+[
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "c15b16d2-7545-4125-b0ec-66804e179fe0",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A role of a place that further classifies a setting that is intended to house the provision of services.",
+      "coding": [
+        "ad84145c-f937-416f-a0f8-791abae08bfb"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "32098f98-e641-45db-b067-1ffe58f0d242",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A role of a place that further classifies the clinical setting (e.g., cardiology clinic, primary care clinic, rehabilitation hospital, skilled nursing facility) in which care is delivered during an encounter.",
+      "coding": [
+        "6d10125d-8ff6-4d58-a6a2-4d71a3aa0149"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "bd7d13f8-15ef-412d-a17b-4e861b719f96",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A practice setting where diagnostic procedures or therapeutic interventions are performed",
+      "coding": [
+        "873dd994-535f-43f9-b6ed-a5559c4878f5"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "8fd16030-1c1c-4586-ac43-f814e3f3dc27",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A practice setting where cardiovascular diagnostic procedures or therapeutic interventions are performed (e.g., cardiac catheterization lab, echocardiography suite)",
+      "coding": [
+        "9aa1b8e5-7a8d-4455-98a2-74a8c865f571"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "dd629019-a764-486c-9106-6db616a42311",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Cardiac catheterization lab",
+      "coding": [
+        "6be4bbf2-0935-4e66-a7c3-db5361f0a55f"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "829cf87d-64f3-476e-b8c1-81883a92ee31",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Echocardiography lab",
+      "coding": [
+        "b2d97707-bf08-4e57-bd28-8d184bb71b76"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "3eb2466f-c710-4e31-881e-d88e467372ee",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A practice setting where GI procedures (such as endoscopies) are performed",
+      "coding": [
+        "b4226efd-ffa9-4252-97f8-d1c55eb1e18f"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "52197b89-267f-47cd-91e1-1d98615408aa",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 261QD0000N)",
+      "coding": [
+        "819b012c-16fc-4144-8c64-3d360c417871"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "04cebdac-6588-440d-b057-83358e0ecf39",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A practice setting where radiology services (diagnostic or therapeutic) are provided (X12N 261QR0200N)",
+      "coding": [
+        "2539c08f-456e-48d1-bc25-942cc0167a83"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "802cc848-610d-4ca9-9efb-365b275737d7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 261QX0203N)",
+      "coding": [
+        "f7efee91-c44b-4d82-8d85-c45ba4b000f6"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "c575efed-8389-4b1a-8148-5e569cc5c679",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Neuroradiology unit",
+      "coding": [
+        "b5c28416-6aac-42cc-ac59-d91fb9196338"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "65b1dde0-665c-49a7-a692-55b8249c1bca",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "An acute care institution that provides medical, surgical, or psychiatric care and treatment for the sick or the injured.",
+      "coding": [
+        "92906d12-d013-4c7e-8eba-3f1188c64fa2"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "3307311a-2124-4537-8a8c-722caae40435",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(1) A hospital including a physical plant and personnel that provides multidisciplinary diagnosis and treatment for diseases that have one or more of the following characteristics: is permanent; leaves residual disability; is caused by nonreversible pathological alteration; requires special training of the patient for rehabilitation; and/or may be expected to require a long period of supervision or care. In addition, patients require the safety, security, and shelter of these specialized inpatient or partial hospitalization settings. (2) A hospital that provides medical and skilled nursing services to patients with long-term illnesses who are not in an acute phase but who require an intensity of services not available in nursing homes",
+      "coding": [
+        "7004b6b0-78c7-4685-977e-d5c95e749747"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "ed958a78-3329-4ea3-aefd-8c9aece2b80d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 282N00000N)",
+      "coding": [
+        "87303b03-dba8-47c3-9198-b8639037d832"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d66a6404-636d-4415-bd79-d8e9e625b9b4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A health care facility operated by the Department of Defense or other military operation.",
+      "coding": [
+        "cdc8706c-c616-4244-b026-d13df680fff0"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "e8da2d8b-6635-4a21-8e74-ce9c7b6ebd24",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Healthcare facility that cares for patients with psychiatric illness(s).",
+      "coding": [
+        "69847c9b-e5b3-4ae3-8f78-754af05aed9b"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "f250d565-6bec-4992-87ab-e335135dd5f8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 283X00000N)",
+      "coding": [
+        "6f87c2dc-472e-4f8d-a944-69f870eaef0a"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "764aa441-7873-486c-9603-8e316e23cc20",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include life training and/or social support to people with addictions.",
+      "coding": [
+        "557bd6e5-a79c-4380-993b-f5108fe8d490"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "82590927-304e-4b7e-ba9a-c5bd19f75ede",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include adaptation, rehabilitation and social integration services for people with intellectual and/or pervasive development disorders such as autism or severe behaviour disorder.",
+      "coding": [
+        "c96cb4aa-7888-4a5f-9e98-bc02ba39b0dd"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "f31608f8-f69d-49ea-8df8-01dffc1db7f1",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may social support services for adolescents who are pregnant or have child and are experiencing adaptation issues/difficulties in their current or eventual parenting role.",
+      "coding": [
+        "f1af634b-12d2-4bbb-889f-52d42ebf5512"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "8b68951b-ef54-4bdd-b735-ed60f26f7480",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include adaptation, rehabilitation and social integration services for people with physical impairments.",
+      "coding": [
+        "4d9a14fe-3891-4e9d-bd34-68e6a85e56f9"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d1dcf3dc-058a-4816-aeba-99d412c033d4",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services for people with hearing impairments.",
+      "coding": [
+        "16a022f8-1b53-46db-bb17-e49cbf43103d"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "3247935d-cadb-4faa-aaf9-7e6ecb06ac39",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services for people with motor skill impairments.",
+      "coding": [
+        "bb12534e-12d6-4a5a-a1ac-ea99f3d2f364"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "de0be859-8f41-4a9e-9e2a-ff8118d6e253",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services for people with visual skill impairments.",
+      "coding": [
+        "86ac710e-b609-41d7-bce1-d41c1ac0a1c8"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "ee29f13d-a2e3-429a-a4d0-8c4ad0eda273",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include life training and/or social support services for the adaption, rehabilitation and social integration of youths with adjustment difficulties.",
+      "coding": [
+        "f8e27586-7bc6-4259-9cb4-815abf1fe334"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "e89e8b82-03c5-41ad-8657-42a63f067b32",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Hospital unit",
+      "coding": [
+        "8e8103c7-72fa-42a9-bc3c-9b0ca1520858"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7960be3e-5458-43b4-8f60-08d6a292f566",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Bone marrow transplant unit",
+      "coding": [
+        "f40e7976-86a2-4d85-9458-8fd561011791"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "8d77c074-efd4-4148-9f39-bd61e289b969",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Coronary care unit",
+      "coding": [
+        "96829d0c-1a43-451d-ae2b-b578a953b008"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "bdbebae1-17d6-43f1-b152-fd52a189f645",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A specialty unit in hospital that focuses on chronic respirator patients and pulmonary failure",
+      "coding": [
+        "8332b320-cd6c-48cf-a489-059ace311b50"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "88d65b43-22d9-4616-86b9-c76b81274775",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Epilepsy unit",
+      "coding": [
+        "3d424d33-8726-4378-831c-0c426159e75d"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "809356a5-68d6-4fc8-bcf7-743c583d1c72",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "The section of a health care facility for providing rapid treatment to victims of sudden illness or trauma.",
+      "coding": [
+        "99acef27-c44d-4b15-9548-aa457bfae145"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "1a2eb830-6437-43f8-abf9-3bebaa92905d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Emergency trauma unit",
+      "coding": [
+        "f839866d-7169-4356-b52e-54433cbb28aa"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "cc9ff306-381d-4a2d-ab40-ac7d3d8febd1",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Hemodialysis unit",
+      "coding": [
+        "07ab8a8a-c49d-4361-9549-90eca5c0f6f0"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "b0312711-58f3-4ccc-9c79-5336c16d7110",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include tests done based on clinical specimens to get health information about a patient as pertaining to the diagnosis, treatment and prevention of disease. Hospital laboratories may be further divided into specialized units such as Anatomic Pathology, Microbiology, and Biochemistry.",
+      "coding": [
+        "ea808871-e400-464b-9c8f-ca06dbbc0c09"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "08685602-dd17-4624-9d0c-6c9389efee45",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include tests are done on clinical specimens to get health information about a patient pertaining to the diagnosis, treatment, and prevention of disease for a hospital visit longer than one day.",
+      "coding": [
+        "b53c9dbf-399f-4fb0-8821-b3dd002347d4"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "2b29e255-7b8e-4dbb-8b4e-07398b0bce11",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include tests are done on clinical specimens to get health information about a patient pertaining to the diagnosis, treatment, and prevention of disease for same day visits.",
+      "coding": [
+        "7e6a6604-f072-41d9-8f9a-754badc395bf"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "99896d0a-e690-4d33-a102-9d653c414b3e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include the branch of medicine that uses ionizing and non-ionizing radiation to diagnose and treat diseases. The radiology unit may be further divided into subspecialties such as Imaging, Cardiovascular, Thoracic, and Ultrasound.",
+      "coding": [
+        "ee0b97bf-59fa-456e-8689-1e257c18e72b"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "10dbed7f-5810-45b1-a3fd-e05cca83f09b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include collecting specimens and/or samples from patients for laboratory testing purposes, but does not perform any tests or analysis functions.",
+      "coding": [
+        "c76ec89f-9ed7-4e55-a00b-d56f6e6209ea"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "f8450e88-0d60-4575-bb21-c8ca48b3e95f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Intensive care unit",
+      "coding": [
+        "91c53a81-c7a1-47c9-92b1-641f17f0d805"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "058c0f38-f1b9-4350-8b6e-6901b054674a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric intensive care unit",
+      "coding": [
+        "4bf6f0f1-3d22-49dd-acf8-105db243c6b4"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "35ca0d12-f1dc-4006-a4d0-b229b089093f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric neonatal intensive care unit",
+      "coding": [
+        "342f2c16-2cb6-458f-8d4d-60d64687c4cd"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "dc5a3397-89a1-49c7-a60a-cb7e5a40f5ea",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include providing judicious, safe, efficacious, appropriate and cost effective use of medicines for treatment of patients for visits longer than one day. The distinction between inpatient pharmacies and retail (or outpatient) pharmacies is that they are part of a patient's continuity of care while staying in the hospital.",
+      "coding": [
+        "fb442acb-b257-4252-89ce-5ce2867df9f7"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "2e18ad2f-f6c6-4be3-a0a8-0bced63f4c35",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which include biochemistry, hematology, microbiology, immunochemistry, and toxicology.",
+      "coding": [
+        "6604b1f7-1e49-4117-b818-720e772bb644"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "e6400c2a-9503-462d-b00b-e3cc38467143",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Neurology critical care and stroke unit",
+      "coding": [
+        "46ccdca7-da9c-4dda-b03e-c04368b702fd"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9485207c-ae62-4a45-a746-f992c072d547",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Neurosurgery unit",
+      "coding": [
+        "12bd74cf-ed7a-4a5b-8c75-0e6ac87dd64a"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "337fd90f-3fe5-4cb5-ab52-b9b50745e75f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include providing judicious, safe, efficacious, appropriate and cost effective use of medicines for treatment of patients for outpatient visits and may also be used for discharge prescriptions.",
+      "coding": [
+        "c454490a-19b6-46be-838c-fb4c90034274"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "6c6fc30a-50c3-4f07-9ef2-aa09419c75a6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric unit",
+      "coding": [
+        "176e97aa-b97b-46b8-b3c7-62e825248273"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "33423973-6b8c-4010-9579-15cd7059339f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 273R00000N)",
+      "coding": [
+        "46915502-7cbf-48b7-8aef-3ba5c6c6226d"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7b598e86-bece-4a9d-9b39-19efc94cc4a9",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Rehabilitation hospital unit",
+      "coding": [
+        "f5f72fd8-6d33-4cee-a402-c261ba9915d4"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "c3009931-b4c1-41ca-8b61-c5af2b07af8a",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 261QA1200N)",
+      "coding": [
+        "0c70a85c-dd5e-424a-841e-ae12790a5c4e"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "8c0f07bf-6cc1-4dca-9b05-810e3da3ebc9",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Nursing or custodial care facility",
+      "coding": [
+        "229792c6-e329-4ff4-b76c-ef5e6456ac35"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "933fc926-fcfe-41fb-8ba3-0b6eb7e5014e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 314000000N)",
+      "coding": [
+        "f68f6089-b92c-4aa7-9834-1342a185a973"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "cd575ede-bd94-46dd-8fdd-de92014b0320",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Outpatient facility",
+      "coding": [
+        "14b3a4d1-1833-46a2-acd8-99568ba2092f"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "bb8ba0e3-28d1-4e41-ab9c-c6bd876e70a8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Allergy clinic",
+      "coding": [
+        "4dc0f80b-1b07-4d81-b07b-0ab062bfb077"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "720724a7-6ede-499f-a191-9e6161eae4d7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Amputee clinic",
+      "coding": [
+        "cfdc85f4-b512-4bdd-982d-9257c4ae56c8"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "1b2b0d0e-7618-4b25-9304-2fe30b976dbd",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Bone marrow transplant clinic",
+      "coding": [
+        "d187ddeb-bcfa-4988-b96d-63839d26dcf5"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "f38ef6de-e074-441b-b43d-f232e7e02a77",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Breast clinic",
+      "coding": [
+        "85d037d9-96e1-45ee-ba54-2b0fdd34c25b"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "e48b8a0c-d609-43a8-b494-2311c4e3c511",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Child and adolescent neurology clinic",
+      "coding": [
+        "fe4bb341-316c-4931-997f-ef7f576af817"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "fad954fe-80b7-4fdb-8638-fff482a45105",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Child and adolescent psychiatry clinic",
+      "coding": [
+        "795ef220-3cc7-4ff6-bc4b-0393edb9304b"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "20e95a05-bd28-42ae-a050-bb8a3c0faadb",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Ambulatory Health Care Facilities; Clinic/Center; Rehabilitation: Cardiac Facilities",
+      "coding": [
+        "0c1bf4a4-84e3-4ddd-9651-ab748c40e82d"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "6df07488-c749-4384-8272-01c35b94215b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric cardiology clinic",
+      "coding": [
+        "732b72fa-9bc9-4f9a-919d-8b26e146f911"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "2c1c7cfb-1e75-4445-988a-a3eeb95ddcbf",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Coagulation clinic",
+      "coding": [
+        "3476fd5f-917d-4791-b6a2-0f09f4d673f5"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "994a086d-e976-45c1-a287-df32a5767851",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Colon and rectal surgery clinic",
+      "coding": [
+        "22c9b165-a547-4e8e-a342-709eaa7395ed"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7b798856-4cda-4d93-a5fa-5cf4f691b515",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Dermatology clinic",
+      "coding": [
+        "75e16957-88fe-4db2-b098-f65d4238145a"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "f10326e9-b5d5-410a-958e-32d66a7744bd",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Endocrinology clinic",
+      "coding": [
+        "b5891428-2fb4-4c57-8293-8ede181a4562"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "6a00503c-3fd7-4be0-8152-b394459dc03c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric endocrinology clinic",
+      "coding": [
+        "cad7f51d-12c3-4414-971e-40e712fbedba"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7dc7bbd1-862e-4fde-b2a1-541cc964f65b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Otorhinolaryngology clinic",
+      "coding": [
+        "79637d48-da7d-4681-bed6-d6361d60764f"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "22dffc74-4930-4969-a009-2f4bd6d9829c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Family medicine clinic",
+      "coding": [
+        "336a911a-11f3-4b82-bbe6-7a8ea543816f"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d60d53e6-447b-4f3b-9065-bca56c8a94d2",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Gastroenterology clinic",
+      "coding": [
+        "cb5dc2d1-f121-4f48-ad35-1ff0629f9d36"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "71385e4f-285a-4e41-89f9-e88180001443",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric gastroenterology clinic",
+      "coding": [
+        "267d2f55-5397-4eb3-9ec4-645abab82864"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "0bdcf89e-9b9f-4918-8c5c-ccd8d8be67d8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "General internal medicine clinic",
+      "coding": [
+        "8556ab74-375d-4e2f-93e3-4fe3dc961d01"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "f005b9a2-d145-48c4-956a-33265c75e3c9",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Gynecology clinic",
+      "coding": [
+        "988af2ba-bbb3-492e-b7df-84a5a8ef7e1b"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "165741f6-ceac-4969-9a56-240a850828e7",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Hematology clinic",
+      "coding": [
+        "f8eff494-a7fa-4705-b247-1fb4ad8f06e4"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9b9ff675-9a6c-4449-9b97-3d7dd783df2c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric hematology clinic",
+      "coding": [
+        "2ed0a008-c80a-454d-bc7c-6e7f589cf641"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "aa97aad6-2556-46bb-ad70-72cb2b1063a3",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Hypertension clinic",
+      "coding": [
+        "de0af274-e18a-4fe6-9c16-c37b8f54dac4"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "76ab6b2b-54b2-4fc5-8f65-6e32086e10d1",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Focuses on assessing disability",
+      "coding": [
+        "c0422118-638c-4a38-968b-f651542b0015"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "694035f1-89b6-44df-89f2-a2b75bac9667",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Infectious disease clinic",
+      "coding": [
+        "fd47256e-4048-4e04-9ede-c8f15105125f"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "8b5c86cf-3f73-496b-bbd6-980c2a982380",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric infectious disease clinic",
+      "coding": [
+        "f332b0d4-2573-44c8-9318-b4763df95a37"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "e456a90a-0b42-499d-9ebb-4cae2ed7d55f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Infertility clinic",
+      "coding": [
+        "73c8a49d-8534-49d1-b8ca-27f9ba4c30a5"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "6949b0d1-16d5-4ef3-810f-58ba229b2f76",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Lympedema clinic",
+      "coding": [
+        "7897f476-e55e-4de2-b4a1-80a6ff0279f3"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9eb25257-502d-4b3d-b22d-681ba916f2c8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Medical genetics clinic",
+      "coding": [
+        "18a975a1-25ad-4560-8a4d-5efb90cc4176"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "376433de-4817-4ad9-a1f9-743908b86ade",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Nephrology clinic",
+      "coding": [
+        "82ac9414-b600-4181-9152-d7b0cb7b8217"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "f8ecb1e4-0199-4f19-a400-b10fc82d8b5b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric nephrology clinic",
+      "coding": [
+        "c62f1c9c-4b66-41dd-a9ff-e6000a158b2c"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9ff004fb-ed19-454c-ad34-49f4f69ce452",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Neurology clinic",
+      "coding": [
+        "2ef4bc43-ef88-4a5f-9955-af1edb9c57d6"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "4f973514-5fa5-4b79-b35d-9c8d8d9698c9",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Obstetrics clinic",
+      "coding": [
+        "e79cb07f-233c-4dac-a6aa-77e1d465a1eb"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "31e3eb8f-7c54-4a41-afc0-35c1cc8928e1",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Oral and maxillofacial surgery clinic",
+      "coding": [
+        "7d560922-df8a-42f7-b704-056fd744bf88"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "2db1b746-eed5-445e-a2e1-6f91e0269673",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Medical oncology clinic",
+      "coding": [
+        "a0c3c26b-c01f-491d-8022-7a6d0f796cb6"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "a73c9306-9e92-4d6b-b2b3-d0be4cf00412",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric oncology clinic",
+      "coding": [
+        "90be8275-b256-4110-b79c-4c1bcfa88158"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "4dfbe327-4578-4efc-b762-e4eab0bbd310",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Opthalmology clinic",
+      "coding": [
+        "0ba566c0-ca94-4c6e-ada0-042596812f2b"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "b43441ec-01ad-4e03-aa48-296178c1ae53",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include examination, diagnosis, treatment, management, and prevention of diseases and disorders of the eye as well as prescribing and fitting appropriate corrective lenses (glasses or contact lenses) as needed. Optometry clinics may also provide tests for visual field screening, measuring intra-ocular pressure and ophthalmoscopy, as and when required.",
+      "coding": [
+        "dff2380c-734b-4a24-bdbb-2206ff13b872"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "4e7fa162-6ccc-48a4-974c-9bfd78075338",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Orthopedics clinic",
+      "coding": [
+        "17987f44-ebc1-4f05-87b1-979d4979a229"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7e5a159c-9eda-41c7-9d33-5250129f19d8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Hand clinic",
+      "coding": [
+        "72f9319d-21ec-4bb2-bd27-77ade7b41eed"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "da675af4-759f-4b80-8244-194932f32f10",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 261QP3300N)",
+      "coding": [
+        "766afa51-14d3-4829-a662-f2b4240c42bf"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "39e70ce8-bd8d-4e0c-a8f3-c272c3caa86d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 261QP2300N)",
+      "coding": [
+        "5def90a8-0dd5-4b96-b7ae-0d33d3ad5571"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "0ce69ff0-859c-4ed1-95bf-02f34df923d6",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatrics clinic",
+      "coding": [
+        "82216f40-b914-4dd0-b815-4802934cf9d7"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7949e4b7-175a-4dc3-8626-40de4958b17d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pediatric rheumatology clinic",
+      "coding": [
+        "d599f730-86b0-42cb-a331-88e26a84a261"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "4a2c3a58-43df-4fd0-afc2-9c77939d3b8c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 261QP1100N)",
+      "coding": [
+        "ea6713f2-4436-4f27-a7c5-06d104d88ae7"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "c1d87b2b-4d5e-4bae-add8-c9ed5923d9fe",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Preventive medicine clinic",
+      "coding": [
+        "671e0b89-5e04-46e4-b648-5af9304830a3"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d058eb03-4954-4006-83fd-dc33847a8cd8",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Proctology clinic",
+      "coding": [
+        "141e0e0c-823e-43aa-a2ef-44015a928349"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9a7da3a2-63aa-45ff-9167-347131944d6e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Location where healthcare service was delivered, identified as the healthcare provider's practice office.",
+      "coding": [
+        "dfef1276-a0f0-459b-acf1-ea44aa7a7e55"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "1554d6f7-5fab-41ee-8456-401323efe0dc",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Prosthodontics clinic",
+      "coding": [
+        "72a343a5-ee13-4961-9f06-5289887c3c68"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "a61b2583-ff99-43e1-9531-f9c7d92bd243",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Psychology clinic",
+      "coding": [
+        "d05ceb38-6df1-4dbf-91e7-0a72c6b8171e"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "3271fd02-81e4-46aa-8d74-92a4b7631de2",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Psychiatry clinic",
+      "coding": [
+        "4cf3a42e-273e-4c32-8941-ae9a6f39ccaf"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d09c4748-6211-4191-9fc3-88bd9e1a6adf",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Rheumatology clinic",
+      "coding": [
+        "084e6a4c-dc61-4b29-b15a-5b65dfc4bcc3"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "64e756c4-e251-4f9a-974a-e6c1a6f28496",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Sports medicine clinic",
+      "coding": [
+        "18a4a40b-b59e-496d-a970-7ba43ef2a1a2"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "59a4c8c7-0744-4bbf-9b4c-dd74d5b7408f",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Surgery clinic",
+      "coding": [
+        "69b87da1-7f23-4826-8fc1-e013e9f6eb0e"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "6719e318-0292-40a2-a9c6-e02afc37ef53",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Plastic surgery clinic",
+      "coding": [
+        "9253feb4-a28b-4a30-a211-3903e0108de1"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "55e5d212-8e86-4be7-b21a-1a2e38bc3639",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Urology clinic",
+      "coding": [
+        "d64c3869-b97a-4fc2-a067-41b546a64a1d"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "c93e775a-f421-482d-af93-a90a21e2fdb3",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Transplant clinic",
+      "coding": [
+        "607e1f35-f265-4569-a0fe-dd2c5d090385"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "ac2f58d4-89d3-42d1-9039-aa5975697d95",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Travel and geographic medicine clinic",
+      "coding": [
+        "20022066-9555-483a-afe1-389881074dbc"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d424eee3-013a-433e-8a49-592ad74294e9",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Wound clinic",
+      "coding": [
+        "59bb1f44-b24b-4c5c-a8c9-147b93b56730"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "15ee2a5c-d817-40f5-934e-6f629fed7f47",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Residential treatment facility",
+      "coding": [
+        "74b2babc-7af2-4f8e-9735-16387c16b730"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "6f48b1d9-9ed7-4b4d-8dc1-bd8e6e96334d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Pain rehabilitation center",
+      "coding": [
+        "b9b5bf82-db0c-4efe-8d72-8e80bdb8afda"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "836a3191-bb26-4455-8bd4-91d8393ffd05",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "(X12N 324500000N)",
+      "coding": [
+        "67aeb630-fcae-4098-b1ca-35996f1c88ec"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "5553b672-727f-4902-9ed7-6dd0e162c690",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "A role of a place that further classifies a setting that is intended to house the provision of non-clinical services.",
+      "coding": [
+        "b2f7163d-a406-4a8f-a557-b215cda0b38a"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "e670c2ea-0847-449b-95fa-aa4dc01df728",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Location address where medical supplies were transported to for use.",
+      "coding": [
+        "18e675b5-ff24-471b-8859-7ef0e2f63bea"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "44faa26c-199d-412e-a7b9-b9f7a3152446",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Location (mobile) where healthcare service was delivered.",
+      "coding": [
+        "d8090e55-1406-4374-83af-401c11db60e4"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7663616f-0620-490e-9670-86475b9cb9bc",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Location (mobile) where healthcare service was delivered, identified specifically as an ambulance.",
+      "coding": [
+        "bb817498-8f25-4ff2-84c5-7154a94161e5"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "7c7a5926-858d-4ce6-b432-518506fabf16",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Location where healthcare service was delivered, identified as a pharmacy.",
+      "coding": [
+        "b57cb7be-65cd-44c7-8b2f-76910a091b24"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "b19e19fd-323a-4578-96f2-ea5587e0030d",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "IncidentalServiceDeliveryLocationRoleType",
+      "coding": [
+        "02a553b8-6b08-4108-b7ff-d7c136325527"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9d4a2244-0112-4031-afff-2cf3eac56296",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Location of an accident where healthcare service was delivered, such as a roadside.",
+      "coding": [
+        "cab622b6-5d22-4269-8a87-a1fb2396a1aa"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "9d2395ab-99f3-4185-ac65-f257ab4f0454",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Community location where healthcare is delivered.",
+      "coding": [
+        "8ac2f27b-d5a4-4b3e-8201-479ad43993d9"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "ef1e611b-0db5-4537-a891-37be1e56e9cc",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include providing front-line services to the population of a defined geographic area such as: healthcare services and social services, preventive or curative, rehabilitation or reintegration.",
+      "coding": [
+        "68e980ec-0ced-41a8-b51f-a531660535c9"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "23715c1a-1bb7-4aa0-a8e6-3215fff6515c",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "location where healthcare was delivered which is the residence of the Patient.",
+      "coding": [
+        "93ec89bc-bea3-4ff8-85a5-53d4b7427de3"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "39861f06-3c76-4ed9-aa92-8efd8d55c76b",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Location where healthcare service was delivered, identified as a school or educational facility.",
+      "coding": [
+        "afdbb8cd-cb92-4332-9eb4-a3517e4ba8f7"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "d67851de-2f99-445a-b7c9-7284b62bb112",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Description: A location that plays the role of delivering services which may include: social emergency services required for a young person as required under any jurisdictional youth laws, child placement, and family mediation in the defined geographical area the SDL is responsible for. It may provide expertise in a judiciary setting on child custody, adoption and biological history research.",
+      "coding": [
+        "84d8ef1e-8dfb-41ea-8b47-698fe3169ae8"
+      ]
+    }
+  },
+  {
+    "model": "fhir.CodeableConcept",
+    "pk": "3ba68c46-4b41-46b8-85ea-5e73f672555e",
+    "fields": {
+      "created_at": "2025-01-16T00:00:00+00:00",
+      "updated_at": "2025-01-16T00:00:00+00:00",
+      "text": "Location where healthcare service was delivered, identified as a work place.",
+      "coding": [
+        "05c87366-b9ea-45c9-b4c5-848b050b338a"
+      ]
+    }
+  }
+]
