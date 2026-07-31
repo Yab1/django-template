@@ -3,7 +3,7 @@ import os
 # Gunicorn configuration for Django + Uvicorn ASGI
 
 # Server socket
-bind = f"0.0.0.0:{os.environ.get('PORT', '6000')}"
+bind = f"0.0.0.0:{os.environ.get('PORT', '8000')}"
 backlog = int(os.environ.get("GUNICORN_BACKLOG", "1024"))
 
 # Worker processes

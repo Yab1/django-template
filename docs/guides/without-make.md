@@ -20,7 +20,7 @@ After that, commands are plain `python`, `pytest`, `ruff`, `celery` — **no `uv
 
 Optional: if you skip activate, prefix with `uv run` (e.g. `uv run python manage.py migrate`). Tables below assume the venv is active.
 
-Default port for `runserver` here is `6000` (same as Makefile `DJANGO_PORT`).
+Default port for `runserver` here is `8000` (same as Makefile `DJANGO_PORT`).
 
 ---
 
@@ -42,7 +42,7 @@ Default port for `runserver` here is `6000` (same as Makefile `DJANGO_PORT`).
 
 | Make | What it does | Without make |
 |------|----------------|--------------|
-| `make run` | Dev server on port 6000 | `python manage.py runserver 6000` |
+| `make run` | Dev server on port 8000 | `python manage.py runserver 8000` |
 | `make shell` | Django shell | `python manage.py shell` |
 | `make django-check` | System checks | `python manage.py check` |
 | `make migrations` | Create migrations | `python manage.py makemigrations` |
@@ -165,10 +165,10 @@ uv sync --all-extras
 .\.venv\Scripts\Activate.ps1
 python manage.py migrate
 python manage.py load_superusers
-python manage.py runserver 6000
+python manage.py runserver 8000
 ```
 
-Then hit `http://127.0.0.1:6000/health/`.
+Then hit `http://127.0.0.1:8000/health/`.
 
 ---
 

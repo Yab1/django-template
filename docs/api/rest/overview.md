@@ -70,7 +70,7 @@ Collections live under `postman/<app>/`:
 - `postman/users/users_viewset.postman_collection.json`
 - `postman/systems/systems_health_viewset.postman_collection.json`
 
-Set `base_url` to `http://localhost:7000/api/v1`. For health, use `origin_url` (`http://localhost:7000`). Credentials come from `make seed-superuser` / `.secrets.yml` — do not commit passwords.
+Set `base_url` to `http://localhost:8000/api/v1`. For health, use `origin_url` (`http://localhost:8000`). Credentials come from `make seed-superuser` / `.secrets.yml` — do not commit passwords.
 
 ## OpenAPI
 

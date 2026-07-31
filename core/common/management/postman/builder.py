@@ -34,7 +34,7 @@ def _default_variables(
     terminology_defaults: dict[str, dict[str, str]],
 ) -> list[dict[str, Any]]:
     vars_: list[dict[str, Any]] = [
-        {"key": "base_url", "value": "http://localhost:6000/api/v1", "type": "string"},
+        {"key": "base_url", "value": "http://localhost:8000/api/v1", "type": "string"},
         {"key": "user_access_token", "value": "", "type": "string"},
         {"key": "admin_access_token", "value": "", "type": "string"},
     ]

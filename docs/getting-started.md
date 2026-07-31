@@ -49,7 +49,7 @@ Username defaults to the email local-part (e.g. `yeabsera.dev` for `yeabsera.dev
 make run
 ```
 
-Default local URL uses `DJANGO_APP_DOMAIN` / `DJANGO_APP_PORT` (often `http://localhost:7000`).
+Default local URL uses `DJANGO_APP_DOMAIN` / `DJANGO_APP_PORT` (often `http://localhost:8000`).
 
 ## Smoke checks
 

@@ -73,7 +73,7 @@ Pre-push may block direct pushes to `main` (use a branch + PR).
 
 ## Useful URLs (local)
 
-- App: `http://localhost:7000/` (port from env)
+- App: `http://localhost:8000/` (port from env)
 - Health: `/health/`
 - Swagger: `/docs/`
 - API: `/api/v1/`
