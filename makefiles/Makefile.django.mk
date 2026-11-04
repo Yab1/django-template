@@ -7,8 +7,8 @@
 # Server & Development
 # ==============================================================================
 run: ## Run Django server
-	$(call title,Running server on DJANGO_PORT $(DJANGO_PORT))
-	$(MANAGE) runserver $(DJANGO_PORT)
+	$(call title,Running server on DJANGO_APP_PORT $(DJANGO_APP_PORT))
+	$(MANAGE) runserver $(DJANGO_APP_PORT)
 
 shell: ## Open Django shell
 	$(MANAGE) shell

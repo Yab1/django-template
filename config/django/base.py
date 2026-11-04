@@ -96,6 +96,7 @@ ASGI_APPLICATION = "config.asgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# psycopg2: persistent-conn age, not a process pool. Django OPTIONS["pool"] needs psycopg3.
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -110,6 +111,11 @@ DATABASES = {
         # once a pooler (pgbouncer) fronts Postgres or max_connections is sized for it.
         "CONN_MAX_AGE": env.int("DJANGO_DB_CONN_MAX_AGE", default=0),
         "CONN_HEALTH_CHECKS": env.bool("DJANGO_DB_CONN_HEALTH_CHECKS", default=False),
+        "OPTIONS": {
+            "connect_timeout": env.int("DJANGO_DB_CONNECT_TIMEOUT", default=10),
+            "sslmode": env.str("DJANGO_DB_SSLMODE", default="disable"),
+            "application_name": env.str("DJANGO_APP_NAME", default="django-template"),
+        },
     },
 }
 

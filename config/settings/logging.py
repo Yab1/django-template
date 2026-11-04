@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 import re
@@ -10,7 +11,8 @@ os.makedirs(f"{BASE_DIR}/logs", exist_ok=True)
 # Environment-aware log levels
 # In production (DEBUG=False), use INFO. In development, use DEBUG.
 DEBUG_MODE = env.bool("DJANGO_DEBUG", default=True)  # type: ignore
-LOG_LEVEL = "DEBUG" if DEBUG_MODE else "INFO"
+LOG_LEVEL = env.str("DJANGO_LOG_LEVEL", default="DEBUG" if DEBUG_MODE else "INFO").upper()
+LOG_FORMAT = env.str("DJANGO_LOG_FORMAT", default="console").lower()  # console | json
 
 
 # ANSI color codes
@@ -100,6 +102,21 @@ class ColoredFormatter(logging.Formatter):
         return msg
 
 
+class JsonLogFormatter(logging.Formatter):
+    """One JSON object per line. No python-json-logger import (v3/v4 path drift)."""
+
+    def format(self, record):
+        payload = {
+            "level": record.levelname,
+            "time": self.formatTime(record, self.datefmt),
+            "logger": record.name,
+            "message": record.getMessage(),
+        }
+        if record.exc_info:
+            payload["exc_info"] = self.formatException(record.exc_info)
+        return json.dumps(payload, default=str)
+
+
 # Formatters - Simple with colors (no boxes)
 FORMATTERS = {
     "verbose": {
@@ -118,7 +135,13 @@ FORMATTERS = {
         "format": "%(levelname)s %(asctime)s %(name)s - %(message)s",
         "datefmt": "%Y-%m-%d %H:%M:%S",
     },
+    "json": {
+        "()": JsonLogFormatter,
+        "datefmt": "%Y-%m-%d %H:%M:%S",
+    },
 }
+
+_CONSOLE_FORMATTER = "json" if LOG_FORMAT == "json" else "simple"
 
 # Filters for professional logging
 FILTERS = {
@@ -132,7 +155,7 @@ FILTERS = {
 HANDLERS = {
     "console_handler": {
         "class": "logging.StreamHandler",
-        "formatter": "simple",
+        "formatter": _CONSOLE_FORMATTER,
         "level": "DEBUG",
         "filters": ["sensitive_data"],
     },

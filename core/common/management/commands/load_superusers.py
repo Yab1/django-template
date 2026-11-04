@@ -214,6 +214,12 @@ class Command(BaseCommand):
         return (user, f"Created: {email}{suffix}")
 
     def handle(self, *args, **options):
+        from django.conf import settings
+
+        if not getattr(settings, "SEED_ENABLED", True):
+            self.stdout.write(self.style.WARNING("DJANGO_SEED_ENABLED is false — skipping load_superusers"))
+            return
+
         update = options.get("update") or options.get("force", False)
         dry_run = options.get("dry_run", False)
 

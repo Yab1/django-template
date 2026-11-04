@@ -4,10 +4,12 @@
 
 PROJECT_NAME := django_template
 PYTHON       := uv run python
-# Listen port for `make run`. Same name Django uses for public URL (APP_DOMAIN).
-# Do not `-include .env` — Make mangles # $ quotes. Read this one integer only.
-_APP_PORT_FROM_ENV := $(shell sed -n 's/^DJANGO_APP_PORT=//p' .env 2>/dev/null | tr -d '"[:space:]' | head -n1)
-DJANGO_APP_PORT ?= $(if $(_APP_PORT_FROM_ENV),$(_APP_PORT_FROM_ENV),8000)
+# Only DJANGO_APP_PORT for `make run` (not PORT / APP_PORT — those are deploy-only).
+# Do not `-include .env` — Make mangles # $ quotes.
+# Use := so project .env beats stale IDE-exported values ( ?= would keep env).
+# CLI still wins: make run DJANGO_APP_PORT=8100
+_DJANGO_APP_PORT_FROM_ENV := $(shell sed -n 's/^DJANGO_APP_PORT=//p' .env 2>/dev/null | tr -d '"[:space:]' | head -n1)
+DJANGO_APP_PORT := $(or $(_DJANGO_APP_PORT_FROM_ENV),8000)
 # Back-compat for makefiles that still use DJANGO_PORT.
 DJANGO_PORT  := $(DJANGO_APP_PORT)
 ROOT         := $(shell git rev-parse --show-toplevel 2>/dev/null || echo "..")

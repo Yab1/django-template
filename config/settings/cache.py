@@ -11,6 +11,8 @@ Test settings override this with ``DummyCache`` (see ``config/django/test.py``).
 
 from config.env import env
 
+CACHE_ENABLED = env.bool("DJANGO_CACHE_ENABLED", default=True)
+
 DJANGO_CACHE_REDIS_URL = env.str("DJANGO_CACHE_REDIS_URL", default="redis://127.0.0.1:6379/1")
 
 DJANGO_CACHE_REDIS_MAX_CONNECTIONS = env.int("DJANGO_CACHE_REDIS_MAX_CONNECTIONS", default=50)
@@ -18,21 +20,28 @@ DJANGO_CACHE_REDIS_SOCKET_CONNECT_TIMEOUT = env.int("DJANGO_CACHE_REDIS_SOCKET_C
 DJANGO_CACHE_REDIS_SOCKET_TIMEOUT = env.int("DJANGO_CACHE_REDIS_SOCKET_TIMEOUT", default=5)
 DJANGO_CACHE_REDIS_HEALTH_CHECK_INTERVAL = env.int("DJANGO_CACHE_REDIS_HEALTH_CHECK_INTERVAL", default=30)
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": DJANGO_CACHE_REDIS_URL,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "CONNECTION_POOL_CLASS": "redis.connection.ConnectionPool",
-            "CONNECTION_POOL_CLASS_KWARGS": {
-                "max_connections": DJANGO_CACHE_REDIS_MAX_CONNECTIONS,
-                "retry_on_timeout": True,
+if CACHE_ENABLED:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": DJANGO_CACHE_REDIS_URL,
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "CONNECTION_POOL_CLASS": "redis.connection.ConnectionPool",
+                "CONNECTION_POOL_CLASS_KWARGS": {
+                    "max_connections": DJANGO_CACHE_REDIS_MAX_CONNECTIONS,
+                    "retry_on_timeout": True,
+                },
+                "SOCKET_CONNECT_TIMEOUT": DJANGO_CACHE_REDIS_SOCKET_CONNECT_TIMEOUT,
+                "SOCKET_TIMEOUT": DJANGO_CACHE_REDIS_SOCKET_TIMEOUT,
+                "HEALTH_CHECK_INTERVAL": DJANGO_CACHE_REDIS_HEALTH_CHECK_INTERVAL,
             },
-            "SOCKET_CONNECT_TIMEOUT": DJANGO_CACHE_REDIS_SOCKET_CONNECT_TIMEOUT,
-            "SOCKET_TIMEOUT": DJANGO_CACHE_REDIS_SOCKET_TIMEOUT,
-            "HEALTH_CHECK_INTERVAL": DJANGO_CACHE_REDIS_HEALTH_CHECK_INTERVAL,
+            "KEY_PREFIX": "django_template",
         },
-        "KEY_PREFIX": "ehr",
-    },
-}
+    }
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        },
+    }

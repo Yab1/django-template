@@ -24,33 +24,39 @@ urlpatterns = [
     # Infra probes (LB / k8s) — outside versioned API
     path("health/", SystemHealthCheckApi.as_view(), name="health"),
     path("api/v1/", include(api_v1_patterns)),
-    path(
-        "schema/",
-        SpectacularAPIView.as_view(
-            authentication_classes=docs_authentication_classes,
-            permission_classes=docs_permission_classes,
+]
+
+if getattr(settings, "SWAGGER_ENABLED", True):
+    urlpatterns += [
+        path(
+            "schema/",
+            SpectacularAPIView.as_view(
+                authentication_classes=docs_authentication_classes,
+                permission_classes=docs_permission_classes,
+            ),
+            name="schema",
         ),
-        name="schema",
-    ),
-    path(
-        "docs/",
-        SpectacularSwaggerView.as_view(
-            url_name="schema",
-            authentication_classes=docs_authentication_classes,
-            permission_classes=docs_permission_classes,
+        path(
+            "docs/",
+            SpectacularSwaggerView.as_view(
+                url_name="schema",
+                authentication_classes=docs_authentication_classes,
+                permission_classes=docs_permission_classes,
+            ),
+            name="schema-swagger-ui",
         ),
-        name="schema-swagger-ui",
-    ),
-    path(
-        "redoc/",
-        SpectacularRedocView.as_view(
-            url_name="schema",
-            authentication_classes=docs_authentication_classes,
-            permission_classes=docs_permission_classes,
+        path(
+            "redoc/",
+            SpectacularRedocView.as_view(
+                url_name="schema",
+                authentication_classes=docs_authentication_classes,
+                permission_classes=docs_permission_classes,
+            ),
+            name="schema-redoc",
         ),
-        name="schema-redoc",
-    ),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 from config.settings.debug_toolbar.setup import DebugToolbarSetup  # noqa
 from config.settings.silk.setup import SilkSetup  # noqa

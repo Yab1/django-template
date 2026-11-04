@@ -4,7 +4,8 @@ Swagger / OpenAPI 3 configuration (drf-spectacular).
 https://drf-spectacular.readthedocs.io/en/latest/settings.html
 """
 
-from config.settings.app import get_app_public_base_url
+from config.env import env
+from config.settings.app import APP_VERSION, get_app_public_base_url
 
 
 def _openapi_server_label(base: str) -> str:
@@ -94,14 +95,20 @@ def postprocess_error_responses(result, generator, **kwargs):
     return result
 
 
+SWAGGER_ENABLED = env.bool("DJANGO_SWAGGER_ENABLED", default=True)
+
+_swagger_tos = env.str("DJANGO_SWAGGER_TOS", default="").strip()
+_swagger_external_docs_url = env.str("DJANGO_SWAGGER_EXTERNAL_DOCS_URL", default="").strip()
+_swagger_external_docs_desc = env.str("DJANGO_SWAGGER_EXTERNAL_DOCS_DESC", default="").strip()
+
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Django Template API",
-    "DESCRIPTION": "REST API for Django Template.",
-    "VERSION": "0.0.1",
+    "TITLE": env.str("DJANGO_SWAGGER_TITLE", default="Django Template API"),
+    "DESCRIPTION": env.str("DJANGO_SWAGGER_DESCRIPTION", default="REST API for Django Template."),
+    "VERSION": env.str("DJANGO_SWAGGER_VERSION", default=APP_VERSION),
     "CONTACT": {
-        "name": "Yeabsera",
-        "url": "https://github.com/Yab1",
-        "email": "yeabsera.dev@gmail.com",
+        "name": env.str("DJANGO_SWAGGER_CONTACT_NAME", default="Django Template"),
+        "url": env.str("DJANGO_SWAGGER_CONTACT_URL", default=""),
+        "email": env.str("DJANGO_SWAGGER_CONTACT_EMAIL", default=""),
     },
     "SERVERS": _openapi_servers(),
     "SERVE_PUBLIC": True,
@@ -117,7 +124,7 @@ SPECTACULAR_SETTINGS = {
     },
     "ENUM_NAME_OVERRIDES": {
         "SuccessStatusEnum": [("success", "success")],
-        "CacheStatusEnum": [("ok", "ok"), ("error", "error")],
+        "CacheStatusEnum": [("ok", "ok"), ("error", "error"), ("not_configured", "not_configured")],
         "MinioStatusEnum": [("ok", "ok"), ("error", "error"), ("not_configured", "not_configured")],
     },
     "REDOC_UI_SETTINGS": {},
@@ -126,3 +133,11 @@ SPECTACULAR_SETTINGS = {
         "config.settings.swagger.postprocess_error_responses",
     ],
 }
+
+if _swagger_tos:
+    SPECTACULAR_SETTINGS["TOS"] = _swagger_tos
+if _swagger_external_docs_url:
+    SPECTACULAR_SETTINGS["EXTERNAL_DOCS"] = {
+        "url": _swagger_external_docs_url,
+        "description": _swagger_external_docs_desc,
+    }
