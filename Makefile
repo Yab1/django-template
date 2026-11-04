@@ -4,14 +4,14 @@
 
 PROJECT_NAME := django_template
 PYTHON       := uv run python
-DJANGO_PORT  := 8000
+# Listen port for `make run`. Same name Django uses for public URL (APP_DOMAIN).
+# Do not `-include .env` — Make mangles # $ quotes. Read this one integer only.
+_APP_PORT_FROM_ENV := $(shell sed -n 's/^DJANGO_APP_PORT=//p' .env 2>/dev/null | tr -d '"[:space:]' | head -n1)
+DJANGO_APP_PORT ?= $(if $(_APP_PORT_FROM_ENV),$(_APP_PORT_FROM_ENV),8000)
+# Back-compat for makefiles that still use DJANGO_PORT.
+DJANGO_PORT  := $(DJANGO_APP_PORT)
 ROOT         := $(shell git rev-parse --show-toplevel 2>/dev/null || echo "..")
-DEV_DOCKER   := $(shell grep -E '^DJANGO_DEV_DOCKER=' .env 2>/dev/null | cut -d= -f2)
-ifeq ($(DEV_DOCKER),1)
-MANAGE       := cd $(ROOT) && docker compose -f development/docker-compose.yml exec django_template_dev python manage.py
-else
 MANAGE       := $(PYTHON) manage.py
-endif
 COLOR_RESET  := \033[0m
 COLOR_BLUE   := \033[1;34m
 COLOR_GREEN  := \033[1;32m
