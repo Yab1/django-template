@@ -1,0 +1,16 @@
+services:
+  clamav:
+    profiles: ["scanning"]
+    image: clamav/clamav:${CLAMAV_IMAGE_TAG:-1.4}
+    container_name: django_template_clamav
+    restart: unless-stopped
+    ports:
+      - "${CLAMAV_PORT:-3310}:3310"
+    volumes:
+      - clamav_data:/var/lib/clamav
+    networks:
+      - django_template
+
+volumes:
+  clamav_data:
+    name: django_template_clamav_data

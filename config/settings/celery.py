@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
+from urllib.parse import quote
 
 from celery import Celery
 from kombu import Exchange, Queue
@@ -9,10 +10,21 @@ from config.env import env
 
 # https://docs.celeryproject.org/en/stable/userguide/configuration.html
 
-CELERY_BROKER_URL = env(
-    "CELERY_BROKER_URL",
-    default="amqp://guest:guest@localhost:5672/django_template",
-)  # type: ignore
+
+def _amqp_broker_url() -> str:
+    """CELERY_BROKER_URL wins when set. Otherwise assemble from RABBITMQ_*."""
+    explicit = env.str("CELERY_BROKER_URL", default="").strip()
+    if explicit:
+        return explicit
+    user = quote(env.str("RABBITMQ_USER", default="django_template"), safe="")
+    password = quote(env.str("RABBITMQ_PASSWORD", default="change_me"), safe="")
+    host = env.str("RABBITMQ_HOST", default="localhost")
+    port = env.int("RABBITMQ_PORT", default=5672)
+    vhost = env.str("RABBITMQ_VHOST", default="django_template").lstrip("/")
+    return f"amqp://{user}:{password}@{host}:{port}/{quote(vhost, safe='')}"
+
+
+CELERY_BROKER_URL = _amqp_broker_url()
 CELERY_RESULT_BACKEND = "django-db"
 
 CELERY_TIMEZONE = "UTC"
@@ -21,7 +33,7 @@ CELERY_TASK_SOFT_TIME_LIMIT = 20  # seconds
 CELERY_TASK_TIME_LIMIT = 30  # seconds
 CELERY_TASK_MAX_RETRIES = 3
 
-# Queue isolation for this project (override via env-friendly names later if needed)
+# Queue isolation for this project
 CELERY_TASK_DEFAULT_QUEUE = "django_template"
 CELERY_TASK_DEFAULT_EXCHANGE = "django_template"
 CELERY_TASK_DEFAULT_ROUTING_KEY = "django_template"

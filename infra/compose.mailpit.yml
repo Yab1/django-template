@@ -1,0 +1,21 @@
+services:
+  mailpit:
+    image: axllent/mailpit:${MAILPIT_IMAGE_TAG:-latest}
+    container_name: django_template_mailpit
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${MAILPIT_UI_PORT:-8025}:8025"
+      - "${MAILPIT_SMTP_PORT:-1025}:1025"
+    volumes:
+      - mailpit_data:/data
+    networks:
+      - django_template
+
+volumes:
+  mailpit_data:
+    name: django_template_mailpit_data
+
+networks:
+  django_template:

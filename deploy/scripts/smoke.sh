@@ -1,5 +1,5 @@
 #!/bin/bash
-# Post-deploy smoke: hit proxy health endpoint on the deploy host.
+# Post-deploy smoke: hit proxy /health/ on the deploy host.
 set -euo pipefail
 
 HEALTH_URL="${HEALTH_URL:-http://127.0.0.1:8000/health/}"

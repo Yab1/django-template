@@ -68,4 +68,18 @@ include makefiles/Makefile.misc.mk
 include makefiles/Makefile.testing.mk
 include makefiles/Makefile.submodules.mk
 include makefiles/Makefile.graphify.mk
-include deployment/Makefile
+include deploy/Makefile
+
+.PHONY: infra-up infra-up-scanning infra-down deploy-seed
+
+infra-up: ## Start Django Template infra (postgres redis rabbitmq mailpit minio)
+	@$(MAKE) -C infra up
+
+infra-up-scanning: ## Start Django Template infra + ClamAV (virus scan on upload)
+	@$(MAKE) -C infra up-scanning
+
+infra-down: ## Stop infra stack
+	@$(MAKE) -C infra down
+
+deploy-seed: ## Run load_superusers via deploy tools container
+	@$(MAKE) -C . -f deploy/Makefile seed

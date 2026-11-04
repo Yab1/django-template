@@ -135,11 +135,11 @@ These shell scripts expect a Unix-like environment (Git Bash, WSL, or Linux CI):
 
 | Make | Without make |
 |------|----------------|
-| `make start` | `./deployment/scripts/orchestrate.sh start` |
-| `make stop` | `./deployment/scripts/orchestrate.sh stop` |
-| `make restart` | `./deployment/scripts/orchestrate.sh restart` |
-| `make status` | `./deployment/scripts/orchestrate.sh status` |
-| `make deploy` | `./deployment/scripts/deploy.sh` |
+| `make start` | `./deploy/scripts/orchestrate.sh start` |
+| `make stop` | `./deploy/scripts/orchestrate.sh stop` |
+| `make restart` | `./deploy/scripts/orchestrate.sh restart` |
+| `make status` | `./deploy/scripts/orchestrate.sh status` |
+| `make deploy` | `./deploy/scripts/deploy.sh` |
 
 ---
 

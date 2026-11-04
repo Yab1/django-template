@@ -1,0 +1,93 @@
+name: django_template
+
+x-app: &app
+  build:
+    context: ${DOCKER_BUILD_CONTEXT:-..}
+    dockerfile: deploy/Dockerfile
+  image: ${IMAGE_NAME:-django_template:latest}
+  restart: unless-stopped
+  env_file:
+    - .env
+  networks:
+    - django_template
+
+x-worker: &worker
+  <<: *app
+  entrypoint: ["./deploy/worker-entrypoint.sh"]
+
+services:
+  django_template_api_blue:
+    <<: *app
+    container_name: django_template_api_blue
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/health/"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+
+  django_template_api_green:
+    <<: *app
+    container_name: django_template_api_green
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8000/health/"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+
+  django_template_worker:
+    <<: *worker
+    container_name: django_template_worker
+    command:
+      - celery
+      - -A
+      - config.settings.celery
+      - worker
+      - --loglevel=info
+
+  django_template_beat:
+    <<: *worker
+    container_name: django_template_beat
+    command:
+      - celery
+      - -A
+      - config.settings.celery
+      - beat
+      - --loglevel=info
+
+  django_template_api_proxy:
+    image: nginx:1.27-alpine
+    container_name: django_template_api_proxy
+    ports:
+      - "${APP_PORT:-8000}:80"
+    volumes:
+      - ./nginx/app-active.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+    networks:
+      - django_template
+
+  django_template_migrate:
+    <<: *app
+    container_name: django_template_migrate
+    restart: "no"
+    entrypoint: ["python", "manage.py"]
+    command: ["migrate", "--noinput"]
+    profiles:
+      - tools
+
+  django_template_seed:
+    <<: *app
+    container_name: django_template_seed
+    restart: "no"
+    entrypoint: ["python", "manage.py"]
+    command: ["load_superusers"]
+    volumes:
+      - ${DOCKER_BUILD_CONTEXT:-..}/.secrets.yml:/usr/src/app/.secrets.yml:ro
+    profiles:
+      - tools
+
+networks:
+  django_template:
+    name: django_template
+    external: true

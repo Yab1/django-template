@@ -1,0 +1,5 @@
+name: django_template
+
+networks:
+  django_template:
+    name: django_template

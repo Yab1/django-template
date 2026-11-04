@@ -1,14 +1,14 @@
 #!/bin/bash
-# Docker orchestration - Handles start, stop, restart, status
+# Docker orchestration — start, stop, restart, status (not a deploy).
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck disable=SC1091
 source "$SCRIPT_DIR/load-config.sh"
 
 COMMAND="${1:-start}"
 
-# Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -20,7 +20,6 @@ log_success() { echo -e "${GREEN}$1${NC}"; }
 log_warning() { echo -e "${YELLOW}$1${NC}"; }
 log_error() { echo -e "${RED}$1${NC}" >&2; }
 
-# Filters Docker Compose variable warnings (known issue, doesn't affect functionality)
 docker_compose() {
     docker compose "$@" 2> >(grep -vE 'The "[^"]*" variable is not set|Docker Compose is configured to build using Bake' >&2)
 }
@@ -49,28 +48,6 @@ check_compose_file() {
     fi
 }
 
-has_submodules() {
-    cd "$PROJECT_DIR"
-    [ -f ".gitmodules" ] || git submodule status 2>/dev/null | grep -q .
-}
-
-init_submodules() {
-    cd "$PROJECT_DIR"
-    
-    if ! has_submodules; then
-        return 0
-    fi
-    
-    log_info "Initializing git submodules..."
-    
-    if [ -f "$PROJECT_DIR/scripts/submodule-init.sh" ]; then
-        bash "$PROJECT_DIR/scripts/submodule-init.sh"
-    else
-        git submodule init 2>/dev/null || true
-        git submodule update --init --recursive 2>/dev/null
-    fi
-}
-
 prepare_compose_env() {
     export DOCKER_BUILD_CONTEXT="$PROJECT_DIR"
     export DOCKER_BUILDKIT=1
@@ -79,18 +56,9 @@ prepare_compose_env() {
 
 start() {
     cd "$PROJECT_DIR"
-    
-    if ! init_submodules; then
-        log_error "Submodule initialization failed"
-        exit 1
-    fi
-    
-    log_info "Building images..."
     prepare_compose_env
-    
-    docker_compose -f "$COMPOSE_FILE" build --parallel
-    docker_compose -f "$COMPOSE_FILE" pull || log_warning "Some external images unavailable"
-    
+    log_info "Building images..."
+    docker_compose -f "$COMPOSE_FILE" build --parallel django_template_api_blue
     log_info "Starting services..."
     docker_compose -f "$COMPOSE_FILE" up -d
     docker_compose -f "$COMPOSE_FILE" ps

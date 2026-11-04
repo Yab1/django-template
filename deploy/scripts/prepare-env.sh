@@ -1,5 +1,5 @@
 #!/bin/bash
-# Materialize .env / .secrets.yml into the workspace for docker compose.
+# Materialize deploy/.env / .secrets.yml into the workspace for docker compose.
 #
 # Resolution order (first wins):
 #   1. ENV_FILE / SECRETS_FILE env vars (Jenkins Credentials secret-file bind paths)
@@ -59,9 +59,10 @@ if ! env_src="$(resolve_env_src)"; then
 fi
 
 umask 077
-cp -- "$env_src" "$PROJECT_DIR/.env"
-chmod 600 "$PROJECT_DIR/.env"
-log_ok "Copied env -> .env (source=${env_src})"
+mkdir -p "$DEPLOY_DIR"
+cp -- "$env_src" "$APP_ENV_FILE"
+chmod 600 "$APP_ENV_FILE"
+log_ok "Copied env -> deploy/.env (source=${env_src})"
 
 if secrets_src="$(resolve_secrets_src)"; then
     cp -- "$secrets_src" "$PROJECT_DIR/.secrets.yml"

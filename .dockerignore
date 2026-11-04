@@ -1,93 +1,97 @@
-# Git
+# Build context is the repo root (`deploy/docker-compose.yml`).
+# Runtime image: Django app + venv. Env is injected at run (`env_file`), not baked in.
+
+# --- secrets (never copy) ---
+.env
+.env.*
+.secrets.yml
+*.pem
+*.key
+google_client_secret.json
+env/
+
+# --- git / hooks / editors ---
 .git
 .gitignore
-
-# Python
-__pycache__
-*.pyc
-*.pyo
-*.pyd
-.Python
-env
-pip-log.txt
-pip-delete-this-directory.txt
-.tox
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-.git
-.mypy_cache
-.pytest_cache
-.hypothesis
-
-# Virtual environments
-venv/
-env/
-ENV/
-.venv/
-
-# IDE
-.vscode/
-.idea/
+.githooks
+.pre-commit-config.yaml
+.cursor
+.claude
+.idea
+.vscode
+.kiro
 *.swp
 *.swo
 *~
 
-# OS
+# --- os ---
 .DS_Store
 .DS_Store?
 ._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Docker
+# --- python / venv / caches ---
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv
+venv
+ENV
+.mypy_cache
+.pytest_cache
+.hypothesis
+.ruff_cache
+.tox
+.nox
+*.egg-info
+.eggs
+build
+dist
+htmlcov
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# --- tests (not loaded in production) ---
+**/tests
+pytest.ini
+
+# --- local infra, docs, agent graph, collections ---
+infra
+docs
+*.md
+postman
+graphify-out
+makefiles
+Makefile
+notes
+value_sets
+
+# --- runtime junk ---
+logs
+*.log
+tmp
+temp
+.tmp
+media
+staticfiles
+celerybeat-schedule
+celerybeat.pid
+db.sqlite3
+node_modules
+
+# --- host-side deploy (compose/jenkins/nginx run on the host) ---
+deploy/*
+!deploy/entrypoint.sh
+!deploy/worker-entrypoint.sh
+!deploy/gunicorn.config.py
 Dockerfile*
 docker-compose*
 .dockerignore
 
-# Documentation
-README.md
-*.md
-docs/
-
-# Logs
-logs/
-*.log
-
-# Temporary files
-tmp/
-temp/
-.tmp/
-
-# Node modules (if any)
-node_modules/
-
-# Build artifacts
-build/
-dist/
-*.egg-info/
-
-# Environment files
-.env.*
-!.env
-!.env.example
-
-# Scripts (exclude bulk; allow ops scripts needed in container)
-scripts/
+# --- host scripts; image build only needs install.sh ---
+scripts
 !scripts/install.sh
-!scripts/load_fixtures.sh
-
-# Notes
-notes/
-
-# Tools
-/value_sets/
-
-# Postman
-/postman

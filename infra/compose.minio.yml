@@ -1,0 +1,27 @@
+services:
+  minio:
+    image: quay.io/minio/minio:${MINIO_IMAGE_TAG:-RELEASE.2025-09-07T16-13-09Z}
+    container_name: django_template_minio
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${MINIO_API_PORT:-9000}:9000"
+      - "${MINIO_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - django_template
+
+volumes:
+  minio_data:
+    name: django_template_minio_data
+
+networks:
+  django_template:

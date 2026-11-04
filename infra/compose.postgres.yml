@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgis/postgis:${POSTGRES_IMAGE_TAG:-18-3.6}
+    container_name: django_template_postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - django_template_postgres_data:/var/lib/postgresql
+      - ./postgres/init/10-postgis.sql:/docker-entrypoint-initdb.d/zz-django-template-postgis.sql:ro
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_preload_libraries=pg_stat_statements"
+      - "-c"
+      - "pg_stat_statements.track=all"
+      - "-c"
+      - "pg_stat_statements.max=10000"
+      - "-c"
+      - "log_min_duration_statement=250"
+      - "-c"
+      - "log_line_prefix=%m [%p] %q%u@%d app=%a "
+      - "-c"
+      - "log_lock_waits=on"
+      - "-c"
+      - "log_temp_files=0"
+      - "-c"
+      - "log_checkpoints=on"
+      - "-c"
+      - "track_io_timing=on"
+      - "-c"
+      - "max_connections=200"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - django_template
+
+volumes:
+  django_template_postgres_data:
+    name: django_template_postgres_data
+
+networks:
+  django_template:

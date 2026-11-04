@@ -47,8 +47,7 @@ else
     log_ok "docker compose OK"
 fi
 
-# External networks (created by deploy if missing; warn only here)
-for net in django_template_network tilla_infrastructure_network; do
+for net in django_template; do
     if docker network inspect "$net" >/dev/null 2>&1; then
         log_ok "Docker network exists: $net"
     else
@@ -59,7 +58,6 @@ done
 for f in \
     "$COMPOSE_FILE" \
     "$SCRIPT_DIR/deploy.sh" \
-    "$SCRIPT_DIR/prepare-env.sh" \
     "$SCRIPT_DIR/config.sh" \
     "$DEPLOY_DIR/nginx/app-active.conf.template"
 do
@@ -71,11 +69,6 @@ done
 
 if [[ ! -x "$SCRIPT_DIR/deploy.sh" ]]; then
     log_error "deploy.sh is not executable"
-    fail=1
-fi
-
-if [[ ! -x "$SCRIPT_DIR/prepare-env.sh" ]]; then
-    log_error "prepare-env.sh is not executable"
     fail=1
 fi
 

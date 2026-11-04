@@ -57,10 +57,10 @@ Default port comes from `DJANGO_APP_PORT` (see `.env.example`).
 
 ## Deployment
 
-Assets under **[deployment/](deployment/)**:
+Assets under **[deploy/](deploy/)**:
 
 - Docker Compose blue/green (`django_template_*` services)
-- [`Jenkinsfile`](deployment/Jenkinsfile), [`entrypoint.sh`](deployment/entrypoint.sh), [`scripts/deploy.sh`](deployment/scripts/deploy.sh)
+- [`Jenkinsfile`](deploy/Jenkinsfile), [`entrypoint.sh`](deploy/entrypoint.sh), [`scripts/deploy.sh`](deploy/scripts/deploy.sh)
 - Health path used by deploy: `/health/`
 
 See [docs/guides/deployment.md](docs/guides/deployment.md).
