@@ -1,4 +1,10 @@
-COMPOSE = docker compose \
+# IDE / app shell may export RABBITMQ_PORT etc. Shell beats compose --env-file for
+# port interpolation — strip those so infra/.env host publishes win.
+COMPOSE_ENV = env -u RABBITMQ_PORT -u RABBITMQ_MANAGEMENT_PORT -u REDIS_PORT \
+	-u POSTGRES_PORT -u MAILPIT_UI_PORT -u MAILPIT_SMTP_PORT \
+	-u MINIO_API_PORT -u MINIO_CONSOLE_PORT -u CLAMAV_PORT
+
+COMPOSE = $(COMPOSE_ENV) docker compose \
 	-f compose.yml \
 	-f compose.postgres.yml \
 	-f compose.redis.yml \
@@ -25,29 +31,28 @@ env:
 	@test -f .env || cp .env.example .env
 	@echo ".env ready"
 
+# Print host ports from infra/.env (not ambient IDE exports).
+define print_ports
+	@set -a; . ./.env; set +a; \
+	echo "postgres         → localhost:$${POSTGRES_PORT:-5432}"; \
+	echo "redis            → localhost:$${REDIS_PORT:-6379}"; \
+	echo "rabbitmq AMQP    → localhost:$${RABBITMQ_PORT:-5672}"; \
+	echo "rabbitmq UI      → http://localhost:$${RABBITMQ_MANAGEMENT_PORT:-15672}"; \
+	echo "mailpit UI       → http://localhost:$${MAILPIT_UI_PORT:-8025}"; \
+	echo "mailpit SMTP     → localhost:$${MAILPIT_SMTP_PORT:-1025}"; \
+	echo "minio API        → localhost:$${MINIO_API_PORT:-9000}"; \
+	echo "minio console    → http://localhost:$${MINIO_CONSOLE_PORT:-9001}"
+endef
+
 up: env
 	@$(COMPOSE) up -d
-	@echo "postgres         → localhost:$${POSTGRES_PORT:-5432}"
-	@echo "redis            → localhost:$${REDIS_PORT:-6379}"
-	@echo "rabbitmq AMQP    → localhost:$${RABBITMQ_PORT:-5672}"
-	@echo "rabbitmq UI      → http://localhost:$${RABBITMQ_MANAGEMENT_PORT:-15672}"
-	@echo "mailpit UI       → http://localhost:$${MAILPIT_UI_PORT:-8025}"
-	@echo "mailpit SMTP     → localhost:$${MAILPIT_SMTP_PORT:-1025}"
-	@echo "minio API        → localhost:$${MINIO_API_PORT:-9000}"
-	@echo "minio console    → http://localhost:$${MINIO_CONSOLE_PORT:-9001}"
+	$(print_ports)
 	@echo "(clamav: make up-scanning)"
 
 up-scanning: env
 	@$(COMPOSE) --profile scanning up -d
-	@echo "postgres         → localhost:$${POSTGRES_PORT:-5432}"
-	@echo "redis            → localhost:$${REDIS_PORT:-6379}"
-	@echo "rabbitmq AMQP    → localhost:$${RABBITMQ_PORT:-5672}"
-	@echo "rabbitmq UI      → http://localhost:$${RABBITMQ_MANAGEMENT_PORT:-15672}"
-	@echo "mailpit UI       → http://localhost:$${MAILPIT_UI_PORT:-8025}"
-	@echo "mailpit SMTP     → localhost:$${MAILPIT_SMTP_PORT:-1025}"
-	@echo "minio API        → localhost:$${MINIO_API_PORT:-9000}"
-	@echo "minio console    → http://localhost:$${MINIO_CONSOLE_PORT:-9001}"
-	@echo "clamav           → localhost:$${CLAMAV_PORT:-3310} (first start downloads signatures)"
+	$(print_ports)
+	@echo "clamav           → localhost:$$(sed -n 's/^CLAMAV_PORT=//p' .env | tr -d '"[:space:]' | head -n1) (first start downloads signatures)"
 
 down:
 	@$(COMPOSE) --profile scanning down
