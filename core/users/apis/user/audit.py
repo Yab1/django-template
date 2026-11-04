@@ -50,7 +50,7 @@ class LoginEventListApi(AuthorizedAPIView):
         summary="List all login events",
     )
     def get(self, request) -> Response:
-        query_serializer = LoginEventListQuerySerializer(data=request.query_params)
+        query_serializer = LoginEventListQuerySerializer(data=request.query_params.dict())
         query_serializer.is_valid(raise_exception=True)
         validated = cast(dict[str, Any], query_serializer.validated_data)
         filters = login_event_list_filters_from_validated(validated=validated)
@@ -92,7 +92,7 @@ class CurrentUserLoginEventListApi(AuthorizedAPIView):
         summary="List login events for the current user",
     )
     def get(self, request) -> Response:
-        query_serializer = LoginEventListQuerySerializer(data=request.query_params)
+        query_serializer = LoginEventListQuerySerializer(data=request.query_params.dict())
         query_serializer.is_valid(raise_exception=True)
         validated = cast(dict[str, Any], query_serializer.validated_data)
         filters = login_event_list_filters_from_validated(validated=validated)
@@ -140,7 +140,7 @@ class UserLoginEventListApi(AuthorizedAPIView):
     )
     def get(self, request, id: UUID) -> Response:
         get_object_or_404(User, pk=id)
-        query_serializer = LoginEventListQuerySerializer(data=request.query_params)
+        query_serializer = LoginEventListQuerySerializer(data=request.query_params.dict())
         query_serializer.is_valid(raise_exception=True)
         validated = cast(dict[str, Any], query_serializer.validated_data)
         filters = login_event_list_filters_from_validated(validated=validated)

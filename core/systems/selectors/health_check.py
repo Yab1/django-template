@@ -29,9 +29,7 @@ def system_health_get() -> SystemHealthCheck:
     rabbitmq_status: RabbitmqHealthStatus = _check_rabbitmq()
     minio_status: MinioHealthStatus = _check_minio()
     overall: Literal["ok", "unhealthy"] = (
-        "unhealthy"
-        if any(s == "error" for s in (database, cache_status, rabbitmq_status, minio_status))
-        else "ok"
+        "unhealthy" if any(s == "error" for s in (database, cache_status, rabbitmq_status, minio_status)) else "ok"
     )
     result = SystemHealthCheck(
         status=overall,

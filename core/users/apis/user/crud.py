@@ -50,7 +50,7 @@ class UserListApi(AuthorizedAPIView):
     )
     @cache_api_response(namespace="user:list")
     def get(self, request) -> Response:
-        query_serializer = self.QuerySerializer(data=request.query_params)
+        query_serializer = self.QuerySerializer(data=request.query_params.dict())
         query_serializer.is_valid(raise_exception=True)
 
         queryset = user_list(

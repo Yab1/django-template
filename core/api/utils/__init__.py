@@ -6,6 +6,7 @@ from django.core.cache import cache
 from rest_framework.response import Response
 
 from core.api.utils.idempotency import idempotent
+from core.api.utils.model_delta import model_delta_to_api_dict
 from core.api.utils.serializers import inline_serializer
 from core.common.utils.cache import LIST_CACHE_TIMEOUT
 
@@ -46,4 +47,4 @@ def cache_api_response(*, namespace: str, resource_id_kwarg: str | None = None):
     return decorator
 
 
-__all__ = ["cache_api_response", "idempotent", "inline_serializer"]
+__all__ = ["cache_api_response", "idempotent", "inline_serializer", "model_delta_to_api_dict"]

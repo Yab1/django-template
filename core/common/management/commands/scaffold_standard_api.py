@@ -47,10 +47,7 @@ class Command(BaseCommand):
         parser.add_argument(
             "model",
             type=str,
-            help=(
-                'Target model as "app_label.ModelName" (e.g. users.User). '
-                "App label is case-insensitive."
-            ),
+            help=('Target model as "app_label.ModelName" (e.g. users.User). App label is case-insensitive.'),
         )
         parser.add_argument(
             "--url-prefix",

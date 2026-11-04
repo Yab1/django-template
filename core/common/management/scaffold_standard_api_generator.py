@@ -2234,7 +2234,7 @@ class {ctx.model_name}HistoryDiffApi(AuthorizedAPIView):
     def get(self, request, id: UUID) -> Response:
         get_{es}(id=id, requesting_user=request.user)
 
-        qs = self.QuerySerializer(data=request.query_params)
+        qs = self.QuerySerializer(data=request.query_params.dict())
         qs.is_valid(raise_exception=True)
         validated = cast(dict[str, Any], qs.validated_data)
 
@@ -2306,7 +2306,7 @@ class {ctx.model_name}ObjectCrudAuditListApi(AuthorizedAPIView):
     )
     @cache_api_response(namespace="{cache_ns}", resource_id_kwarg="id")
     def get(self, request, id: UUID) -> Response:
-        filters_serializer = CrudEventAuditListFilterSerializer(data=request.query_params)
+        filters_serializer = CrudEventAuditListFilterSerializer(data=request.query_params.dict())
         filters_serializer.is_valid(raise_exception=True)
         filters = cast(dict[str, Any], filters_serializer.validated_data)
         queryset = get_{es}_object_crud_events(
@@ -2350,7 +2350,7 @@ class {ctx.model_name}ModelCrudAuditListApi(AuthorizedAPIView):
     )
     @cache_api_response(namespace="{cache_ns}")
     def get(self, request) -> Response:
-        filters_serializer = CrudEventAuditListFilterSerializer(data=request.query_params)
+        filters_serializer = CrudEventAuditListFilterSerializer(data=request.query_params.dict())
         filters_serializer.is_valid(raise_exception=True)
         filters = cast(dict[str, Any], filters_serializer.validated_data)
         queryset = get_{es}_model_crud_events(
@@ -2606,7 +2606,7 @@ class {ctx.model_name}ListApi(AuthorizedAPIView):
     )
     @cache_api_response(namespace="{cache_ns}")
     def get(self, request) -> Response:
-        query_serializer = self.QuerySerializer(data=request.query_params)
+        query_serializer = self.QuerySerializer(data=request.query_params.dict())
         query_serializer.is_valid(raise_exception=True)
 
         queryset = get_{selector_plural}(
