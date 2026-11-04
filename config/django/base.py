@@ -21,6 +21,7 @@ LOCAL_APPS = [
     "core.authentication.apps.AuthenticationConfig",
     "core.systems.apps.SystemsConfig",
     "core.notifications.apps.NotificationsConfig",
+    "core.files.apps.FilesConfig",
 ]
 
 THIRD_PARTY_APPS: list[str] = [

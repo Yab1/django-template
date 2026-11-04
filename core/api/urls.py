@@ -9,4 +9,5 @@ urlpatterns: list[URLResolver] = [
     ),
     path("systems/", include(("core.systems.urls", "systems"), namespace="systems")),
     path("", include(("core.notifications.urls", "notifications"), namespace="notifications")),
+    path("", include(("core.files.urls", "files"), namespace="files")),
 ]

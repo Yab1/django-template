@@ -61,6 +61,13 @@ SILK_ENABLED = False
 
 # Disable file storage (use in-memory for tests)
 DEFAULT_FILE_STORAGE = "django.core.files.storage.InMemoryStorage"
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.InMemoryStorage"},
+    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+}
+FILES_ENABLED = True
+CLAMAV_ENABLED = False
+PERMISSIONS_ENABLED = False
 
 # Disable caching for tests
 CACHES = {

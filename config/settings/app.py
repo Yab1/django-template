@@ -37,3 +37,6 @@ APP_DOMAIN = get_app_public_base_url()
 FRONTEND_URL = env.str("DJANGO_FRONTEND_URL", default="http://localhost:3000").rstrip("/")  # type: ignore[assignment]
 
 REFERENCE_ID_PLATFORM_PREFIX = env("DJANGO_REFERENCE_ID_PLATFORM_PREFIX", default="DT")
+
+# Catalog permission checks (roles/codes). Off until ``core.security`` app is fully ported.
+PERMISSIONS_ENABLED = env.bool("DJANGO_PERMISSIONS_ENABLED", default=False)
