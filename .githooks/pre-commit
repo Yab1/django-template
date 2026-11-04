@@ -1,0 +1,13 @@
+#!/bin/sh
+# Run project pre-commit hooks on staged files.
+# Git uses this directory via core.hooksPath (.githooks). Do not run
+# `pre-commit install` — that overwrites this script with a machine-local path.
+
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+if command -v uv >/dev/null 2>&1; then
+  exec uv run --extra dev pre-commit run
+fi
+
+echo "uv not found. Install uv, then run: make precommit"
+exit 1

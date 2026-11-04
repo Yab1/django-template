@@ -51,8 +51,8 @@ install: ## Install all dependencies (dev + prod) using uv
 precommit: install-hooks ## Install and configure pre-commit hooks + Git hooks path
 	$(call title,Setting up pre-commit)
 	uv run --extra dev pre-commit install-hooks
-	@chmod +x .githooks/pre-commit
-	$(call ok,Pre-commit hooks installed (via .githooks/))
+	@chmod +x .githooks/pre-commit .githooks/pre-push
+	$(call ok,Pre-commit hooks installed (via .githooks/ — lint blocks dirty commits))
 
 update: install migrate precommit ## Full project update
 	$(call ok,Project updated successfully)

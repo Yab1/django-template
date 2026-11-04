@@ -45,7 +45,7 @@ Mounted under `/api/v1/users/` (via users app URLs).
 
 | Method | Path | Notes |
 |--------|------|-------|
-| GET | `/users/` | paginated list (staff/policy) |
+| GET | `/users/` | paginated list (`users:user:list`) |
 | PATCH | `/users/<uuid>/update/` | partial update |
 | POST | `/users/<uuid>/password/` | admin set another user’s password |
 | GET | `/users/login-events/` | all login events |
@@ -53,6 +53,27 @@ Mounted under `/api/v1/users/` (via users app URLs).
 | GET | `/users/<uuid>/login-events/` | events for one user |
 
 Put static `me` routes **before** `<uuid:id>` routes.
+
+## Security (`core.security`)
+
+Permission catalog and roles. Check **codes**, never role names. Superuser bypasses every tagged view.
+
+| Method | Path | Perm |
+|--------|------|------|
+| GET | `/security/me/permissions/` | authenticated |
+| GET | `/security/me/roles/` | authenticated |
+| GET | `/security/permissions/` | `security:permission:list` |
+| GET | `/security/permissions/<uuid>/` | `security:permission:get` |
+| POST | `/security/roles/create/` | `security:role:create` |
+| GET | `/security/roles/` | `security:role:list` |
+| GET | `/security/roles/<uuid>/` | `security:role:get` |
+| PATCH | `/security/roles/<uuid>/update/` | `security:role:update` |
+| DELETE | `/security/roles/<uuid>/` | `security:role:delete` |
+| GET | `/security/users/<uuid>/roles/` | `security:user_role:list` |
+| POST | `/security/users/<uuid>/roles/assign/` | `security:user_role:assign` |
+| POST | `/security/users/<uuid>/roles/<uuid>/revoke/` | `security:user_role:revoke` |
+
+Permission codes are registered in app `ready()` (copy cookbook / users / files / notifications catalogs). Roles attach those codes. Synced into `security.Permission` on `post_migrate`. Django Groups remain admin-only. Gate with `DJANGO_PERMISSIONS_ENABLED` (`.env.example` defaults `false` for local).
 
 ## Health (`core.systems`)
 

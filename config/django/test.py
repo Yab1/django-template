@@ -67,7 +67,8 @@ STORAGES = {
 }
 FILES_ENABLED = True
 CLAMAV_ENABLED = False
-PERMISSIONS_ENABLED = False
+# Exercise catalog gates in tests (local .env may keep this false).
+PERMISSIONS_ENABLED = True
 
 # Disable caching for tests
 CACHES = {

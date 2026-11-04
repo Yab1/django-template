@@ -48,7 +48,8 @@ flowchart LR
 
 - Authentication: JWT via `core.authentication` (obtain / refresh / verify / blacklist).
 - `must_change_password` blocks most authenticated APIs until cleared (password change or reset confirm).
-- Policy hooks exist (`AuthorizedAPIView`, `PolicyPermission`) but currently gate on **staff/superuser** until a real security app is added.
+- Authorization: `core.security` catalog. Views declare `authorization_action` (permission code). Directory and own codes on one URL use `authorization_action_any`. Roles are bags of codes; checks never use role names or `is_staff`. Superuser bypasses. `DJANGO_PERMISSIONS_ENABLED=false` skips catalog checks (JWT still required). Django Groups stay for `/admin/`.
+- Idempotent writes take `Idempotency-Key`. The replay row is `core.common`. The decorator is `core.api`. File uploads record the key in the service.
 
 ## Health
 

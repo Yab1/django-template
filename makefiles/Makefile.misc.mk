@@ -3,10 +3,11 @@
 # ==============================================================================
 .PHONY: install-hooks
 
-install-hooks: ## Use repo .githooks (pre-push blocks push to main)
+install-hooks: ## Use repo .githooks (pre-commit lint gate; pre-push blocks main)
 	$(call title,Configuring Git hooks path)
 	git config core.hooksPath .githooks
-	$(call ok,Git will use .githooks/ (run 'make precommit' for pre-commit hooks))
+	@chmod +x .githooks/pre-push .githooks/pre-commit
+	$(call ok,Git will use .githooks/ (pre-commit lint; pre-push blocks main; run 'make precommit' for hook envs))
 
 # ==============================================================================
 # Dependency / security audit

@@ -53,6 +53,16 @@ Copy `.env.example` → `.env`, then set secrets path and database URLs.
 - API mounted at `/api/v1/` via `config/urls.py` → `core.api.urls`
 - Health at `/health/` (outside versioned API)
 
+## Feature flags (env)
+
+| Var | Default | Effect |
+|-----|---------|--------|
+| `DJANGO_AUTH_REQUIRED` | `true` | Default DRF permission `IsAuthenticated` vs `AllowAny` |
+| `DJANGO_PERMISSIONS_ENABLED` | `false` | `false` → skip catalog checks (JWT still required). Local/dev only; set `true` when roles are assigned |
+| `DJANGO_COOKBOOK_ENABLED` | `true` | Specimen `core.cookbook` routes + admin |
+| `DJANGO_RATE_LIMIT_ENABLED` | `false` | DRF anon/user/write throttles |
+| `DJANGO_SEED_ENABLED` | `true` | Skip `load_superusers` when false |
+
 ## Related
 
 - [Getting Started](../getting-started.md)

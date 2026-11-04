@@ -66,11 +66,15 @@ Command docs: `core/common/management/commands/docs/`.
 ## Git hooks
 
 ```bash
-make install-hooks   # or make precommit
+make precommit   # sets core.hooksPath=.githooks + caches hook envs
 ```
 
-Pre-push may block direct pushes to `main` (use a branch + PR).
+- **pre-commit** — runs ruff check/format + yaml/large-file hooks on staged files. Lint issues (or auto-fixes that need re-stage) **block the commit**.
+- **pre-push** — blocks direct push to `main` (branch + PR). Bypass: `BYPASS_PROTECTED_PUSH=1`.
 
+Do not run `pre-commit install` — it overwrites `.githooks/pre-commit` with a machine-local path.
+
+PRs to `main` must also pass CI (`make lint-check`).
 ## Useful URLs (local)
 
 - App: `http://localhost:8000/` (port from env)
