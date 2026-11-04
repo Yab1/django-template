@@ -1,0 +1,1 @@
+OPENAPI_TAG_SECURITY = "security"

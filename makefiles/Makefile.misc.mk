@@ -21,7 +21,7 @@ audit: ## Run pip-audit to check dependencies for known vulnerabilities
 # ==============================================================================
 # Miscellaneous
 # ==============================================================================
-.PHONY: clean-migrations format lint demo-logging create-app loaddata loaddata-all sync-rules
+.PHONY: clean-migrations format lint lint-check demo-logging create-app loaddata loaddata-all sync-rules
 
 sync-rules: ## Regenerate .codex/ and .claude/ from .cursor/rules/
 	$(call title,Syncing agent rules from .cursor/rules)
@@ -46,6 +46,14 @@ lint: format ## Run linters (includes formatting)
 	uv run --extra dev pre-commit run --all-files check-yaml
 	uv run --extra dev pre-commit run --all-files check-added-large-files
 	$(call ok,Linting complete)
+
+lint-check: ## Lint without writing (CI / branch protection)
+	$(call title,Checking lint (no writes))
+	uv run --extra dev ruff format --check .
+	uv run --extra dev ruff check --no-fix .
+	uv run --extra dev pre-commit run --all-files check-yaml
+	uv run --extra dev pre-commit run --all-files check-added-large-files
+	$(call ok,Lint check passed)
 
 create-app: ## Create Django app with optional registration (APP=<name>)
 	@if [ -z "$(APP)" ]; then echo "Usage: make create-app APP=<app_name>"; exit 2; fi

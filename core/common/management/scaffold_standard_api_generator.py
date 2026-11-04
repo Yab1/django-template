@@ -2267,7 +2267,7 @@ class {ctx.model_name}HistoryRevertApi(AuthorizedAPIView):
         summary="Revert {verbose} to a history snapshot",
     )
     def post(self, request, id: UUID, history_id: int) -> Response:
-        run_service({es}_revert_to_history, {{}}, id=id, history_id=history_id, requesting_user=request.user)
+        {es}_revert_to_history(id=id, history_id=history_id, requesting_user=request.user)
         detail = get_{es}(id=id, requesting_user=request.user)
         return Response(data=self.OutputSerializer(detail).data, status=status.HTTP_200_OK)
 """
@@ -2386,9 +2386,9 @@ def render_apis_py(ctx: ScaffoldContext) -> str:
     detail_get_line = f"        obj = get_{es}(id=id, requesting_user=request.user)"
 
     utils_import = (
-        "from core.api.utils import cache_api_response, model_delta_to_api_dict, run_service"
+        "from core.api.utils import cache_api_response, model_delta_to_api_dict"
         if ctx.with_history_extras
-        else "from core.api.utils import cache_api_response, run_service"
+        else "from core.api.utils import cache_api_response"
     )
 
     spectacular_import = "from drf_spectacular.utils import extend_schema"
@@ -2487,7 +2487,7 @@ class {ctx.model_name}DeleteApi(AuthorizedAPIView):
         summary="Delete {verbose} by ID",
     )
     def delete(self, request, id: UUID) -> Response:
-        run_service({es}_delete, {{}}, id=id, requesting_user=request.user)
+        {es}_delete(id=id, requesting_user=request.user)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -2509,7 +2509,7 @@ class {ctx.model_name}RestoreApi(AuthorizedAPIView):
         summary="Restore {verbose} by ID",
     )
     def post(self, request, id: UUID) -> Response:
-        obj = run_service({es}_restore, {{}}, id=id, requesting_user=request.user)
+        obj = {es}_restore(id=id, requesting_user=request.user)
         return_data = self.OutputSerializer(obj).data
         return Response(data=return_data, status=status.HTTP_200_OK)
 
@@ -2525,7 +2525,7 @@ class {ctx.model_name}HardDeleteApi(AuthorizedAPIView):
         summary="Hard delete {verbose} by ID",
     )
     def delete(self, request, id: UUID) -> Response:
-        run_service({es}_hard_delete, {{}}, id=id, requesting_user=request.user)
+        {es}_hard_delete(id=id, requesting_user=request.user)
         return Response(status=status.HTTP_204_NO_CONTENT)
 """
 
@@ -2568,7 +2568,10 @@ class {ctx.model_name}CreateApi(AuthorizedAPIView):
         serializer = self.InputSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        result = run_service({es}_create, serializer.validated_data, requesting_user=request.user)
+        result = {es}_create(
+            **cast(dict[str, Any], serializer.validated_data),
+            requesting_user=request.user,
+        )
         return_data = self.OutputSerializer(result).data
 
         return Response(data=return_data, status=status.HTTP_201_CREATED)
@@ -2666,11 +2669,9 @@ class {ctx.model_name}UpdateApi(AuthorizedAPIView):
         serializer = self.InputSerializer(data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
 
-        obj = run_service(
-            {es}_update,
-            serializer.validated_data,
+        obj = {es}_update(
             id=id,
-            _as="data",
+            data=cast(dict[str, Any], serializer.validated_data),
             requesting_user=request.user,
         )
         return_data = self.OutputSerializer(obj).data

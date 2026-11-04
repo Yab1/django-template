@@ -5,7 +5,7 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class PermissionSpec:
-    """Code-owned catalog entry. Synced into permission rows when security app lands."""
+    """Code-owned catalog entry. Synced into ``security.Permission`` rows."""
 
     code: str
     name: str

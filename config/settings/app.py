@@ -45,9 +45,12 @@ REFERENCE_ID_PLATFORM_PREFIX = env("DJANGO_REFERENCE_ID_PLATFORM_PREFIX", defaul
 # Default DRF permission. Individual views can still set AllowAny / IsAuthenticated.
 AUTH_REQUIRED = env.bool("DJANGO_AUTH_REQUIRED", default=True)
 
-# Catalog permission checks (roles/codes). Off until ``core.security`` app is fully ported.
+# Catalog permission checks (roles/codes via core.security).
 # false = any authenticated active user passes every permission code. Local/dev only.
 PERMISSIONS_ENABLED = env.bool("DJANGO_PERMISSIONS_ENABLED", default=False)
+
+# Specimen CRUD app (Recipe). Off in production if unused.
+COOKBOOK_ENABLED = env.bool("DJANGO_COOKBOOK_ENABLED", default=True)
 
 # DRF throttles (anon ≈ login/token, user ≈ authenticated reads). Off by default.
 RATE_LIMIT_ENABLED = env.bool("DJANGO_RATE_LIMIT_ENABLED", default=False)

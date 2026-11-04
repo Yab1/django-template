@@ -18,10 +18,12 @@ CORS_ALLOWED_ORIGINS = env.list("DJANGO_CORS_ORIGIN_WHITELIST", default=[])  # p
 LOCAL_APPS = [
     "core.common.apps.CommonConfig",
     "core.users.apps.UsersConfig",
+    "core.security.apps.SecurityConfig",
     "core.authentication.apps.AuthenticationConfig",
     "core.systems.apps.SystemsConfig",
     "core.notifications.apps.NotificationsConfig",
     "core.files.apps.FilesConfig",
+    "core.cookbook.apps.CookbookConfig",
 ]
 
 THIRD_PARTY_APPS: list[str] = [
@@ -49,6 +51,7 @@ INSTALLED_APPS: list[str] = [
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.postgres",
+    "django.contrib.gis",
     *THIRD_PARTY_APPS,
     *LOCAL_APPS,
 ]
@@ -92,14 +95,22 @@ ASGI_APPLICATION = "config.asgi.application"
 
 # CHANNEL_LAYERS: set in config.settings.channels (Redis; required for Celery→WS push)
 
+# Optional override when the process cannot find GDAL/GEOS on its own.
+_gdal = env.str("DJANGO_GDAL_LIBRARY_PATH", default="")
+if _gdal:
+    GDAL_LIBRARY_PATH = _gdal
+_geos = env.str("DJANGO_GEOS_LIBRARY_PATH", default="")
+if _geos:
+    GEOS_LIBRARY_PATH = _geos
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 # psycopg2: persistent-conn age, not a process pool. Django OPTIONS["pool"] needs psycopg3.
+# Engine is PostGIS (matches infra postgis/postgis image). Needs GDAL/GEOS on the host.
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
         "NAME": env.str("DJANGO_DB_NAME"),
         "USER": env.str("DJANGO_DB_USER"),
         "PASSWORD": env.str("DJANGO_DB_PASSWORD"),

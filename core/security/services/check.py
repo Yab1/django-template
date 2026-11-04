@@ -1,12 +1,3 @@
-"""
-Permission checks.
-
-Full catalog roles live in ``core.security`` when that app lands.
-Until then ``PERMISSIONS_ENABLED=False`` (default) allows authenticated callers
-through service-level checks; DRF ``PolicyPermission`` still gates tagged APIs
-to staff/superuser.
-"""
-
 from typing import TypeVar
 
 from django.conf import settings
@@ -14,6 +5,8 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 
+from core.security.models import Permission
+from core.security.services.permission import ensure_permissions_synced
 from core.users.models import User
 
 _ModelT = TypeVar("_ModelT", bound=QuerySet)
@@ -22,11 +15,18 @@ _CACHE_ATTR = "_security_permission_codes"
 
 
 def user_permission_codes(*, user: User) -> frozenset[str]:
+    ensure_permissions_synced()
     cached = getattr(user, _CACHE_ATTR, None)
     if cached is not None:
         return cached
-    # No permission rows yet — empty set. Superuser / flag short-circuit above.
-    codes: frozenset[str] = frozenset()
+    codes = frozenset(
+        Permission.objects.filter(
+            roles__deleted_at__isnull=True,
+            roles__user_links__user=user,
+        )
+        .values_list("code", flat=True)
+        .distinct()
+    )
     setattr(user, _CACHE_ATTR, codes)
     return codes
 
@@ -41,7 +41,7 @@ def user_has_permission(*, user: User, action: str) -> bool:
         return False
     if not getattr(user, "is_active", True):
         return False
-    if not getattr(settings, "PERMISSIONS_ENABLED", False):
+    if not getattr(settings, "PERMISSIONS_ENABLED", True):
         return True
     if getattr(user, "is_superuser", False):
         return True

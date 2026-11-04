@@ -10,7 +10,7 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])  # type: ignore
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
         "NAME": env.str("DJANGO_DB_NAME"),
         "USER": env.str("DJANGO_DB_USER"),
         "PASSWORD": env.str("DJANGO_DB_PASSWORD"),

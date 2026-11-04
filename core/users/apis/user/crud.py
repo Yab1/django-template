@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from core.api.pagination import LimitOffsetPagination, get_paginated_response
 from core.api.serializers import build_paginated_result_serializer, build_success_response_serializer
-from core.api.utils import cache_api_response, run_service
+from core.api.utils import cache_api_response
 from core.api.views import AuthorizedAPIView
 from core.users.constants import OPENAPI_TAG_USERS
 from core.users.selectors import user_list
@@ -93,11 +93,9 @@ class UserUpdateApi(AuthorizedAPIView):
         serializer = self.InputSerializer(data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
 
-        obj = run_service(
-            user_update,
-            serializer.validated_data,
+        obj = user_update(
             id=id,
-            _as="data",
+            data=cast(dict[str, Any], serializer.validated_data),
             requesting_user=request.user,
         )
         return Response(data=self.OutputSerializer(obj).data, status=status.HTTP_200_OK)

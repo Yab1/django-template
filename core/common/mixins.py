@@ -1,5 +1,8 @@
 """
 Abstract model mixins. Opt in per model via multiple inheritance.
+
+Skip HistoryMixin (simple-history is not in this project) and VersionedMixin
+(append-only snapshots are not in this product yet).
 """
 
 from django.conf import settings
@@ -12,7 +15,7 @@ from core.common.utils.reference_id import generate_reference_id
 
 class ReferenceIdMixin(models.Model):
     """
-    Human-readable reference ID (e.g. DT-NTF-A3X9K2).
+    Human-readable reference ID (e.g. DT-USR-A3X9K2).
 
     Set ``reference_id_prefix`` on the concrete model (exactly 3 chars).
     Generated when missing (``clean`` / ``save``).
@@ -62,6 +65,35 @@ class VisibleMixin(models.Model):
     def deactivate(self) -> None:
         self.is_visible = False
         self.save(update_fields=["is_visible"])
+
+
+class AuthorshipMixin(models.Model):
+    """
+    Who created the row and who last wrote it.
+
+    Both FKs use ``settings.AUTH_USER_MODEL``. Stamp them in the **service**
+    from the authenticated user. Do not set them in ``save()``.
+    """
+
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="%(app_label)s_%(class)s_created",
+        help_text=_("User who created this record."),
+    )
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="%(app_label)s_%(class)s_updated",
+        help_text=_("User who last updated this record."),
+    )
+
+    class Meta:
+        abstract = True
 
 
 class SoftDeleteMixin(models.Model):

@@ -7,6 +7,7 @@ from rest_framework.serializers import as_serializer_error
 from rest_framework.views import exception_handler
 
 from core.api.exceptions import ApplicationError
+from core.common.exceptions import ConflictError, ServiceError
 
 # Same envelope shape as success responses (status, result, meta, message)
 ERROR_META = {"version": "v1"}
@@ -107,6 +108,14 @@ def _compact_errors(errors):
 
 
 def drf_default_with_modifications_exception_handler(exc, ctx):
+    if isinstance(exc, ConflictError):
+        wrapped = exceptions.APIException(detail={"detail": exc.message, "code": exc.code})
+        wrapped.status_code = 409
+        exc = wrapped
+    elif isinstance(exc, ServiceError):
+        wrapped = exceptions.APIException(detail={"detail": exc.message, "code": exc.code})
+        wrapped.status_code = exc.status_code
+        exc = wrapped
     if isinstance(exc, DjangoValidationError):
         exc = exceptions.ValidationError(as_serializer_error(exc))
 

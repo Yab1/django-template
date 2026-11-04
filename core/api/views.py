@@ -12,8 +12,8 @@ Usage:
         def post(self, request) -> Response:
             ...
 
-Both class attributes are required for the permission check to activate.
-If either is absent the view behaves like a plain ``APIView``.
+``authorization_action`` (or ``authorization_actions``) activates the catalog check.
+If absent the view is authenticated-only.
 """
 
 from rest_framework.permissions import IsAuthenticated
@@ -29,8 +29,11 @@ class AuthorizedAPIView(APIView):
     to the default permission classes.
 
     Subclasses declare:
-        authorization_resource_code: str  — catalog resource code (e.g. "CodeSystem")
-        authorization_action: str         — action string (e.g. "terminology:codesystem:create")
+        authorization_resource_code: str  — optional label (docs / OpenAPI)
+        authorization_action: str         — catalog permission code
+        authorization_action_any: tuple   — first code the user holds wins (directory vs own)
+        authorization_actions: dict       — HTTP method → code, or a tuple of codes
+                                           (first code the caller holds wins)
 
     To keep a view accessible while ``must_change_password=True`` (e.g. profile
     reads, password-change itself), set on the subclass:
@@ -39,6 +42,8 @@ class AuthorizedAPIView(APIView):
 
     authorization_resource_code: str | None = None
     authorization_action: str | None = None
+    authorization_action_any: tuple[str, ...] | None = None
+    authorization_actions: dict[str, str | tuple[str, ...]] | None = None
     skip_must_change_password_check: bool = False
 
     permission_classes = [IsAuthenticated, MustChangePasswordPermission, PolicyPermission]
