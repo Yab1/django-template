@@ -49,11 +49,27 @@ Default port comes from `DJANGO_APP_PORT` (see `.env.example`).
 
 | App | Role |
 |-----|------|
-| `core.common` | BaseModel, shared utils, management commands |
+| `core.common` | BaseModel, mixins, idempotency, shared services |
 | `core.users` | User model and user APIs |
+| `core.security` | Roles + permission-code catalog |
 | `core.authentication` | JWT, `/me`, password flows |
 | `core.systems` | Health probe |
+| `core.files` | Media uploads (MinIO / S3 / local) |
+| `core.notifications` | Outbox + channels |
+| `core.cookbook` | House specimen (CRUD + publish); optional |
 | `core.api` | Envelope, pagination, URL mount |
+
+## Starting a real product from this template
+
+```bash
+# 1) Rename identity tokens (compose, celery, pyproject, docs, DT prefix, …)
+make rename-project SNAKE=acme_api KEBAB=acme-api NAME='Acme API' PREFIX=AC
+# Preview: make rename-project … DRY_RUN=1
+
+# 2) Optional: drop the kitchen specimen entirely
+make remove-cookbook
+# Preview: make remove-cookbook DRY_RUN=1
+```
 
 ## Deployment
 
@@ -67,7 +83,8 @@ See [docs/guides/deployment.md](docs/guides/deployment.md).
 
 ## Naming
 
-In-repo identifiers: `django_template` / `django-template` (Compose, Celery queue, image). Rename when you fork into a real product.
+In-repo identifiers: `django_template` / `django-template` / `Django Template` / `DT`.
+Use `make rename-project` (do not hand-edit — easy to miss Celery queue / Jenkins paths / entrypoint marker).
 
 ## Contact
 

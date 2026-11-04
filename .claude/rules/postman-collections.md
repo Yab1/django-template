@@ -1,0 +1,388 @@
+---
+paths:
+  - "postman/**/*.json"
+---
+
+# Postman Collections
+
+Apply when creating or editing files under `postman/`. Add new conventions to this rule as they appear.
+
+`make postman-collection APP=<app>` writes `postman/{app}/{resource}_viewset.postman_collection.json`. Follow that path; keep the collection **name** as the resource only.
+
+When you **create** a collection, append it to [Inventory](#inventory) in this same change. Do not leave a new JSON file undocumented here.
+
+## Naming
+
+### Collections
+
+- Name = resource only, **all lowercase**
+- No product/service prefix, no em dashes, no Title Case
+- **Filename** = `{resource}_viewset.postman_collection.json` under `postman/{app}/`
+
+```
+❌ My Product — Users
+❌ Users
+❌ my-product-users.postman_collection.json
+✅ users
+✅ postman/users/users_viewset.postman_collection.json
+```
+
+### Folders and requests
+
+- **all lowercase** (spaces OK for readability)
+- Prefer verb + resource; put clarifying context in parentheses
+
+```
+❌ Create User (with email)
+✅ create user
+✅ get user (by uuid)
+```
+
+### Variables
+
+- Always **snake_case**
+- Never camelCase or PascalCase
+
+```
+❌ baseUrl, accessToken, adminEmail, userId
+✅ base_url, access_token, admin_email, user_id
+```
+
+## Base URLs
+
+- `base_url` = host + `/api/v1` (all versioned API routes)
+- `root_url` = host only (probes: `/live`, `/ready`, `/health`)
+
+Local app listens on `DJANGO_APP_PORT` from `.env` (`make run`). Collection defaults use **8000**.
+
+```
+base_url = http://localhost:8000/api/v1
+root_url = http://localhost:8000
+
+✅ {{base_url}}/users/
+✅ {{root_url}}/live
+❌ {{base_url}}/api/v1/users/
+❌ {{base_url}}/live
+```
+
+## WebSocket
+
+Same host as `base_url`, scheme `ws`. Put these on the Postman environment (they override collection defaults).
+
+```
+ws_base_url = ws://localhost:8000/api/v1
+ws_root_url = ws://localhost:8000
+notification_since =
+```
+
+`access_token` is the login variable already. Socket URL (either works). Keep the trailing slash, same as HTTP.
+
+```
+{{ws_base_url}}/notifications/stream/?access_token={{access_token}}
+{{ws_root_url}}/ws/notifications/?access_token={{access_token}}
+```
+
+Leave `notification_since` empty unless the client sends a resync payload. Client resync body is `{"type": "resync"}`.
+
+## Seeded admin login
+
+`POST {{base_url}}/authentication/token/` takes **username** + **password** (`User.USERNAME_FIELD` is `username`). Copy these collection variables on every new collection. Values come from `.secrets.yml` (`make seed-superuser`). Do not commit real passwords.
+
+Default username comes from `.secrets.yml` (`make seed-superuser`) unless the YAML sets `username`.
+
+```
+username = (from .secrets.yml)
+password = (from .secrets.yml)
+```
+
+```json
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+```
+
+Obtain-token test scripts should save `result.access` / `result.refresh` into `access_token` / `refresh_token` (envelope wrapper).
+
+## Collection variable defaults
+
+Every collection variable ships with a sample `value`. Do not leave `""`.
+
+The sample must match the field shape: uuid for ids and idempotency keys, 16 digits for a national id, `YYYY-MM-DD` for a date, a 2-letter country code.
+
+These three stay empty. They are secrets or they are written by the obtain-token script:
+
+- `password` (from `.secrets.yml`, never commit it)
+- `access_token`
+- `refresh_token`
+
+## Request payloads — dynamic variables
+
+Postman generates sample data from [Faker](https://www.npmjs.com/package/@faker-js/faker). Names start with `$`. Values are generated when the request runs. Names are case-sensitive.
+
+Use them in the body, URL, or header as `{{$randomFirstName}}`. In a pre-request or test script, wrap the same token for `pm.variables.replaceIn('{{$randomFirstName}}')`.
+
+Every request body uses a `$` variable for every field that has one. That includes later requests, not only the first create. `{{first_name}}`, `{{middle_name}}`, `{{last_name}}`, `{{contact_email}}`, `{{address_line1}}`, `{{city}}`, and `{{country}}` do not belong in a body.
+
+Collection variables are the other half. Use them only when a `$` variable cannot:
+
+- an id returned by an earlier request (`{{user_id}}`, `{{file_id}}`)
+- login (`{{username}}`, `{{password}}`, `{{access_token}}`)
+- a shape no `$` variable has (`{{national_id}}` is 16 digits, `{{date_of_birth}}` is `YYYY-MM-DD`)
+- one idempotency key a later request must send again (`{{idempotency_key}}`)
+- a search that must find the row just created (`search={{last_name}}`, saved from that response)
+
+A fresh idempotency key on a request that nothing replays is `{{$guid}}` in the header, not a collection variable.
+
+```json
+{
+  "first_name": "{{$randomFirstName}}",
+  "last_name": "{{$randomLastName}}",
+  "email": "{{$randomEmail}}",
+  "line1": "{{$randomStreetAddress}}",
+  "city": "{{$randomCity}}",
+  "country": "{{$randomCountryCode}}",
+  "title": "{{$randomLoremSentence}}"
+}
+```
+
+`pm.variables.replaceIn('{{$randomFirstName}}')` is only for a script that must build a value no `$` variable can express (a `YYYY-MM-DD` date, a 16-digit national id). Do not use it to hide a name or email behind `{{first_name}}`.
+
+Keep **static** when the value is constrained:
+
+- enums, status, type, kind
+- seed login (`username`, `password`)
+- flags such as `is_active` / `is_primary`
+- one field that must differ on purpose (idempotency conflict)
+
+Shape limits. These variables do not match the API type, so do not paste them raw:
+
+- `$randomDatePast`, `$randomDateFuture`, and `$randomDateRecent` are JavaScript datetime strings, not `YYYY-MM-DD`. Build a calendar date in the pre-request script (use `$randomInt` for the parts) and store it.
+- `$randomCountry` is a country name. A 2-letter field uses `$randomCountryCode`.
+- `$randomInt` is an integer from 0 to 1000. A fixed-length id (16-digit national id) stays a short script.
+- `$randomLocale` is a language code, not a country code.
+
+New collections use this list. Older collections stay as they are until edited.
+
+### Common
+
+| Variable | Description | Example |
+|---|---|---|
+| `$guid` | uuid-v4 | `611c2e81-2ccb-42d8-9ddc-2d0bfa65c1b4` |
+| `$timestamp` | UNIX seconds | `1562757107` |
+| `$isoTimestamp` | ISO timestamp, zero UTC | `2020-06-09T21:10:36.177Z` |
+| `$randomUUID` | 36-character UUID | `6929bb52-3ab2-448a-9796-d6480ecad36b` |
+
+### Text, numbers, and colors
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomAlphaNumeric` | one alpha-numeric character | `6`, `y` |
+| `$randomBoolean` | boolean | `true`, `false` |
+| `$randomInt` | integer 0–1000 | `802` |
+| `$randomColor` | color name | `red` |
+| `$randomHexColor` | hex color | `#47594a` |
+| `$randomAbbreviation` | abbreviation | `SQL` |
+
+### Internet and IP addresses
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomIP` | IPv4 | `241.102.234.100` |
+| `$randomIPV6` | IPv6 | `dbe2:7ae6:119b:c161:1560:6dda:3a9b:90a9` |
+| `$randomMACAddress` | MAC address | `33:d4:68:5f:b4:c7` |
+| `$randomPassword` | 15-character password | `t9iXe7COoDKv8k3` |
+| `$randomLocale` | ISO 639-1 language code | `ny` |
+| `$randomUserAgent` | user agent | `Mozilla/5.0 ...` |
+| `$randomProtocol` | `http` or `https` | `https` |
+| `$randomSemver` | semantic version | `7.0.5` |
+
+### Names
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomFirstName` | first name | `Ethan` |
+| `$randomLastName` | last name | `Schaden` |
+| `$randomFullName` | first and last name | `Connie Runolfsdottir` |
+| `$randomNamePrefix` | prefix | `Dr.` |
+| `$randomNameSuffix` | suffix | `MD` |
+
+### Profession
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomJobArea` | job area | `Mobility` |
+| `$randomJobDescriptor` | job descriptor | `Senior` |
+| `$randomJobTitle` | job title | `International Creative Liaison` |
+| `$randomJobType` | job type | `Manager` |
+
+### Phone, address, and location
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomPhoneNumber` | 10-digit phone | `700-008-5275` |
+| `$randomPhoneNumberExt` | phone with extension | `27-199-983-3864` |
+| `$randomCity` | city | `Spinkahaven` |
+| `$randomStreetName` | street name | `General Street` |
+| `$randomStreetAddress` | street address | `5742 Harvey Streets` |
+| `$randomCountry` | country name | `Austria` |
+| `$randomCountryCode` | ISO 3166-1 alpha-2 | `CV` |
+| `$randomLatitude` | latitude | `55.2099` |
+| `$randomLongitude` | longitude | `40.6609` |
+
+### Images
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomAvatarImage` | avatar image URL | `https://avatars.githubusercontent.com/u/30218384` |
+| `$randomImageUrl` | image URL | `http://lorempixel.com/640/480` |
+| `$randomAbstractImage` | abstract image URL | `http://lorempixel.com/640/480/abstract` |
+| `$randomAnimalsImage` | animal image URL | `http://lorempixel.com/640/480/animals` |
+| `$randomBusinessImage` | business image URL | `http://lorempixel.com/640/480/business` |
+| `$randomCatsImage` | cat image URL | `http://lorempixel.com/640/480/cats` |
+| `$randomCityImage` | city image URL | `http://lorempixel.com/640/480/city` |
+| `$randomFoodImage` | food image URL | `http://lorempixel.com/640/480/food` |
+| `$randomNightlifeImage` | nightlife image URL | `http://lorempixel.com/640/480/nightlife` |
+| `$randomFashionImage` | fashion image URL | `http://lorempixel.com/640/480/fashion` |
+| `$randomPeopleImage` | person image URL | `http://lorempixel.com/640/480/people` |
+| `$randomNatureImage` | nature image URL | `http://lorempixel.com/640/480/nature` |
+| `$randomSportsImage` | sports image URL | `http://lorempixel.com/640/480/sports` |
+| `$randomTransportImage` | transport image URL | `http://lorempixel.com/640/480/transport` |
+| `$randomImageDataUri` | image data URI | `data:image/svg+xml;charset=UTF-8,...` |
+
+### Finance
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomBankAccount` | 8-digit account number | `09454073` |
+| `$randomBankAccountName` | account name | `Checking Account` |
+| `$randomCreditCardMask` | masked card | `3622` |
+| `$randomBankAccountBic` | BIC | `EZIAUGJ1` |
+| `$randomBankAccountIban` | IBAN | `MU20ZPUN3039684000618086155TKZ` |
+| `$randomTransactionType` | transaction type | `invoice` |
+| `$randomCurrencyCode` | ISO-4217 code | `CDF` |
+| `$randomCurrencyName` | currency name | `Pound Sterling` |
+| `$randomCurrencySymbol` | currency symbol | `$` |
+| `$randomBitcoin` | bitcoin address | `3VB8JGT7Y4Z63U68KGGKDXMLLH5` |
+
+### Business
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomCompanyName` | company name | `Grady LLC` |
+| `$randomCompanySuffix` | company suffix | `Inc` |
+| `$randomBs` | business-speak phrase | `killer leverage schemas` |
+| `$randomBsAdjective` | business-speak adjective | `viral` |
+| `$randomBsBuzz` | business-speak buzzword | `repurpose` |
+| `$randomBsNoun` | business-speak noun | `markets` |
+
+### Catchphrases
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomCatchPhrase` | catchphrase | `Future-proofed heuristic open architecture` |
+| `$randomCatchPhraseAdjective` | catchphrase adjective | `Business-focused` |
+| `$randomCatchPhraseDescriptor` | catchphrase descriptor | `needs-based` |
+| `$randomCatchPhraseNoun` | catchphrase noun | `secured line` |
+
+### Databases
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomDatabaseColumn` | column name | `updatedAt` |
+| `$randomDatabaseType` | column type | `text` |
+| `$randomDatabaseCollation` | collation | `utf8_general_ci` |
+| `$randomDatabaseEngine` | engine | `InnoDB` |
+
+### Dates
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomDateFuture` | future datetime (not `YYYY-MM-DD`) | `Tue Mar 17 2025 13:11:50 GMT+0530` |
+| `$randomDatePast` | past datetime (not `YYYY-MM-DD`) | `Sat Mar 02 2019 09:09:26 GMT+0530` |
+| `$randomDateRecent` | recent datetime (not `YYYY-MM-DD`) | `Tue Jul 09 2023 23:12:37 GMT+0530` |
+| `$randomWeekday` | weekday | `Thursday` |
+| `$randomMonth` | month | `February` |
+
+### Domains, emails, and usernames
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomDomainName` | domain | `gracie.biz` |
+| `$randomDomainSuffix` | suffix | `org` |
+| `$randomDomainWord` | unqualified domain | `gwen` |
+| `$randomEmail` | email | `Pablo62@gmail.com` |
+| `$randomExampleEmail` | example-domain email | `Talon28@example.com` |
+| `$randomUserName` | username | `Alia99` |
+| `$randomUrl` | URL | `https://anais.net` |
+
+### Files and directories
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomFileName` | file name, uncommon extension | `neural_sri_lanka_rupee_gloves.gdoc` |
+| `$randomFileType` | file type | `video` |
+| `$randomFileExt` | extension | `war` |
+| `$randomCommonFileName` | common file name | `well_modulated.mpg4` |
+| `$randomCommonFileType` | common file type | `audio` |
+| `$randomCommonFileExt` | common extension | `png` |
+| `$randomFilePath` | file path | `/home/programming_chicken.cpio` |
+| `$randomDirectoryPath` | directory path | `/usr/bin` |
+| `$randomMimeType` | MIME type | `audio/vnd.vmx.cvsd` |
+
+### Stores
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomPrice` | price 0.00–1000.00 | `531.55` |
+| `$randomProduct` | product | `Towels` |
+| `$randomProductAdjective` | product adjective | `Handmade` |
+| `$randomProductMaterial` | material | `Steel` |
+| `$randomProductName` | product name | `Refined Rubber Hat` |
+| `$randomDepartment` | commerce category | `Tools` |
+
+### Grammar
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomNoun` | noun | `matrix` |
+| `$randomVerb` | verb | `parse` |
+| `$randomIngverb` | verb ending in `-ing` | `synthesizing` |
+| `$randomAdjective` | adjective | `auxiliary` |
+| `$randomWord` | word | `withdrawal` |
+| `$randomWords` | several words | `Samoa Synergistic sticky copying` |
+| `$randomPhrase` | phrase | `You can't program the monitor without navigating the mobile XML program!` |
+
+### Lorem ipsum
+
+| Variable | Description | Example |
+|---|---|---|
+| `$randomLoremWord` | one lorem word | `est` |
+| `$randomLoremWords` | a few lorem words | `vel repellat nobis` |
+| `$randomLoremSentence` | one sentence | `Molestias consequuntur nisi non quod.` |
+| `$randomLoremSentences` | 2–6 sentences | `Et sint voluptas similique iure amet.` |
+| `$randomLoremParagraph` | one paragraph | `Ab aliquid odio iste quo voluptas voluptatem.` |
+| `$randomLoremParagraphs` | 3 paragraphs | `Voluptatem rem magnam aliquam ab id aut quaerat.` |
+| `$randomLoremText` | a random amount of text | `Quisquam asperiores exercitationem ut ipsum.` |
+| `$randomLoremSlug` | URL slug | `eos-aperiam-accusamus` |
+| `$randomLoremLines` | 1–5 lines | `Ducimus in ut mollitia.` |
+
+## Inventory
+
+Append a row when you add a collection.
+
+| Resource | Path |
+|---|---|
+| authentication | `postman/authentication/authentication_viewset.postman_collection.json` |
+| users | `postman/users/users_viewset.postman_collection.json` |
+| systems | `postman/systems/systems_health_viewset.postman_collection.json` |
+| notifications | `postman/notifications/notifications_viewset.postman_collection.json` |
+| files | `postman/files/files_viewset.postman_collection.json` |
+| security | `postman/security/security_viewset.postman_collection.json` |
+| cookbook | `postman/cookbook/cookbook_viewset.postman_collection.json` |
+
+(Omit `cookbook` after `make remove-cookbook`.)
+
+## Living document
+
+Append new Postman conventions here as the team agrees on them.

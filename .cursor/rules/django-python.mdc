@@ -4,6 +4,8 @@ alwaysApply: true
 
 You are an expert in Python, Django, and scalable web application development.
 
+Where logic lives, API file layout, serializer attributes, OpenAPI errors, authorization tags, idempotency, and response cache: follow `django-styleguide.mdc`. This file does not override that guide. Do not put queries or domain writes in views. Do not put shared replay rows on a product app.
+
   Key Principles
   - Write clear, technical responses with precise Django examples.
   - Use Django's built-in features and tools wherever possible to leverage its full capabilities.
@@ -53,5 +55,11 @@ You are an expert in Python, Django, and scalable web application development.
   1. Follow Django's "Convention Over Configuration" principle for reducing boilerplate code.
   2. Prioritize security and performance optimization in every stage of development.
   3. Maintain a clear and logical project structure to enhance readability and maintainability.
+  4. Do not set `Meta.db_table` unless Django's default name collides.
+  5. Closed value sets (status, type, kind) are nested `models.TextChoices` on the model (e.g. `Recipe.Status.DRAFT` while the cookbook specimen exists, or your own model's nested `Status`). Do not duplicate them as module-level `STATUS_*` constants.
+  6. FKs/O2O/M2M use `"app_label.ModelName"` strings. Auth user only: `settings.AUTH_USER_MODEL`.
+  7. Admin is `admin.site.register([Model, ...])`. Fat `ModelAdmin` only for `User`.
+  8. Product API authz is `core.security` permission codes (`authorization_action`). Django Groups / model perms / Guardian stay for `/admin/` only. Never authorize on role name or `is_staff`.
+  9. Who created / last wrote a row: inherit `AuthorshipMixin`. Stamp `created_by` / `updated_by` in the service from the authenticated user. Soft-delete actor stays on `SoftDeleteMixin.deleted_by`.
   
   Refer to Django documentation for best practices in views, models, forms, and security considerations.

@@ -21,7 +21,7 @@ audit: ## Run pip-audit to check dependencies for known vulnerabilities
 # ==============================================================================
 # Miscellaneous
 # ==============================================================================
-.PHONY: clean-migrations format lint lint-check demo-logging create-app loaddata loaddata-all sync-rules
+.PHONY: clean-migrations format lint lint-check demo-logging create-app loaddata loaddata-all sync-rules rename-project remove-cookbook
 
 sync-rules: ## Regenerate .codex/ and .claude/ from .cursor/rules/
 	$(call title,Syncing agent rules from .cursor/rules)
@@ -58,4 +58,14 @@ lint-check: ## Lint without writing (CI / branch protection)
 create-app: ## Create Django app with optional registration (APP=<name>)
 	@if [ -z "$(APP)" ]; then echo "Usage: make create-app APP=<app_name>"; exit 2; fi
 	$(MANAGE) create_app $(APP) $(if $(REGISTER),--register,)
+
+rename-project: ## Rename template identity (SNAKE= KEBAB= NAME= PREFIX=) [DRY_RUN=1]
+	@if [ -z "$(SNAKE)" ] || [ -z "$(KEBAB)" ] || [ -z "$(NAME)" ] || [ -z "$(PREFIX)" ]; then \
+		echo "Usage: make rename-project SNAKE=acme_api KEBAB=acme-api NAME='Acme API' PREFIX=AC [DRY_RUN=1]"; \
+		exit 2; \
+	fi
+	@bash ./scripts/rename_project.sh --snake "$(SNAKE)" --kebab "$(KEBAB)" --name "$(NAME)" --prefix "$(PREFIX)" $(if $(DRY_RUN),--dry-run,)
+
+remove-cookbook: ## Delete core.cookbook specimen + wiring [DRY_RUN=1]
+	@bash ./scripts/remove_cookbook.sh $(if $(DRY_RUN),--dry-run,)
 

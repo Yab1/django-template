@@ -58,6 +58,8 @@ See [docs/conventions/code_organization.md](docs/conventions/code_organization.m
 | `make test` | Run pytest |
 | `make test-cov` | Run tests with coverage report |
 | `make create-app APP=<name>` | Create a new Django app under `core/` |
+| `make rename-project SNAKE=… KEBAB=… NAME=… PREFIX=…` | Rename template identity for a new product clone |
+| `make remove-cookbook` | Delete the `core.cookbook` specimen app |
 | `make audit` | Run dependency/security audit (pip-audit) |
 
 ---

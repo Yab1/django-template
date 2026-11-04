@@ -1,0 +1,40 @@
+# Django Admin Standard
+
+Keep admin thin. Copy **`core.security.admin`** (or **`core.cookbook.admin`** while that specimen app is still in the tree). Do not invent per-model `ModelAdmin` classes, fieldsets, inlines, or an `admin/` package unless the user asks.
+
+## Default
+
+One `admin.py`. Import models. Register the list.
+
+```python
+from django.contrib import admin
+
+from core.security.models import Permission, Role, RolePermission, UserRole
+
+admin.site.register([Permission, Role, RolePermission, UserRole])
+```
+
+New model in the app → add it to that list. Nothing else.
+
+Feature-flagged specimen apps wrap the register (only while `core.cookbook` remains):
+
+```python
+from django.conf import settings
+from django.contrib import admin
+
+from core.cookbook.models import Recipe
+
+if settings.COOKBOOK_ENABLED:
+    admin.site.register([Recipe])
+```
+
+## Exception — auth user
+
+`User` (and `Group` / password history next to it) may use a real `ModelAdmin` because it is the auth model. See `core.users.admin`. Do not copy that shape onto domain models.
+
+## Do not
+
+- `@admin.register` + fat `list_display` / `fieldsets` / `filter_horizontal` on domain apps
+- `admin/` packages, barrel `__init__.py`, one file per admin class
+- Inlines, autocomplete, custom widgets unless explicitly requested
+- Importing related models into `models.py` to wire FKs (use `"app.Model"` strings; auth user is `settings.AUTH_USER_MODEL`)

@@ -1,0 +1,61 @@
+You are an expert in Python, Django, and scalable web application development.
+
+Where logic lives, API file layout, serializer attributes, OpenAPI errors, authorization tags, idempotency, and response cache: follow `django-styleguide.md`. This file does not override that guide. Do not put queries or domain writes in views. Do not put shared replay rows on a product app.
+
+  Key Principles
+  - Write clear, technical responses with precise Django examples.
+  - Use Django's built-in features and tools wherever possible to leverage its full capabilities.
+  - Prioritize readability and maintainability; follow Django's coding style guide (PEP 8 compliance).
+  - Use descriptive variable and function names; adhere to naming conventions (e.g., lowercase with underscores for functions and variables).
+  - Structure your project in a modular way using Django apps to promote reusability and separation of concerns.
+
+  Django/Python
+  - Use Django’s class-based views (CBVs) for more complex views; prefer function-based views (FBVs) for simpler logic.
+  - Leverage Django’s ORM for database interactions; avoid raw SQL queries unless necessary for performance.
+  - Use Django’s built-in user model and authentication framework for user management.
+  - Utilize Django's form and model form classes for form handling and validation.
+  - Follow the MVT (Model-View-Template) pattern strictly for clear separation of concerns.
+  - Use middleware judiciously to handle cross-cutting concerns like authentication, logging, and caching.
+
+  Error Handling and Validation
+  - Implement error handling at the view level and use Django's built-in error handling mechanisms.
+  - Use Django's validation framework to validate form and model data.
+  - Prefer try-except blocks for handling exceptions in business logic and views.
+  - Customize error pages (e.g., 404, 500) to improve user experience and provide helpful information.
+  - Use Django signals to decouple error handling and logging from core business logic.
+
+  Dependencies
+  - Django
+  - Django REST Framework (for API development)
+  - Celery (for background tasks)
+  - Redis (for caching and task queues)
+  - PostgreSQL or MySQL (preferred databases for production)
+
+  Django-Specific Guidelines
+  - Use Django templates for rendering HTML and DRF serializers for JSON responses.
+  - Keep business logic in models and forms; keep views light and focused on request handling.
+  - Use Django's URL dispatcher (urls.py) to define clear and RESTful URL patterns.
+  - Apply Django's security best practices (e.g., CSRF protection, SQL injection protection, XSS prevention).
+  - Use Django’s built-in tools for testing (unittest and pytest-django) to ensure code quality and reliability.
+  - Leverage Django’s caching framework to optimize performance for frequently accessed data.
+  - Use Django’s middleware for common tasks such as authentication, logging, and security.
+
+  Performance Optimization
+  - Optimize query performance using Django ORM's select_related and prefetch_related for related object fetching.
+  - Use Django’s cache framework with backend support (e.g., Redis or Memcached) to reduce database load.
+  - Implement database indexing and query optimization techniques for better performance.
+  - Use asynchronous views and background tasks (via Celery) for I/O-bound or long-running operations.
+  - Optimize static file handling with Django’s static file management system (e.g., WhiteNoise or CDN integration).
+
+  Key Conventions
+  1. Follow Django's "Convention Over Configuration" principle for reducing boilerplate code.
+  2. Prioritize security and performance optimization in every stage of development.
+  3. Maintain a clear and logical project structure to enhance readability and maintainability.
+  4. Do not set `Meta.db_table` unless Django's default name collides.
+  5. Closed value sets (status, type, kind) are nested `models.TextChoices` on the model (e.g. `Recipe.Status.DRAFT` while the cookbook specimen exists, or your own model's nested `Status`). Do not duplicate them as module-level `STATUS_*` constants.
+  6. FKs/O2O/M2M use `"app_label.ModelName"` strings. Auth user only: `settings.AUTH_USER_MODEL`.
+  7. Admin is `admin.site.register([Model, ...])`. Fat `ModelAdmin` only for `User`.
+  8. Product API authz is `core.security` permission codes (`authorization_action`). Django Groups / model perms / Guardian stay for `/admin/` only. Never authorize on role name or `is_staff`.
+  9. Who created / last wrote a row: inherit `AuthorshipMixin`. Stamp `created_by` / `updated_by` in the service from the authenticated user. Soft-delete actor stays on `SoftDeleteMixin.deleted_by`.
+  
+  Refer to Django documentation for best practices in views, models, forms, and security considerations.
