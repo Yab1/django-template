@@ -42,7 +42,12 @@ CELERY_TASK_ACKS_LATE = True
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 # App-specific periodic tasks go here when added.
-CELERY_BEAT_SCHEDULE: dict = {}
+CELERY_BEAT_SCHEDULE: dict = {
+    "notifications-dispatch-pending": {
+        "task": "core.notifications.tasks.notification_dispatch_pending_task",
+        "schedule": float(env.int("NOTIFICATION_POLL_INTERVAL_SECONDS", default=15)),
+    },
+}
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.django.base")
 

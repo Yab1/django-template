@@ -8,4 +8,5 @@ urlpatterns: list[URLResolver] = [
         include(("core.authentication.urls", "authentication"), namespace="authentication"),
     ),
     path("systems/", include(("core.systems.urls", "systems"), namespace="systems")),
+    path("", include(("core.notifications.urls", "notifications"), namespace="notifications")),
 ]

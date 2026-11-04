@@ -11,12 +11,13 @@ from django.core.asgi import get_asgi_application
 # and auth models; importing them first triggers AppRegistryNotReady.
 django_asgi_app = get_asgi_application()
 
-websocket_urlpatterns: list = []
+from core.notifications.middleware import JwtAuthMiddleware, WebsocketTrailingSlashMiddleware  # noqa: E402
+from core.notifications.routing import websocket_urlpatterns  # noqa: E402
 
 # AllowedHostsOriginValidator requires a matching Origin header. Browsers send it;
 # many WS tools (Postman, scripts, wscat) omit Origin → handshake rejected before
 # the consumer runs. When DEBUG is True, skip origin checks so local testing works.
-_ws_urls = URLRouter(websocket_urlpatterns)
+_ws_urls = JwtAuthMiddleware(WebsocketTrailingSlashMiddleware(URLRouter(websocket_urlpatterns)))
 _websocket = _ws_urls if settings.DEBUG else AllowedHostsOriginValidator(_ws_urls)
 
 application = ProtocolTypeRouter({

@@ -5,6 +5,21 @@ All env vars are optional — adapters skip gracefully when credentials are abse
 
 from config.env import env
 
+MAIL_ENABLED = env.bool("DJANGO_MAIL_ENABLED", default=True)
+NOTIFICATION_DISPATCH_ENABLED = env.bool("NOTIFICATION_DISPATCH_ENABLED", default=False)
+NOTIFICATION_EMAIL_ENABLED = env.bool("NOTIFICATION_EMAIL_ENABLED", default=False)
+NOTIFICATION_SMS_ENABLED = env.bool("NOTIFICATION_SMS_ENABLED", default=False)
+NOTIFICATION_PUSH_ENABLED = env.bool("NOTIFICATION_PUSH_ENABLED", default=False)
+NOTIFICATION_IN_APP_ENABLED = env.bool("NOTIFICATION_IN_APP_ENABLED", default=True)
+NOTIFICATION_TELEGRAM_ENABLED = env.bool("NOTIFICATION_TELEGRAM_ENABLED", default=False)
+NOTIFICATION_POLL_INTERVAL_SECONDS = env.int("NOTIFICATION_POLL_INTERVAL_SECONDS", default=15)
+NOTIFICATION_BATCH_SIZE = env.int("NOTIFICATION_BATCH_SIZE", default=25)
+NOTIFICATION_MAX_ATTEMPTS = env.int("NOTIFICATION_MAX_ATTEMPTS", default=5)
+SMS_PROVIDER_URL = env.str("SMS_PROVIDER_URL", default="")
+SMS_PROVIDER_TOKEN = env.str("SMS_PROVIDER_TOKEN", default="")
+PUSH_PROVIDER_URL = env.str("PUSH_PROVIDER_URL", default="")
+PUSH_PROVIDER_TOKEN = env.str("PUSH_PROVIDER_TOKEN", default="")
+
 # ── Twilio (SMS) ──────────────────────────────────────────────────────────────
 TWILIO_ACCOUNT_SID: str = env.str("TWILIO_ACCOUNT_SID", default="")
 TWILIO_AUTH_TOKEN: str = env.str("TWILIO_AUTH_TOKEN", default="")
@@ -37,6 +52,8 @@ EMAIL_BACKEND: str = env.str(
     "DJANGO_EMAIL_BACKEND",
     default="django.core.mail.backends.smtp.EmailBackend",
 )
+if not MAIL_ENABLED:
+    EMAIL_BACKEND = "django.core.mail.backends.dummy.EmailBackend"
 EMAIL_HOST: str = env.str("DJANGO_EMAIL_HOST", default="localhost")
 EMAIL_PORT: int = env.int("DJANGO_EMAIL_PORT", default=587)
 EMAIL_USE_TLS: bool = env.bool("DJANGO_EMAIL_USE_TLS", default=True)
@@ -45,6 +62,10 @@ EMAIL_HOST_USER: str = env.str("DJANGO_EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD: str = env.str("DJANGO_EMAIL_HOST_PASSWORD", default="")
 EMAIL_TIMEOUT: int = env.int("DJANGO_EMAIL_TIMEOUT", default=10)
 NOTIFICATION_EMAIL_FROM: str = env.str("NOTIFICATION_EMAIL_FROM", default="noreply@localhost")
+EMAIL_FROM_NAME: str = env.str("DJANGO_EMAIL_FROM_NAME", default="django-template")
+DEFAULT_FROM_EMAIL: str = (
+    f"{EMAIL_FROM_NAME} <{NOTIFICATION_EMAIL_FROM}>" if EMAIL_FROM_NAME else NOTIFICATION_EMAIL_FROM
+)
 
 # ── Telegram ─────────────────────────────────────────────────────────────────
 # Bot token from @BotFather. No PHI in body — deep-link only.
